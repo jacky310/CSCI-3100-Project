@@ -23,7 +23,7 @@ client.connect(err => {
 });
 
 ### Start server
-1. node indes.js
+1. node index.js
 
 ## React:
 ### Install Babel (JSX --> JavaScript)
