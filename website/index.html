@@ -44,7 +44,7 @@
         <div class="col-lg-6 offset-lg-3">Description</div>
       </div>
       <br>
-      <button id="searchButton" type="button" class="btn btn-primary btn-lg">Search Now</button>
+      <button id="startSearchBtn" type="button" class="btn btn-primary btn-lg">Search Now</button>
       <form id="searchForm" class="mx-5" style="display: none;">
         <br>
         <div class="row">
@@ -114,11 +114,12 @@
           <div class="form-group col-lg-3"></div>
         </div>
         <p class="lead">
-          <a class="btn btn-primary btn-lg" href="#" role="button">Search</a>
+          <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Search</a> -->
+          <button id="searchBtn" type="submit" class="btn btn-primary btn-lg">Search</button>
         </p>
       </form>
 
-      <div class="container">
+      <div id="searchResult" class="container">
         <br>
         <hr>
         <br>
@@ -188,10 +189,9 @@
         </div>
       </div>
   </section>
-
   <section id="loginSignupPage" style="display: none">
     <div class="jumbotron jumbotron-fluid text-center" style="padding-top: 100px">
-      <h1 class="display-4">Login/Signup&nbsp; &nbsp;</h1>
+      <h1 class="display-4">&nbsp;  &nbsp;Login/Signup</h1>
       <br>
       <div class="container">
         <ul id="clothingnav1" class="nav nav-tabs" role="tablist">
@@ -215,7 +215,7 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button id="loginBtn" type="submit" class="btn btn-primary">Submit</button>
             </form>
           </div>
           <div role="tabpanel" class="tab-pane fade" id="paneTwo1" aria-labelledby="hatstab1">
@@ -255,6 +255,7 @@
           <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
       </form>
     </div>
   </section>
@@ -288,6 +289,7 @@
           <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
       </form>
     </div>
   </section>
