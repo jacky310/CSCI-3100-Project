@@ -13,7 +13,7 @@
 ### Use MongoDB:
 1. npm install mongodb
 2. npm install mongoose
-3. 
+3.
 client.connect(err => {
   const collection = client.db("sample_airbnb").collection("listingsAndReviews");
   collection.findOne({}, function(err, result) {
@@ -28,5 +28,4 @@ client.connect(err => {
 ## React:
 ### Install Babel (JSX --> JavaScript)
 1. npm install --save-dev @babel/core @babel/cli
-2. npx babel --watch src --out-dir . --presets react-app/prod // It will tran all the jsx file in "src" to js
-
+2. npx babel --watch src --out-dir js --presets react-app/prod // It will tran all the jsx file in "src" to js

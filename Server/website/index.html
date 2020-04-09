@@ -1,58 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Party Room Booking Website</title>
-	<meta name="description" content="Party Room Booking Website">
-	<meta name="author" content="CSCI3100_1920_Project_Group08">
-	<meta name="viewport" content="width = device-width, initial-scale=1.0">
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<link href="./style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LetParty - Party Room Searching System</title>
+
+  <!-- Bootstrap -->
+  <link href="./css/bootstrap-4.4.1.css" rel="stylesheet">
+
+  <link href="css/style.css" rel="stylesheet">
+  <!--jQuery-->
+  <script src="./js/jquery-3.4.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="./js/popper.min.js"></script>
+  <script src="./js/bootstrap-4.4.1.js"></script>
+  <script src="./js/script.js"></script>
+  <!--React-->
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin
+    src="https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.14.1/react-datepicker.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-  <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
-  <!-- <div id="navBar">
-      <img src="./photos/webLogo.png">
-      <div>Login or Signup</div>
-  </div> -->
-  <nav class="shadow-sm navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-      <img src="./photos/webLogo.png" width="100px" alt="Party">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Login or Signup</a>
-        </li>
-      </ul>
-    </div>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
+    <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
+    <button id="loginSignupBtn" type="button" class="btn btn-outline-primary my-2 my-sm-0">Login/Sign Up</button>
   </nav>
-  <section id="cover" class="jumbotron text-center" style="border-radius: 0px">
+  <section id="homePage">
+    <div id="mainSearchBar" style="display: none">
+      <div class="float-right">
+        <button id="mainSearchBarCloseBtn" type="button" class="close" aria-label="Close">
+          <span aria-hidden="true" style="font-size: 40px">&times;</span>
+        </button>
+      </div>
+      <form id="searchForm" class="p-3 mb-2 bg-light text-dark" action="/search">
+        <div id="partyRoomNameField">
+          <input name="partyRoomName" class="form-control" type="text" placeholder="Party Room Name">
+        </div>
+        <div class="container mt-3">
+          <div class="row mb-3">
+            <div id="mainSearchBarCol" class="col-sm">
+              <div class="form-inline">
+                <label>Date:&emsp;</label>
+                <input name="date" type="date" class="form-control">
+              </div>
+              <div class="mt-3">
+                <div class="form-inline">
+                  <label for="starttime">From:&emsp;</label>
+                  <div class="mainSearchBarTime">
+                    <input id="starttime" name="starttime" type="time" class="form-control" value="00:00:00">
+                  </div>
+                  <div id="mainSearchBarSpace">&emsp;</div>
+                  <label for="endtime">to&emsp;</label>
+                  <div class="mainSearchBarTime">
+                    <input id="endtime" name="endtime" type="time" class="form-control" value="00:00:00">
+                  </div>
+                </div>
+              </div>
+              <div class="mt-3 form-inline">
+                <label>District:&emsp;
+                  <select name="district" class="form-control">
+                    <option value="shatin">Sha Tin</option>
+                    <option value="kwaitsing">Kwai Tsing</option>
+                    <option value="north">North</option>
+                    <option value="taipo">Tai Po</option>
+                    <option value="tsuenwan">Tsuen Wan</option>
+                    <option value="tuenmun">Tuen Mun</option>
+                    <option value="yuenlong">Yuen Long</option>
+                    <option value="kowlooncity">Kowloon City</option>
+                    <option value="kwuntong">Kwun Tong</option>
+                    <option value="shamshuipo">Sham Shui Po</option>
+                    <option value="wongtaisin">Wong Tai Sin</option>
+                    <option value="yautsimmong">Yau Tsim Mong</option>
+                    <option value="cw">Central/Western</option>
+                    <option value="east">Eastern</option>
+                    <option value="south">Southern</option>
+                    <option value="wanchai">Wan Chai</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="form-inline">
+                <label>Number of people:&emsp;
+                  <select name="drea" class="form-control">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15above">15 or above</option>
+                  </select>
+                </label>
+              </div>
+              <div class="mt-3 form-inline">
+                <p id="priceValue">Price: $50 / person</p>
+                <input id="priceRange" name="price" type="range" class="custom-range" min="20" max="120" step="10"
+                  value="50">
+              </div>
+            </div>
+          </div>
+          <div class="row px-3 border-top">
+            <div class="form-group mt-2">
+              <label>Facilities requirment: </label>
+              <div class="form-inline">
+                <div class="custom-control custom-checkbox mr-2">
+                  <label class="custom-control-label">PS4
+                    <input name="customCheck1" type="checkbox" class="custom-control-input" value="ps4">
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox mr-2">
+                  <label class="custom-control-label">Switch
+                    <input name="customCheck2" type="checkbox" class="custom-control-input" value="switch">
+                  </label>
+                </div>
+                <div class="custom-control custom-checkbox mr-2">
+                  <label class="custom-control-label">Mahjong
+                    <input name="customCheck3" type="checkbox" class="custom-control-input" value="mahjong">
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mx-auto text-center">
+          <button type="submit" class="btn btn-primary my-2 my-sm-0">Search</button>
+        </div>
+      </form>
+    </div>
+    <!-- <script src="./dist/searchBar.js"></script> -->
+    <div class="jumbotron jumbotron-fluid text-center" style="padding-top: 100px">
+      <h1 class="display-4">LetParty</h1>
+      <p>- A party room searching engine -</p>
+      <br>
+      <button id="searchNowBtn" type="button" class="btn btn-primary btn-lg">Search Now</button>
+    </div>
+
     <div class="container">
-      <div id="searchBar"></div>
-      <script crossorigin="anonymous" src="./SearchBar.js"></script>
+      <div class="row text-center">
+        <div class="col-lg-6 offset-lg-3">Description</div>
+      </div>
+      <br id="searchResult">
+      <hr>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="images/card-img.png" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Party Room Example</h4>
+              <p class="card-text">Description</p>
+              <br><br>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="images/card-img.png" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Party Room Example</h4>
+              <p class="card-text">Description</p>
+              <br><br>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="images/card-img.png" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Party Room Example</h5>
+              <p class="card-text">Description</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item">Dapibus ac facilisis in</li>
+            </ul>
+            <div class="card-body">
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-md-6 text-center">
+          <div class="card">
+            <div class="card-body">
+              <h3>Adding <strong>Buttons</strong></h3>
+              <p>Quickly add buttons to your page by using the button component in the insert panel. </p>
+              <button type="button" class="btn btn-info btn-md">Info Button</button>
+              <button type="button" class="btn btn-success btn-md">Success Button</button>
+            </div>
+          </div>
+        </div>
+        <div class="text-center col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h3>Adding <strong>Badges</strong></h3>
+              <p>Using the insert panel, add badge to your page by using the badge component.</p>
+              <span class="badge badge-info">Info Badge</span>
+              <span class="badge badge-danger">Danger Badge</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="album py-5 bg-light">
-    <div class="container">
-      <div class="row" id="InfoCardSection">
+  <section id="loginSignupPage" style="display: none">
+    <div class="jumbotron jumbotron-fluid text-center" style="padding-top: 100px">
+      <h1 class="display-4">Login/Signup&nbsp; &nbsp;</h1>
+      <br>
+      <div class="container">
+        <ul id="clothingnav1" class="nav nav-tabs" role="tablist">
+          <li class="nav-item"> <a class="nav-link active" href="#home1" id="hometab1" role="tab" data-toggle="tab"
+              aria-controls="home" aria-expanded="true">Login</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="#paneTwo1" role="tab" id="hatstab1" data-toggle="tab"
+              aria-controls="hats">Sign Up</a> </li>
+        </ul>
+        <!-- Content Panel -->
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane fade show active" id="home1" aria-labelledby="hometab1">
+            <form id="loginForm" action="/login">
+              <div class="form-group">
+                <br>
+                <label>Username
+                  <input name="username" type="text" class="form-control" placeholder="Username">
+                </label>
+              </div>
+              <div class="form-group">
+                <label>Password
+                  <input name="password" type="password" class="form-control" placeholder="password">
+                </label>
+              </div>
+              <div class="form-group">
+                <div class="pr-5 form-check" style="display: inline-block">
+                  <input class="form-check-input" type="radio" name="userType" id="exampleRadios1" value="customer"
+                    checked>
+                  <label class="form-check-label" for="customerLogin">Customer</label>
+                </div>
+                <div class="form-check" style="display: inline-block">
+                  <input class="form-check-input" type="radio" name="userType" id="exampleRadios2" value="owner">
+                  <label class="form-check-label" for="ownerLogin">Owner</label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="paneTwo1" aria-labelledby="hatstab1">
+            <br>
+            <div id="createCustomerBtn">
+              <img src="./images/customerCreateAC.png">
+              <p>Customer</p>
+            </div>
+            <div id="createOwnerBtn">
+              <img src="./images/OwnerCreateAC.png">
+              <p>Party Room Owner</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <script crossorigin="anonymous" src="./InfoCard.js"></script>
     </div>
   </section>
+  <section id="customerCreatePage" style="display: none">
+    <div class="container" style="padding-top: 100px">
+      <h1>Create customer</h1>
+      <hr>
+      <form id="customerSignUpForm" action="/customerSignUp">
+        <div class="form-group">
+          <label>Username
+            <input name="username" type="text" class="form-control" placeholder="Enter username">
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Email address
+            <input name="email" type="email" class="form-control" placeholder="Enter email">
+          </label>
+          <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label>Password
+            <input name="password" type="password" class="form-control" placeholder="Password">
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Phone Number
+            <input name="phone" type="text" class="form-control" placeholder="Phone Number">
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
+      </form>
+    </div>
+  </section>
+  <section id="ownerCreatePage" style="display: none">
+    <div class="container " style="padding-top: 100px">
+      <h1>Party Room Owner Register</h1>
+      <hr>
+      <form id="ownerSignUpForm" action="/ownerSignUp">
+        <div class="form-group">
+          <label>Owner's name
+            <input name="name" type="text" class="form-control" placeholder="Enter owner's name">
+          </label>
+          <small class="form-text text-muted">Please enter your real name. We will verify it.</small>
+        </div>
+        <div class="form-group">
+          <label>Username
+            <input name="username" type="text" class="form-control" placeholder="Enter username"></div>
+        </label>
+        <div class="form-group">
+          <label>Party Room Name
+            <input name="partyRoomName" type="text" class="form-control" placeholder="Enter Party Room Name">
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Email address
+            <input name="email" type="email" class="form-control" placeholder="Enter email">
+          </label>
+          <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label>Password
+            <input name="password" type="password" class="form-control" placeholder="Password">
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Phone Number
+            <input name="phone" type="text" class="form-control" placeholder="Phone Number">
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- <section id="signupSuccessPage" style="display: none" > -->
+  <section id="signupSuccessPage" style="display: none">
+    <div class="jumbotron jumbotron-fluid text-center" style="padding-top: 100px">
+      <span class="material-icons">check_circle</span>
+      <p>Sign Up Success!</p>
+    </div>
+  </section>
+  <div class="container">
+    <div class="row">
+      <div class="text-center col-lg-6 offset-lg-3">
+        <h4>Party Room Online Booking </h4>
+        <p>Copyright &copy; 2019 &middot; All Rights Reserved &middot; <a href="#">My Website</a></p>
+      </div>
+    </div>
 </body>
+
 </html>
