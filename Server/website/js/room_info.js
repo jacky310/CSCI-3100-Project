@@ -33,19 +33,11 @@ function createCarouselContent(photos) {
     for (let i = 0; i < photos.length; i++) {
         if (!i) {
             indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "' class='active'></li>");
-            inner.append("<div class='carousel-item active'>" +
-                "<img class='d-block w-100' src='data:image/png;base64," + image +
-                "' alt='" + i + "'></img></div>");
+            inner.append("<div class='carousel-item active'>" + "<img class='d-block w-100' src='data:image/png;base64," + photos[i] + "' alt='" + i + "'></img>" + "</div>");
         }
         else {
             indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "'></li>");
-            inner.append("<div class='carousel-item'>" +
-                "<img class='d-block w-100' src='data:image/png;base64," + image +
-                "' alt='" + i + "'></img></div>");
+            inner.append("<div class='carousel-item'>" + "<img class='d-block w-100' src='data:image/png;base64," + photos[i] + "' alt='" + i + "'></img>" + "</div>");
         }
     }
-}
-
-function createSlide(image, i) {
-    return;
 }
