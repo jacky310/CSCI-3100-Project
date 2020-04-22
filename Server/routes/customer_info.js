@@ -11,8 +11,24 @@ const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 
+const Customer = require('../models/customer.model');
+
 router.get('/', function (req, res) {
   res.sendFile('customer_info.html', { 'root': "./website" });
 });
+
+router.post("/", function (req, res) {
+  Customer.findOne({ username: req.body.username }, (err, customer) => {
+    if (err) throw err;
+    else if (customer == null) res.send("notFound");
+    else {
+      res.send({
+        username: customer.username,
+        email: customer.email,
+        phone: customer.phone
+      });
+    }
+  })
+})
 
 module.exports = router;

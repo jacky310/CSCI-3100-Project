@@ -15,6 +15,9 @@ var fs = require('fs');
 const conn = mongoose.createConnection(uri);
 let gfs;
 
+const Owner = require("../models/owner.model");
+const PartyRoom = require("../models/partyRoom.model");
+
 conn.once('open', () => {
   // Init stream
   gfs = Grid(conn.db, mongoose.mongo);
@@ -33,14 +36,11 @@ router.post("/ownerValidate", (req, res) => {
   var data = req.body;
   //console.log(data);
   client.connect(err => {
-    const collection = client.db("PartyRoomBooking").collection("owner");
-    // ownerValidateForm has companyName
-    // but cannot find corresponding field in owner model????
-    collection.findOne({ username: data.username }, (err, owner) => {
+    Owner.findOne({ username: data.username }, (err, owner) => {
       if (owner != null)
         res.send("usernameUsed");
       else {
-        collection.findOne({ email: data.email }, (err, owner) => {
+        Owner.findOne({ email: data.email }, (err, owner) => {
           if (owner != null)
             res.send("emailRegistered");
           else res.send("pass");
@@ -54,8 +54,7 @@ router.post("/partyroomValidate", (req, res) => {
   var data = req.body;
   //console.log(data);
   client.connect(err => {
-    const collection = client.db("PartyRoomBooking").collection("PartyRoom");
-    collection.findOne({ party_room_name: data.partyRoomName }, (err, owner) => {
+    PartyRoom.findOne({ party_room_name: data.partyRoomName }, (err, owner) => {
       if (owner != null)
         res.send("partyroomRegistered");
       else res.send("pass");
@@ -78,13 +77,11 @@ router.post('/signup', (req, res) => {
   bcrypt.hash(owner.password, saltRounds).then(function (hash) {
     data.password = hash;
     client.connect(err => {
-      const ownerCollection = client.db("PartyRoomBooking").collection("owner");
-      ownerCollection.insertOne(owner, (err) => {
+      Owner.insertOne(owner, (err) => {
         if (err) throw err;
         console.log("Owner [" + owner.username + "] added");
       });
-      const partyroomCollection = client.db("PartyRoomBooking").collection("PartyRoom");
-      partyroomCollection.insertOne(partyroom, (err) => {
+      PartyRoom.insertOne(partyroom, (err) => {
         if (err) throw err;
         console.log("Partyroom [" + partyroom.partyRoomName + "] added");
         res.send("SignupSuccess");
@@ -94,20 +91,19 @@ router.post('/signup', (req, res) => {
   });
 });
 
-router.post('/uploadPhoto',  uploadController.uploadPhoto);
+router.post('/uploadPhoto', uploadController.uploadPhoto);
 
-router.post('/partyRoomInfo', (req, res) =>{
+router.post('/partyRoomInfo', (req, res) => {
   var data = req.body;
-    console.log(data);
-    client.connect(err => {
-        const collection = client.db("PartyRoomBooking").collection("PartyRoom");
-        collection.insertOne(data, (err) => {
-            if (err) throw err;
-            console.log("PartyRoom create Success!!!");
-            res.send("CreateSuccess");
-            res.redirect('/');
-        });
+  console.log(data);
+  client.connect(err => {
+    PartyRoom.insertOne(data, (err) => {
+      if (err) throw err;
+      console.log("PartyRoom create Success!!!");
+      res.send("CreateSuccess");
+      res.redirect('/');
     });
+  });
 });
 
 router.post('/downloadPhoto', (req, res) => {

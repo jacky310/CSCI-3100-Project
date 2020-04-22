@@ -11,6 +11,8 @@ const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 
+const Customer = require("../models/customer.model");
+
 router.get('/', function (req, res) {
   res.sendFile('customerSignup.html', { 'root': "./website" });
 });
@@ -22,19 +24,18 @@ router.post('/signup', (req, res) => {
   bcrypt.hash(data.password, saltRounds).then(hash => {
     data.password = hash;
     client.connect(err => {
-      const collection = client.db("PartyRoomBooking").collection("customer");
       // Check whether the username is used
-      collection.findOne({ username: data.username }, (err, customer) => {
+      Customer.findOne({ username: data.username }, (err, customer) => {
         if (customer != null)
           res.send("usernameUsed");
         else {
           // Check whether the email is registered
-          collection.findOne({ email: data.email }, (err, customer) => {
+          Customer.findOne({ email: data.email }, (err, customer) => {
             if (customer != null)
               res.send("emailRegistered");
             else {
               // add new customer to database
-              collection.insertOne(data, (err) => {
+              Customer.insertOne(data, (err) => {
                 if (err) throw err;
                 console.log("Customer Signup Success!!!");
                 res.send("SignupSuccess");

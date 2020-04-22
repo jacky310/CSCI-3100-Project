@@ -1,4 +1,4 @@
-//login
+//check login
 $(function () {
   var userType = 'guest';
   $.ajax({
