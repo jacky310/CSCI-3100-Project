@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 // MongoDB & mongoose:
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const mongoose = require('mongoose');
 
@@ -35,8 +35,6 @@ router.get('/', function (req, res) {
     }
     else if (room == null) res.status(404).send("Sorry, cannot find that");
     else {
-      console.log("Room!!!!");
-      console.log(room);
       fs.readFile("./website/room_info.html", (err, data) => {
         if (err) throw err;
         tj.set(data, (err, data) => {
@@ -51,7 +49,7 @@ router.get('/', function (req, res) {
             capacity: room.quotaMin + " - " + room.quotaMax,
             // price_setting: room.price_setting,
             // facilities: room.facilities,
-            carouselContent: createCarouselContent(room)
+            carouselContent: <div>OMG</div>
           };
 
           tj.renderAll(list, (err, data) => {
@@ -68,34 +66,40 @@ router.get('/', function (req, res) {
 function createCarouselContent(room) {
   var indicators = "<ol class='carousel-indicators'>";
   var inner = "<div class='carousel-inner'>";
-
-  for (let i = 0; i < room.photos.length; i++) {
-    let image = "";
-    gfs.files.findOne({ _id: room.photos[i] }, (err, file) => {
-      if (!file || file.length === 0) console.log("Impossible: " + i);
-      else {
-        const readstream = gfs.createReadStream(file.filename);
-        readstream.on('data', (chunk) => {
-          image += chunk.toString('base64');
-        });
-        readstream.on('end', () => {
-          if (!i) {
-            indicators += "<li data-target='#carouselExampleControls' data-slide-to='" + i + "' class='active'></li>";
-            inner += "<div class='carousel-item active'>" + createSlide(image, i) + "</div>";
-          }
-          else {
-            indicators += "<li data-target='#carouselExampleControls' data-slide-to='" + i + "'></li>";
-            inner += "<div class='carousel-item'>" + createSlide(image, i) + "</div>";
-          }
-        });
-      }
-    });
+  if (room.photos.length) {
+    for (let i = 0; i < room.photos.length; i++) {
+      let image = "";
+      gfs.files.findOne({ _id: room.photos[i] }, (err, file) => {
+        if (!file || file.length === 0) console.log("Impossible: " + i);
+        else {
+          const readstream = gfs.createReadStream(file.filename);
+          readstream.on('data', (chunk) => {
+            image += chunk.toString('base64');
+          });
+          readstream.on('end', () => {
+            if (!i) {
+              indicators += "<li data-target='#carouselExampleControls' data-slide-to='" + i + "' class='active'></li>";
+              inner += "<div class='carousel-item active'>" + createSlide(image, i) + "</div>";
+            }
+            else {
+              indicators += "<li data-target='#carouselExampleControls' data-slide-to='" + i + "'></li>";
+              inner += "<div class='carousel-item'>" + createSlide(image, i) + "</div>";
+            }
+            if (i == room.photos.length - 1) {
+              indicators += "</ol>";
+              inner += "</div>";
+              return indicators + inner;
+            }
+          });
+        }
+      });
+    }
   }
-
-  indicators += "</ol>";
-  inner += "</div>";
-  console.log(indicators + inner);
-  return indicators + inner;
+  else {
+    indicators += "</ol>";
+    inner += "</div>";
+    return indicators + inner;
+  }
 }
 
 function createSlide(image, i) {

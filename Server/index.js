@@ -83,26 +83,27 @@ conn.once('open', () => {
 app.get('/search', (req, res) => {
   var d = new Date(req.query.date);
   console.log(d.getDay());
-  var query = { party_room_name: req.query.partyRoomName,
+  var query = {
+    party_room_name: req.query.partyRoomName,
     district: req.query.district,
-    quotaMin: {$lte: req.query.numPeople},
-    quotaMax: {$gte: req.query.numPeople}
+    quotaMin: { $lte: req.query.numPeople },
+    quotaMax: { $gte: req.query.numPeople }
   };
   console.log(req.query);
   if (req.query.partyRoomName == '') delete query.party_room_name;
   if (req.query.district == '') delete query.district;
   console.log(query);
   var result = [];
-  PartyRoom.find(query , (err, r)=>{
-    if (err) return res.send(err);
+  PartyRoom.find(query, (err, r) => {
+    if (err) res.send(err);
     else {
       console.log(r);
-      for (let i = 0; i < r.length; i++){
+      for (let i = 0; i < r.length; i++) {
         let image = "";
-        gfs.files.findOne({_id: r[i].photos[0]}, (err, file) => {
+        gfs.files.findOne({ _id: r[i].photos[0] }, (err, file) => {
           if (!file || file.length === 0) {
             return res.status(404).json({
-              err: 'No  images'
+              err: 'No images'
             });
           }
           const readstream = gfs.createReadStream(file.filename);
@@ -111,14 +112,15 @@ app.get('/search', (req, res) => {
           });
           readstream.on('end', () => {
             result.push({
+              id: r[i].party_room_id,
               img: image,
               title: r[i].party_room_name,
               description: r[i].description,
-              capacity: "min: "+r[i].quotaMin+" max: "+r[i].quotaMax,
+              capacity: "min: " + r[i].quotaMin + " max: " + r[i].quotaMax,
               location: r[i].district,
               price: "See More"
             });
-            if(result.length == r.length){
+            if (result.length == r.length) {
               return res.send({
                 hasResult: r.length, result: result
               });
@@ -167,41 +169,41 @@ app.get('/search', (req, res) => {
 //   });
 // });
 
-app.post('/addPartyTest', function(req,res){
-    PartyRoom.find({}, 'party_room_id').sort({party_room_id: -1}).limit(1).exec(function(err, maxIdRoom) {
-      if (err) res.send(err);
-      if (maxIdRoom.length == 1) {
-        maxId = maxIdRoom[0].party_room_id;
-      }
-      else {
-        maxId = 0;
-      }
-      client.connect(err => {
-        const collection = client.db("PartyRoomBooking").collection("photos.files");
-        collection.findOne({ filename: "456_test3.jpg"}, (err, p) => {
-          var r = new PartyRoom({
-            party_room_id: maxId+1,
-            party_room_name: "CUHK3",
-            party_room_number: "12345678",
-            address: "CUHK",
-            district: "Kwun Tong",
-            description: "香港中文大學，簡稱中文大學、中大、港中文，是一所坐落於香港沙田馬料水的公立研究型大學，也是香港第一所研究型大學。香港中文大學由新亞書院、崇基學院及聯合書院於1963年合併而成，現已發展成為轄九大書院的書院制大學。香港中文大學起源於清朝中期至民國初年在大陸地區成立的教會大學和私人大學，是香港歷史源流最久遠的高等學府。",
-            quotaMin: 2,
-            quotaMax: 20,
-            price_setting: [{
-              day: "Monday to Thursday",
-              startTime: "08:00:00",
-              endTime: "12:00:00",
-              price: 100
-            },{
-              day: "Friday",
-              startTime: "08:00:00",
-              endTime: "12:00:00",
-              price: 100
-            }],
-            facilities: ["VR","Switch"],
-            photos: [p._id]
-          });
+app.post('/addPartyTest', function (req, res) {
+  PartyRoom.find({}, 'party_room_id').sort({ party_room_id: -1 }).limit(1).exec(function (err, maxIdRoom) {
+    if (err) res.send(err);
+    if (maxIdRoom.length == 1) {
+      maxId = maxIdRoom[0].party_room_id;
+    }
+    else {
+      maxId = 0;
+    }
+    client.connect(err => {
+      const collection = client.db("PartyRoomBooking").collection("photos.files");
+      collection.findOne({ filename: "456_test3.jpg" }, (err, p) => {
+        var r = new PartyRoom({
+          party_room_id: maxId + 1,
+          party_room_name: "CUHK3",
+          party_room_number: "12345678",
+          address: "CUHK",
+          district: "Kwun Tong",
+          description: "香港中文大學，簡稱中文大學、中大、港中文，是一所坐落於香港沙田馬料水的公立研究型大學，也是香港第一所研究型大學。香港中文大學由新亞書院、崇基學院及聯合書院於1963年合併而成，現已發展成為轄九大書院的書院制大學。香港中文大學起源於清朝中期至民國初年在大陸地區成立的教會大學和私人大學，是香港歷史源流最久遠的高等學府。",
+          quotaMin: 2,
+          quotaMax: 20,
+          price_setting: [{
+            day: "Monday to Thursday",
+            startTime: "08:00:00",
+            endTime: "12:00:00",
+            price: 100
+          }, {
+            day: "Friday",
+            startTime: "08:00:00",
+            endTime: "12:00:00",
+            price: 100
+          }],
+          facilities: ["VR", "Switch"],
+          photos: [p._id]
+        });
 
         r.save(function (err) {
           if (err) res.send(err);
