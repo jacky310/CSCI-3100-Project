@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const conn = mongoose.createConnection("mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority");
 
 var PartyRoomSchema = mongoose.Schema({
   party_room_id: {type: Number, required: true, unique: true},
@@ -10,18 +11,20 @@ var PartyRoomSchema = mongoose.Schema({
   quotaMin: {type: Number, required: true},
   quotaMax: {type: Number, required: true},
   price_setting: [{
-    day: String,
-    startTime: String,
-    endTime: String,
-    price: Number
+    day: {type: String, required: true},
+    startTime: {type: Number, required: true},
+    endTime: {type: Number, required: true},
+    price: {type: Number, required: true},
+
   }],
   facilities: [String],
   photos: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'photos.files'
   }]
+}, {
+    timestamps: true,
 });
 
-const PartyRoom = mongoose.model('PartyRoom', PartyRoomSchema);
-
+const PartyRoom = conn.model('PartyRoom', PartyRoomSchema);
 module.exports = PartyRoom;

@@ -27,6 +27,7 @@ conn.once('open', () => {
 const PartyRoom = require('../models/partyRoom.model');
 
 router.get('/', function (req, res) {
+  // req.params['partyRoomId'];
   var id = req.query.id;
   PartyRoom.findOne({ party_room_id: id }, (err, room) => {
     if (err) {
@@ -49,7 +50,7 @@ router.get('/', function (req, res) {
             capacity: room.quotaMin + " - " + room.quotaMax,
             // price_setting: room.price_setting,
             // facilities: room.facilities,
-            carouselContent: <div>OMG</div>
+            carouselContent: "<div>OMG</div>"
           };
 
           tj.renderAll(list, (err, data) => {
