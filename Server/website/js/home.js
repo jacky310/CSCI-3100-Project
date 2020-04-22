@@ -1,3 +1,4 @@
+//login
 $(function () {
   var userType = 'guest';
   $.ajax({
@@ -75,6 +76,7 @@ $(function () {
   });
 });
 
+//search
 $(function () {
   $("#searchNowBtn").click(() => $("#mainSearchBar").slideDown("slow"));
 
