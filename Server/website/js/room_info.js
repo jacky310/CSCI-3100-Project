@@ -9,16 +9,17 @@ $(function () {
             if (res == "notFound")
                 window.location.href = "/404.html";
             else {
-                $("#partyRoomName").text(res.party_room_name);
-                $("#district").text(res.district);
-                $("#address").text(res.address);
-                $("#description").text(res.description);
-                $("#partyRoomNumber").text(res.party_room_number);
-                $("#capacity").text(res.quotaMin + " - " + res.quotaMax);
-                if (res.photos.length == 0) {
+                var room = res.room;
+                var photos = res.photos;
+                $("#partyRoomName").text(room.party_room_name);
+                $("#district").text(room.district);
+                $("#address").text(room.address);
+                $("#description").text(room.description);
+                $("#partyRoomNumber").text(room.party_room_number);
+                $("#capacity").text(room.quotaMin + " - " + room.quotaMax);
+                if (photos.length == 0)
                     $("#carousel").hide();
-                }
-                else createCarouselContent(res.photos);
+                else createCarouselContent(photos);
             }
         })
         .fail((jqXHR, textStatus, err) => {
@@ -30,25 +31,14 @@ function createCarouselContent(photos) {
     var indicators = $("#indicators");
     var inner = $("#inner");
     for (let i = 0; i < photos.length; i++) {
-        $.ajax({
-            type: "post",
-            async: false,
-            data: { id: photos[i] },
-            url: "/partyRoom/photos"
-        })
-            .done(res => {
-                if (!i) {
-                    indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "' class='active'></li>");
-                    inner.append("<div class='carousel-item active'>" + createSlide(res, i) + "</div>");
-                }
-                else {
-                    indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "'></li>");
-                    inner.append("<div class='carousel-item'>" + createSlide(res, i) + "</div>");
-                }
-            })
-            .fail((jqXHR, textStatus, err) => {
-                alert(err);
-            });
+        if (!i) {
+            indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "' class='active'></li>");
+            inner.append("<div class='carousel-item active'>" + createSlide(photos[i], i) + "</div>");
+        }
+        else {
+            indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "'></li>");
+            inner.append("<div class='carousel-item'>" + createSlide(photos[i], i) + "</div>");
+        }
     }
 }
 
