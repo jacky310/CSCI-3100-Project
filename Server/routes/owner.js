@@ -9,7 +9,7 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/add').post((req, res) => {
-    bcrypt.hash(req.body.password, 10, function (err,   hash) {
+    bcrypt.hash(req.body.password, 10, function (err, hash) {
     });
     const companyName = req.body.companyName;
     const name = req.body.name;
@@ -25,13 +25,11 @@ router.route('/add').post((req, res) => {
         email,
         password,
         phone,
-
     });
 
     new_owner.save()
         .then(() => res.redirect('/signupSuccess.html'))
         .catch(err => res.redirect('/signupFail.html'));
-
 });
 
 module.exports = router;

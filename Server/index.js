@@ -203,15 +203,15 @@ app.post('/addPartyTest', function(req,res){
             photos: [p._id]
           });
 
-          r.save(function(err) {
-            if (err) res.send(err);
-            else{
-              res.send("done");
-            }
-          });
+        r.save(function (err) {
+          if (err) res.send(err);
+          else {
+            res.send("done");
+          }
         });
       });
     });
+  });
 });
 
 // For Login page
@@ -229,8 +229,11 @@ app.use('/ownerSignup', ownerSignup);
 const customer_info = require('./routes/customer_info');
 app.use('/customer', customer_info);
 
-//const owner_info = require('./routes/owner_info');
-//app.use('/owner', owner_info);
+const owner_info = require('./routes/owner_info');
+app.use('/owner', owner_info);
+
+const room_info = require('./routes/room_info');
+app.use('/partyRoom', room_info);
 
 const createPartyRoom = require('./routes/create_partyroom');
 app.use('/create_partyroom', createPartyRoom);

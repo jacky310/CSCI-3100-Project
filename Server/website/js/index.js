@@ -94,12 +94,12 @@ $(function () {
     })
       .done(res => {
         alert("Search Success!");
-        console.log(res);
         if (res.hasResult) {
           $("#searchResult").html("");
           $("html").animate({ scrollTop: $("#scrollTo").offset().top }, 600);
           res.result.forEach(room => {
             $("#searchResult").append(createCard(
+              room.id,
               room.img,
               room.title,
               room.description,
@@ -121,12 +121,12 @@ $(function () {
   });
 });
 
-function createCard(img, title, description, capacity, location, price) {
+function createCard(id, img, title, description, capacity, location, price) {
   let cardContainer = $("<div class='col-lg-4'></div>");
   let card = $("<div class='m-2 card'></div>");
 
   let cardImg = $("<img class='card-img-top'></img>");
-  cardImg.attr("src", "data:image/png;base64,"+img);
+  cardImg.attr("src", "data:image/png;base64," + img);
   cardImg.attr("alt", "Card image cap");
   cardImg.attr("width", "256px");
   cardImg.attr("height", "200px");
@@ -142,7 +142,7 @@ function createCard(img, title, description, capacity, location, price) {
   let cardPrice = $("<li class='list-group-item'></li>").text("Price: " + price);
   cardDetail.append(cardCapacity, cardLocation, cardPrice);
 
-  let cardButton = $("<div class='card-body'><button type='button' class='btn btn-success'>Book it!</button></div>");
+  let cardButton = $("<div class='card-body'><a href='/partyRoom?id=" + id + "' class='btn btn-success'>Book it!</a></div>");
 
   cardBody.append(cardTitle, cardDescription, cardDetail, cardButton);
   card.append(cardImg, cardBody);
