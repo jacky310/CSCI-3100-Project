@@ -22,7 +22,7 @@ router.post('/checkLogin', (req, res) => {
     isLogined = true;
     userType = req.session.userType
   }
-  res.send({ user: user, isLogined: isLogined, userType: userType });
+  res.send({ user: user, isLogined: isLogined, userType: userType});
 });
 
 router.post('/logout', (req, res) => {

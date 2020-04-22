@@ -13,6 +13,9 @@ const bcrypt = require('bcrypt');
 
 const mongoose = require('mongoose');
 mongoose.connect(uri);
+
+const PartyRoom = require("../models/partyRoom.model");
+
 var PartyRoomSchema = mongoose.Schema({
   party_room_id: {type: Number, required: true, unique: true},
   party_room_name: {type: String, required: true, unique: true},
@@ -43,8 +46,7 @@ router.route('/create').post((req, res) => {
     var data = req.body;
     console.log(data);
     client.connect(err => {
-        const collection = client.db("PartyRoomBooking").collection("PartyRoom");
-        collection.insertOne(data, (err) => {
+        PartyRoom.insertOne(data, (err) => {
             if (err) throw err;
             console.log("PartyRoom create Success!!!");
             res.send("CreateSuccess");
