@@ -26,85 +26,33 @@ conn.once('open', () => {
 
 const PartyRoom = require('../models/partyRoom.model');
 
-router.get('/', function (req, res) {
-  // req.params['partyRoomId'];
-  var id = req.query.id;
-  PartyRoom.findOne({ party_room_id: id }, (err, room) => {
-    if (err) {
-      console.log(err);
-      res.status(400).send("Some Error Occurs...");
-    }
-    else if (room == null) res.status(404).send("Sorry, cannot find that");
-    else {
-      fs.readFile("./website/room_info.html", (err, data) => {
-        if (err) throw err;
-        tj.set(data, (err, data) => {
-          if (err) throw err;
+router.get("/", function (req, res) {
+  res.sendFile("room_info.html", { "root": "./website" });
+});
 
-          var list = {
-            partyRoomName: room.party_room_name,
-            address: room.address,
-            district: room.district,
-            // description: room.description,
-            // partyRoomNumber: room.party_room_number,
-            capacity: room.quotaMin + " - " + room.quotaMax,
-            // price_setting: room.price_setting,
-            // facilities: room.facilities,
-            carouselContent: "<div>OMG</div>"
-          };
-
-          tj.renderAll(list, (err, data) => {
-            if (err) throw err;
-            res.write(data);
-            res.end()
-          })
-        })
-      });
-    }
+router.post("/", function (req, res) {
+  PartyRoom.findOne({ party_room_id: req.body.id }, (err, room) => {
+    if (err) throw err;
+    else if (room == null) res.status(404).send("404 not found");
+    else res.send(room);
   });
 });
 
-function createCarouselContent(room) {
-  var indicators = "<ol class='carousel-indicators'>";
-  var inner = "<div class='carousel-inner'>";
-  if (room.photos.length) {
-    for (let i = 0; i < room.photos.length; i++) {
+router.post("/photos", function (req, res) {
+  gfs.files.findOne({ _id: req.body.id }, (err, file) => {
+    if (err) throw err;
+    if (!file || file.length === 0) console.log("Impossible");
+    else {
       let image = "";
-      gfs.files.findOne({ _id: room.photos[i] }, (err, file) => {
-        if (!file || file.length === 0) console.log("Impossible: " + i);
-        else {
-          const readstream = gfs.createReadStream(file.filename);
-          readstream.on('data', (chunk) => {
-            image += chunk.toString('base64');
-          });
-          readstream.on('end', () => {
-            if (!i) {
-              indicators += "<li data-target='#carouselExampleControls' data-slide-to='" + i + "' class='active'></li>";
-              inner += "<div class='carousel-item active'>" + createSlide(image, i) + "</div>";
-            }
-            else {
-              indicators += "<li data-target='#carouselExampleControls' data-slide-to='" + i + "'></li>";
-              inner += "<div class='carousel-item'>" + createSlide(image, i) + "</div>";
-            }
-            if (i == room.photos.length - 1) {
-              indicators += "</ol>";
-              inner += "</div>";
-              return indicators + inner;
-            }
-          });
-        }
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.on('data', chunk => {
+        image += chunk.toString('base64');
+      });
+      readstream.on('end', () => {
+        res.send(image);
       });
     }
-  }
-  else {
-    indicators += "</ol>";
-    inner += "</div>";
-    return indicators + inner;
-  }
-}
-
-function createSlide(image, i) {
-  return "<img class='d-block w-100' src='data:image/png;base64," + image + "' alt='" + i + "'></img>";
-}
+  });
+})
 
 module.exports = router;
