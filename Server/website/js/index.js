@@ -125,7 +125,7 @@ function createCard(id, img, title, description, capacity, location, price) {
   let cardContainer = $("<div class='col-lg-4'></div>");
   let card = $("<div class='m-2 card'></div>");
 
-  let cardImg = $("<img class='card-img-top'></img>");
+  let cardImg = $("<img width='100%' height='300' style='object-fit:cover;' class='card-img-top'></img>");
   cardImg.attr("src", "data:image/png;base64," + img);
   cardImg.attr("alt", "Card image cap");
   cardImg.attr("width", "256px");

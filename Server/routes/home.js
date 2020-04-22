@@ -65,36 +65,26 @@ function getDayofDate(day){
 }
 
 router.get('/search', (req, res) => {
-  // console.log(req.query.starttime);
-  // var query = {
-  //   "party_room_name": req.query.partyRoomName,
-  //   "district": req.query.district,
-  //   "quotaMin": { $lte: req.query.numPeople },
-  //   "quotaMax": { $gte: req.query.numPeople },
-  //   // "price_setting.price": { $lte: req.query.price },
-  //   // "price_setting.startTime": { $lte: stringTranTime(req.query.starttime)},
-  //   // "price_setting.endTime": { $gte: stringTranTime(req.query.endtime)}
-  //   "price_setting": {$elemMatch:  { day: "Monday to Thursday", startTime: { $lte: stringTranTime(req.query.starttime)} }, $elemMatch: { day: "Monday to Thursday", endTime: { $gte: stringTranTime(req.query.endtime)} }}
-  //
-  // }
   var query = [
     { $match: {"party_room_name": req.query.partyRoomName} },
     { $match: {"district": req.query.district} },
     { $match: {"quotaMin": { $lte: parseInt(req.query.numPeople) } } },
     { $match: {"quotaMax": { $gte: parseInt(req.query.numPeople) } } },
-    { $match: {"price_setting": {$elemMatch:  { day: "Monday to Thursday", startTime: { $lte: stringTranTime(req.query.starttime)}} } }},
-    { $match: {"price_setting": {$elemMatch:  { day: "Monday to Thursday", endTime: { $gte: stringTranTime(req.query.endtime)}} } }}
   ];
 
   var d = new Date(req.query.date);
   day = d.getDay();
-  query.push({ $match: {price_setting: {$elemMatch:  { day: getDayofDate(day)}}}});
-  query[4].$match.price_setting.$elemMatch["startTime"] = { $lte: stringTranTime(req.query.starttime)};
+  var startDay = getDayofDate(day);
+  var startTime = stringTranTime(req.query.starttime);
+  query.push({ $match: {price_setting: {$elemMatch:  { day: startDay }}}});
+  query[4].$match.price_setting.$elemMatch["startTime"] = { $lte: stringTranTime(startTime)};
   query[4].$match.price_setting.$elemMatch["price"] = { $lte: parseInt(req.query.price)};
 
-  if(req.query.endtime < req.query.endtime) day++;
-  query.push({ $match: {price_setting: {$elemMatch:  { day: getDayofDate(day)}}}});
-  query[5].$match.price_setting.$elemMatch["endTime"] = { $gte: stringTranTime(req.query.endtime)};
+  if(req.query.endtime < req.query.starttime) day++;
+  var endDay = getDayofDate(day);
+  var endTime = stringTranTime(req.query.endtime);
+  query.push({ $match: {price_setting: {$elemMatch:  { day: endDay }}}});
+  query[5].$match.price_setting.$elemMatch["endTime"] = { $gte: endTime};
 
   console.log(req.query);
   if (req.query.partyRoomName == '') query.splice(0, 1);
@@ -105,6 +95,26 @@ router.get('/search', (req, res) => {
   PartyRoom.aggregate(query, (err, r) => {
     if (err) res.send(err);
     else {
+      for (var i = 0; i < r.length; i++) {
+        var checkTimeGap = [];
+        for (var j = 0; j < r[i].price_setting.length; j++) {
+          if(r[i].price_setting[j].day == startDay && r[i].price_setting[j].startTime < startTime){
+            checkTimeGap.push(j);
+          }
+
+
+          ||
+             (r[i].price_setting[j].day == endDay && r[i].price_setting[j].endTime > endTime)){
+                  checkTimeGap.push(j);
+                }
+        }
+        for (var k = 0; k < checkTimeGap.length-1; k++) {
+          if(r[i].price_setting[checkTimeGap[k]].startTime != r[i].price_setting[checkTimeGap[k+1]].endTime){
+
+            break;
+          }
+        }
+      }
       console.log(r);
       if (r.length == 0) {
         res.send({
@@ -156,11 +166,11 @@ router.post('/addPartyTest', function (req, res) {
     }
     client.connect(err => {
       const collection = client.db("PartyRoomBooking").collection("photos.files");
-      collection.findOne({ filename: "456_test3.jpg" }, (err, p) => {
+      collection.findOne({ filename: "456_test1.jpg" }, (err, p) => {
 
         var r = new PartyRoom({
           party_room_id: maxId + 1,
-          party_room_name: "CUHK4",
+          party_room_name: "CUHK5",
           party_room_number: "12345678",
           address: "CUHK",
           district: "Kwun Tong",
