@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Let Party - 404 Not found</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+	  <link href="css/index.css" rel="stylesheet">
+
+  </head>
+  <body>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
+    <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
+    <form id="loginSignupForm" action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
+        class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
+    <div id="userIcon" style="display: none"></div>
+  </nav>
+	<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>
+                    Oops!</h1>
+                <h2>
+                    404 Not Found</h2>
+                <div class="error-details">
+                  An error has occured, Requested page not found!
+              </div>
+                <div class="error-actions">
+                    <a href="#" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Go to homepage </a><button type="button" class="btn btn-secondary btn-lg" onclick="goBack()">Go to previous</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+       <br>
+       <hr>
+       <div class="container">
+    <div class="row">
+      <div class="text-center col-lg-6 offset-lg-3">
+        <h5>Party Room Online Booking </h5>
+        <p>Copyright &copy; 2020 &middot; All Rights Reserved &middot; CSCI3100 Group08</p>
+      </div>
+    </div>
+  </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed --> 
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.4.1.js"></script>
+	<script>
+function goBack() {
+  window.history.back();
+}
+</script>
+  </body>
+</html>
