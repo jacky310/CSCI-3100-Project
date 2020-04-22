@@ -12,8 +12,6 @@ const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 
 var Grid = require('gridfs-stream');
-var fs = require('fs');
-const tj = require('templatesjs');
 
 const conn = mongoose.createConnection(uri);
 let gfs;
@@ -27,13 +25,16 @@ conn.once('open', () => {
 const PartyRoom = require('../models/partyRoom.model');
 
 router.get("/", function (req, res) {
-  res.sendFile("room_info.html", { "root": "./website" });
+  if (Object.keys(req.query).length == 0 || req.query.id == undefined)
+    res.sendFile("404.html", { "root": "./website" });
+  else
+    res.sendFile("room_info.html", { "root": "./website" });
 });
 
 router.post("/", function (req, res) {
   PartyRoom.findOne({ party_room_id: req.body.id }, (err, room) => {
     if (err) throw err;
-    else if (room == null) res.status(404).send("404 not found");
+    else if (room == null) res.send("notFound");
     else res.send(room);
   });
 });

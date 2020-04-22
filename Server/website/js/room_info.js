@@ -6,16 +6,20 @@ $(function () {
         url: window.location.pathname
     })
         .done(res => {
-            $("#partyRoomName").text(res.party_room_name);
-            $("#district").text(res.district);
-            $("#address").text(res.address);
-            $("#description").text(res.description);
-            $("#partyRoomNumber").text(res.party_room_number);
-            $("#capacity").text(res.quotaMin + " - " + res.quotaMax);
-            if (res.photos.length == 0) {
-                $("#carousel").hide();
+            if (res == "notFound")
+                window.location.href = "/404.html";
+            else {
+                $("#partyRoomName").text(res.party_room_name);
+                $("#district").text(res.district);
+                $("#address").text(res.address);
+                $("#description").text(res.description);
+                $("#partyRoomNumber").text(res.party_room_number);
+                $("#capacity").text(res.quotaMin + " - " + res.quotaMax);
+                if (res.photos.length == 0) {
+                    $("#carousel").hide();
+                }
+                else createCarouselContent(res.photos);
             }
-            else createCarouselContent(res.photos);
         })
         .fail((jqXHR, textStatus, err) => {
             alert(err);
@@ -35,11 +39,11 @@ function createCarouselContent(photos) {
             .done(res => {
                 if (!i) {
                     indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "' class='active'></li>");
-                    inner.append("<div class='carousel-item active'>" + createSlide(image, i) + "</div>");
+                    inner.append("<div class='carousel-item active'>" + createSlide(res, i) + "</div>");
                 }
                 else {
                     indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "'></li>");
-                    inner.append("<div class='carousel-item'>" + createSlide(image, i) + "</div>");
+                    inner.append("<div class='carousel-item'>" + createSlide(res, i) + "</div>");
                 }
             })
             .fail((jqXHR, textStatus, err) => {
