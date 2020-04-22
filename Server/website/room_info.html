@@ -29,17 +29,17 @@
   </nav>
 
   <div class="container mt-3">
-    <h1 class="display-4"><%partyRoomName%></h1>
+    <h1 id="partyRoomName" class="display-4"></h1>
     <div class="row">
       <div class="col-12">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+        <div id="carousel" class="carousel slide" data-ride="carousel">
+          <ol id="indicators" class="carousel-indicators">
+            <!--   <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleControls" data-slide-to="1"></li>
-            <li data-target="#carouselExampleControls" data-slide-to="2"></li>
+            <li data-target="#carouselExampleControls" data-slide-to="2"></li> -->
           </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
+          <div id="inner" class="carousel-inner">
+            <!-- <div class="carousel-item active">
             </div>
             <div class="carousel-item">
             </div>
@@ -48,7 +48,7 @@
                 <h5>Item 3 Heading</h5>
                 <p>Item 3 Description</p>
               </div>
-            </div>
+            </div> -->
           </div>
           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -73,7 +73,7 @@
                 height="50px">
               <div class="media-body">
                 <h5 class="mt-0 mb-1">Capacity&nbsp;</h5>
-                <p class="mb-0"><%capacity%></p>
+                <p id="capacity" class="mb-0"></p>
               </div>
             </li>
           </ul>
@@ -85,7 +85,7 @@
                 width="50px" height="50px">
               <div class="media-body ">
                 <h5 class="mt-0 mb-1">District</h5>
-                <p class="mb-0"><%district%></p>
+                <p id="district" class="mb-0"></p>
               </div>
             </li>
           </ul>
@@ -97,7 +97,7 @@
                 width="50px" height="50px">
               <div class="media-body ">
                 <h5 class="mt-0 mb-1">Address</h5>
-                <p class="mb-0"><%address%></p>
+                <p id="address" class="mb-0"></p>
               </div>
             </li>
           </ul>
