@@ -39,6 +39,7 @@ router.post("/", function (req, res) {
 });
 
 router.post("/photos", function (req, res) {
+  // console.log(req.body);
   gfs.files.findOne({ _id: req.body.id }, (err, file) => {
     if (err) throw err;
     if (!file || file.length === 0) console.log("Impossible");

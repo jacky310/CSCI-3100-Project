@@ -77,10 +77,14 @@ router.get('/search', (req, res) => {
   var startDay = getDayofDate(day);
   var startTime = stringTranTime(req.query.starttime);
   query.push({ $match: {price_setting: {$elemMatch:  { day: startDay }}}});
-  query[4].$match.price_setting.$elemMatch["startTime"] = { $lte: stringTranTime(startTime)};
+  query[4].$match.price_setting.$elemMatch["startTime"] = { $lte: startTime};
   query[4].$match.price_setting.$elemMatch["price"] = { $lte: parseInt(req.query.price)};
 
-  if(req.query.endtime < req.query.starttime) day++;
+  var realEndTime = stringTranTime(req.query.endtime);
+  if(req.query.endtime < req.query.starttime) {
+    realEndTime = stringTranTime(req.query.endtime) + 60*24;
+    day++;
+  }
   var endDay = getDayofDate(day);
   var endTime = stringTranTime(req.query.endtime);
   query.push({ $match: {price_setting: {$elemMatch:  { day: endDay }}}});
@@ -95,26 +99,47 @@ router.get('/search', (req, res) => {
   PartyRoom.aggregate(query, (err, r) => {
     if (err) res.send(err);
     else {
+      var deleteResult = [];
       for (var i = 0; i < r.length; i++) {
+        var buf = null;
         var checkTimeGap = [];
-        for (var j = 0; j < r[i].price_setting.length; j++) {
-          if(r[i].price_setting[j].day == startDay && r[i].price_setting[j].startTime < startTime){
-            checkTimeGap.push(j);
+        var found = r[i].price_setting.filter(item=>item.day === startDay).filter(item=>item.startTime <= startTime);
+        buf = found[0].endTime;
+        var overNightChecker = false;
+        var dayChecker = startDay;
+        if (buf < realEndTime){
+          while (buf != null) {
+            var found = r[i].price_setting.filter(item=>item.day === dayChecker).filter(item=>item.startTime == buf);
+            if(!overNightChecker && found.length == 0 && buf >= realEndTime) {
+              console.log("hi");
+              break;
+            }
+            else if(overNightChecker && found.length == 0 && (buf + 60*24) >= realEndTime) {
+              console.log("2");
+              break;
+            }
+            else if (found.length == 0) {
+              console.log(i);
+              break;
+            }
+            else {
+              buf = found[0].endTime;
+              if (buf == stringTranTime("23:59") && realEndTime > buf) {
+                overNightChecker = true;
+                dayChecker = endDay;
+                buf = 0;
+              }
+            }
+            console.log(buf);
           }
-
-
-          ||
-             (r[i].price_setting[j].day == endDay && r[i].price_setting[j].endTime > endTime)){
-                  checkTimeGap.push(j);
-                }
         }
-        for (var k = 0; k < checkTimeGap.length-1; k++) {
-          if(r[i].price_setting[checkTimeGap[k]].startTime != r[i].price_setting[checkTimeGap[k+1]].endTime){
-
-            break;
-          }
-        }
+        console.log("------");
       }
+      deleteResult.forEach((item, i) => {
+          r.splice(item, 1);
+      });
+
+
       console.log(r);
       if (r.length == 0) {
         res.send({
