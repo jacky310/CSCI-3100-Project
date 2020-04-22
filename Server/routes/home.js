@@ -43,46 +43,66 @@ conn.once('open', () => {
   gfs.collection('photos');
 });
 
-function timeTran(s){
+function timeTranString(t){
+  var hours = Math.floor(t / 60),
+  minutes =  t % 60
+  return {hours: hours, minutes: minutes};
+}
+
+function stringTranTime(s){
   var parts = s.match(/(\d+)\:(\d+)/),
   hours = parseInt(parts[1], 10)*60,
   minutes = parseInt(parts[2], 10)+hours;
   return minutes;
 }
 
+function getDayofDate(day){
+  if (day > 6) day = day % 6 - 1;
+  if (day == 1 || day == 2 || day == 3 | day == 4) return "Monday to Thursday";
+  else if (day == 5) return "Friday";
+  else if (day == 6) return "Saturday";
+  else return "Sunday";
+}
+
 router.get('/search', (req, res) => {
   // console.log(req.query.starttime);
-  var query = {
-    "party_room_name": req.query.partyRoomName,
-    "district": req.query.district,
-    "quotaMin": { $lte: req.query.numPeople },
-    "quotaMax": { $gte: req.query.numPeople },
-    "price_setting.price": { $lte: req.query.price },
-    "price_setting.startTime": { $lte: timeTran(req.query.starttime)},
-    "price_setting.endTime": { $gte: timeTran(req.query.endtime)}
-  }
+  // var query = {
+  //   "party_room_name": req.query.partyRoomName,
+  //   "district": req.query.district,
+  //   "quotaMin": { $lte: req.query.numPeople },
+  //   "quotaMax": { $gte: req.query.numPeople },
+  //   // "price_setting.price": { $lte: req.query.price },
+  //   // "price_setting.startTime": { $lte: stringTranTime(req.query.starttime)},
+  //   // "price_setting.endTime": { $gte: stringTranTime(req.query.endtime)}
+  //   "price_setting": {$elemMatch:  { day: "Monday to Thursday", startTime: { $lte: stringTranTime(req.query.starttime)} }, $elemMatch: { day: "Monday to Thursday", endTime: { $gte: stringTranTime(req.query.endtime)} }}
+  //
+  // }
+  var query = [
+    { $match: {"party_room_name": req.query.partyRoomName} },
+    { $match: {"district": req.query.district} },
+    { $match: {"quotaMin": { $lte: parseInt(req.query.numPeople) } } },
+    { $match: {"quotaMax": { $gte: parseInt(req.query.numPeople) } } },
+    { $match: {"price_setting": {$elemMatch:  { day: "Monday to Thursday", startTime: { $lte: stringTranTime(req.query.starttime)}} } }},
+    { $match: {"price_setting": {$elemMatch:  { day: "Monday to Thursday", endTime: { $gte: stringTranTime(req.query.endtime)}} } }}
+  ];
 
   var d = new Date(req.query.date);
   day = d.getDay();
-  if (day == 1 || day == 2 || day == 3 | day == 4) {
-    query["price_setting.day"] = "Monday to Thursday";
-  }
-  else if (day == 5) {
-    query["price_setting.day"] = "Friday";
-  }
-  else if (day == 6) {
-    query["price_setting.day"] = "Saturday";
-  }
-  else {
-    query["price_setting.day"] = "Sunday";
-  }
+  query.push({ $match: {price_setting: {$elemMatch:  { day: getDayofDate(day)}}}});
+  query[4].$match.price_setting.$elemMatch["startTime"] = { $lte: stringTranTime(req.query.starttime)};
+  query[4].$match.price_setting.$elemMatch["price"] = { $lte: parseInt(req.query.price)};
+
+  if(req.query.endtime < req.query.endtime) day++;
+  query.push({ $match: {price_setting: {$elemMatch:  { day: getDayofDate(day)}}}});
+  query[5].$match.price_setting.$elemMatch["endTime"] = { $gte: stringTranTime(req.query.endtime)};
 
   console.log(req.query);
-  if (req.query.partyRoomName == '') delete query.party_room_name;
-  if (req.query.district == '') delete query.district;
+  if (req.query.partyRoomName == '') query.splice(0, 1);
+  if (req.query.district == '') query.splice(0, 1);
+  require('util').inspect.defaultOptions.depth = null
   console.log(query);
   var result = [];
-  PartyRoom.find(query, (err, r) => {
+  PartyRoom.aggregate(query, (err, r) => {
     if (err) res.send(err);
     else {
       console.log(r);
@@ -111,7 +131,7 @@ router.get('/search', (req, res) => {
               description: r[i].description,
               capacity: "min: " + r[i].quotaMin + " max: " + r[i].quotaMax,
               location: r[i].district,
-              price: "See More"
+              price: "Free"
             });
             if (result.length == r.length) {
               return res.send({
@@ -136,11 +156,11 @@ router.post('/addPartyTest', function (req, res) {
     }
     client.connect(err => {
       const collection = client.db("PartyRoomBooking").collection("photos.files");
-      collection.findOne({ filename: "456_test1.jpg" }, (err, p) => {
+      collection.findOne({ filename: "456_test3.jpg" }, (err, p) => {
 
         var r = new PartyRoom({
           party_room_id: maxId + 1,
-          party_room_name: "CUHK2",
+          party_room_name: "CUHK4",
           party_room_number: "12345678",
           address: "CUHK",
           district: "Kwun Tong",
@@ -149,13 +169,19 @@ router.post('/addPartyTest', function (req, res) {
           quotaMax: 20,
           price_setting: [{
             day: "Monday to Thursday",
-            startTime: timeTran("08:00:00"),
-            endTime: timeTran("12:00:00"),
+            startTime: stringTranTime("08:00"),
+            endTime: stringTranTime("12:00"),
             price: 50
-          }, {
+          },{
+            day: "Monday to Thursday",
+            startTime: stringTranTime("12:00"),
+            endTime: stringTranTime("23:59"),
+            price: 50
+          },
+          {
             day: "Friday",
-            startTime: timeTran("14:00:00"),
-            endTime: timeTran("20:00:00"),
+            startTime: stringTranTime("00:00"),
+            endTime: stringTranTime("07:00:"),
             price: 50
           }],
           facilities: ["VR", "Switch"],
