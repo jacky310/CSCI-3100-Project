@@ -1,7 +1,7 @@
 nav {
   z-index: 4;
 }
-#userIcon{
+/* #userIcon{
   text-align: center;
   width: 40px;
   height: 40px;
@@ -14,7 +14,7 @@ nav {
 
 #userIcon:hover{
   filter: brightness(1.15);
-}
+} */
 
 
 #mainSearchBar {
@@ -75,7 +75,7 @@ nav {
   }
 }
 
-#sideBar {
+/* #sideBar {
   padding-top: 70px;
   width: 200px;
   height: 100%;
@@ -101,7 +101,7 @@ nav {
 
 .sideBtn:hover{
    color: #429ef5;
-}
+} */
 
 .error-template {padding: 40px 15px;text-align: center;}
 .error-actions {margin-top:15px;margin-bottom:15px;}

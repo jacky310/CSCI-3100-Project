@@ -90,15 +90,19 @@ router.get('/search', (req, res) => {
   query[4].$match.price_setting.$elemMatch["startTime"] = { $lte: startTime };
   query[4].$match.price_setting.$elemMatch["price"] = { $lte: parseInt(req.query.price) };
 
+  var nextDay = false;
   var realEndTime = stringTranTime(req.query.endtime);
   if (req.query.endtime < req.query.starttime) {
     realEndTime = stringTranTime(req.query.endtime) + 60 * 24;
     day++;
+    nextDay = true;
   }
   var endDay = getDayofDate(day);
   var endTime = stringTranTime(req.query.endtime);
-  query.push({ $match: { price_setting: { $elemMatch: { day: endDay } } } });
-  query[5].$match.price_setting.$elemMatch["endTime"] = { $gte: endTime };
+
+  query.push({ $match: {price_setting: {$elemMatch:  { day: endDay }}}});
+  query[5].$match.price_setting.$elemMatch["endTime"] = { $gte: endTime};
+  if (nextDay) query[5].$match.price_setting.$elemMatch["startTime"] = { $eq: 0};
 
   console.log(req.query);
   if (req.query.partyRoomName == '') query.splice(0, 1);
@@ -119,16 +123,15 @@ router.get('/search', (req, res) => {
         var dayChecker = startDay;
         if (buf < realEndTime) {
           while (buf != null) {
-            var found = r[i].price_setting.filter(item => item.day === dayChecker).filter(item => item.startTime == buf);
-            if (!overNightChecker && found.length == 0 && buf >= realEndTime) {
-              console.log("hi");
+            var found = r[i].price_setting.filter(item=>item.day === dayChecker).filter(item=>item.startTime == buf);
+            if(!overNightChecker && found.length == 0 && buf >= realEndTime) {
               break;
             }
-            else if (overNightChecker && found.length == 0 && (buf + 60 * 24) >= realEndTime) {
-              console.log("2");
+            else if(overNightChecker && found.length == 0 && (buf + 60*24) >= realEndTime) {
               break;
             }
             else if (found.length == 0) {
+              deleteResult.push(i);
               console.log(i);
               break;
             }
@@ -201,11 +204,11 @@ router.post('/addPartyTest', function (req, res) {
     }
     client.connect(err => {
       const collection = client.db("PartyRoomBooking").collection("photos.files");
-      collection.findOne({ filename: "456_test1.jpg" }, (err, p) => {
+      collection.findOne({ filename: "456_test2.jpg" }, (err, p) => {
 
         var r = new PartyRoom({
           party_room_id: maxId + 1,
-          party_room_name: "CUHK5",
+          party_room_name: "CUHK6",
           party_room_number: "12345678",
           address: "CUHK",
           district: "Kwun Tong",
@@ -219,7 +222,7 @@ router.post('/addPartyTest', function (req, res) {
             price: 50
           }, {
             day: "Monday to Thursday",
-            startTime: stringTranTime("12:00"),
+            startTime: stringTranTime("13:00"),
             endTime: stringTranTime("23:59"),
             price: 50
           },

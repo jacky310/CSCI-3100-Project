@@ -9,7 +9,10 @@
 
   <!-- Bootstrap -->
   <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-  <link href="css/room_info.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link href="./css/room_info.css" rel="stylesheet">
+  <link href="./css/sidebar.css" rel="stylesheet">
 
   <!--jQuery-->
   <script src="./js/jquery-3.4.1.min.js"></script>
@@ -21,12 +24,32 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
     <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
-    <form action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
+    <form id="loginSignupForm" action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
         class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
-    </form>
+    <div id="userIcon" style="display: none"></div>
   </nav>
+
+  <div id="sideBar" class="shadow" style="display: none">
+    <ul>
+      <li>
+        <div id="userName" class="sideItem text-monospace"></div>
+      </li>
+      <li>
+        <div id="favourite" class="sideItem sideBtn">Favorite</div>
+      </li>
+      <li>
+        <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
+      </li>
+      <li>
+        <div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
+      </li>
+      <li>
+        <div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
+      </li>
+    </ul>
+  </div>
 
   <div class="container mt-3">
     <h1 id="partyRoomName" class="display-4"></h1>
@@ -81,7 +104,7 @@
         <div class="col-lg-3 col-md-6 col-12">
           <ul class="list-unstyled">
             <li class="media">
-              <img class="mr-3 rounded-circle" src="images/location_icon.png" alt="Generic placeholder image"
+              <img class="mr-3 rounded-circle" src="images/district_icon.png" alt="District icon"
                 width="50px" height="50px">
               <div class="media-body ">
                 <h5 class="mt-0 mb-1">District</h5>
@@ -93,7 +116,7 @@
         <div class="col-lg-3 col-md-6 col-12">
           <ul class="list-unstyled">
             <li class="media">
-              <img class="mr-3 rounded-circle" src="images/location_icon.png" alt="Generic placeholder image"
+              <img class="mr-3 rounded-circle" src="images/location_icon.png" alt="Location icon"
                 width="50px" height="50px">
               <div class="media-body ">
                 <h5 class="mt-0 mb-1">Address</h5>
@@ -105,7 +128,19 @@
         <div class="col-lg-3 d-md-none d-lg-block">
           <ul class="list-unstyled">
             <li class="media">
-              <img class="mr-3 rounded-circle" src="images/price_icon.png" alt="Generic placeholder image" width="50px"
+              <img class="mr-3 rounded-circle" src="images/phone_icon.png" alt="phone icon" width="50px"
+                height="50px">
+              <div class="media-body">
+                <h5 class="mt-0 mb-1">Phone Number</h5>
+                <p class="mb-0">123456789</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-lg-12 d-md-none d-lg-block">
+          <ul class="list-unstyled">
+            <li class="media"> <img class="mr-3 rounded-circle" src="images/price_icon.png" alt="price icon" width="50px"
                 height="50px">
               <div class="media-body">
                 <h5 class="mt-0 mb-1">Price</h5>
@@ -121,15 +156,15 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-12">
-        <h3>Features</h3>
+        <h3>Description</h3>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-feature1-tab" data-toggle="tab" href="#nav-feature1" role="tab"
-              aria-controls="nav-feature1" aria-selected="true">1</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-              aria-controls="nav-profile" aria-selected="false">2</a>
-            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-              aria-controls="nav-contact" aria-selected="false">3</a>
+              aria-controls="nav-feature1" aria-selected="true">Features</a>
+            <a class="nav-item nav-link" id="nav-address-tab" data-toggle="tab" href="#nav-address" role="tab"
+              aria-controls="nav-address" aria-selected="false">Address</a>
+            <a class="nav-item nav-link" id="nav-facilities-tab" data-toggle="tab" href="#nav-facilities" role="tab"
+              aria-controls="nav-facilities" aria-selected="false">Facilities</a>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -137,7 +172,7 @@
             <p class="text-center mt-2"><img src="images/info_1.jpg" alt="" width="80%"></p>
             <p>The biggest party room in Hong Kong!&nbsp;</p>
           </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="tab-pane fade" id="nav-address" role="tabpanel" aria-labelledby="nav-address-tab">
             <p class="text-center mt-2"><img src="images/3b536b.gif" alt=""></p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus maxime aut ea impedit voluptates aperiam
               dolor laborum officiis autem aspernatur! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -146,7 +181,7 @@
               adipisicing elit. Optio sequi dolorem suscipit assumenda molestiae voluptatem qui consequuntur magni?
               Deleniti, corporis.</p>
           </div>
-          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <div class="tab-pane fade" id="nav-facilities" role="tabpanel" aria-labelledby="nav-facilities-tab">
             <p class="text-center mt-2"><img src="images/3b536b.gif" alt=""></p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus maxime aut ea impedit voluptates aperiam
               dolor laborum officiis autem aspernatur! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -162,21 +197,20 @@
         <div class="row mx-0">
           <div class="col-12 card bg-light mx-auto">
             <h3 class="text-center card-header">Book the room</h3>
-            <form class="card-body">
+            <form id="bookingForm" class="card-body">
               <div class="form-group row">
-                <label for="location1" class="col-form-label">Location</label>
-                <select class="form-control" name="location" id="location1">
-                  <option value="">Any</option>
-                  <option value="">1</option>
-                  <option value="">2</option>
-                </select>
+                  <label>Date:&emsp;</label>
+                  <input name="date" type="date" class="form-control" required>
+                  <div id="dateChecker" class="invalid-feedback" style="display: none">
+                    Please input correct date.
+                  </div>
               </div>
               <div class="form-group row">
                 <label for="timefrom" class="col-form-label">Time From</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
                   </div>
-                  <input type="text" class="form-control" id="timefrom" aria-describedby="basic-addon1">
+                  <input id="starttime" name="starttime" type="time" class="form-control" value="00:00" required>
                 </div>
               </div>
               <div class="form-group row">
@@ -184,10 +218,14 @@
                 <div class="input-group">
                   <div class="input-group-prepend">
                   </div>
-                  <input type="text" class="form-control" id="timeto" aria-describedby="basic-addon2">
+                  <input id="starttime" name="endtime" type="time" class="form-control" value="00:00" required>
                 </div>
               </div>
-              <p class="text-center"><a href="#" class="btn btn-danger" role="button">Book </a></p>
+              <div class="form-group row">
+                  <label>Number of People:&emsp;</label>
+                  <input id="numPeople" name="numPeople" type="number" class="form-control" required>
+              </div>
+              <p class="text-center"><button id="bookBtn" type="button" class="btn btn-primary">BOOK</button></p>
             </form>
           </div>
 
