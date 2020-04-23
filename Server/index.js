@@ -50,6 +50,7 @@ app.use(express.static('website'));
 // For Home page
 const home = require('./routes/home');
 app.use('/', home);
+
 // For Login page
 const loginSignup = require('./routes/loginSignup');
 app.use('/loginSignup', loginSignup);
