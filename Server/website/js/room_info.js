@@ -76,21 +76,11 @@ $(function () {
 
   $("#bookBtn").click(() => {
     if (userType != 'customer') {
-      alert("Please Login First");
+      alert("Please Login as Customer first");
       window.location.href = "/loginSignup";
     }
     else {
-      var currentTime = new Date();
-
       var date = $("#bookingForm input[name='date']").val();
-      var startTime = $("#bookingForm input[name='starttime']").val();
-      var endTime = $("#bookingForm input[name='endtime']").val();
-      var url = $("#bookingForm").attr('action');
-      var overNight = false;
-
-      var start = stringTranDate(date + "," + startTime, false);
-      if (stringTranTime(endTime) <= stringTranTime(startTime)) overNight = true;
-      var end = stringTranDate(date + "," + endTime, overNight);
 
       if (date == '') {
         $("#bookingForm input[name='date']").addClass("is-invalid");
@@ -101,6 +91,15 @@ $(function () {
         $("#bookingForm input[name='date']").removeClass("is-invalid");
         $("#dateChecker").hide();
       }
+
+      var currentTime = new Date();
+      var starttime = $("#bookingForm input[name='starttime']").val();
+      var endtime = $("#bookingForm input[name='endtime']").val();
+      var overNight = false;
+
+      var start = stringTranDate(date + "," + starttime, false);
+      if (stringTranTime(endtime) <= stringTranTime(starttime)) overNight = true;
+      var end = stringTranDate(date + "," + endtime, overNight);
 
       if (start < currentTime) {
         $("#bookingForm input[name='starttime']").addClass("is-invalid");
@@ -123,9 +122,8 @@ $(function () {
         $("#timeToChecker").hide();
       }
 
-      console.log(start, end);
       partyRoomId = window.location.search.substring(1);
-      var numPeople = $("#bookingForm input[name='numPeople']").val();
+      var numPeople = ("#bookingForm input[name='numPeople']").val();
       data = {
         booker: username,
         partyRoomId: partyRoomId.replace("id=", ""),
@@ -135,8 +133,6 @@ $(function () {
         starttime: startTime,
         endtime: endTime
       };
-      console.log(data);
-
       $.ajax({
         type: "post",
         async: false,
