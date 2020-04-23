@@ -23,6 +23,14 @@ function stringTranTime(s) {
   return minutes;
 }
 
+function timeTranString(t) {
+  var hours = Math.floor(t / 60);
+  if (hours < 10) hours = "0" + hours;
+  var minutes = t % 60;
+  if (minutes < 10) minutes = "0" + minutes;
+  return hours + ":" + minutes;
+}
+
 //check login
 $(function () {
   var userType = 'guest';
@@ -170,15 +178,32 @@ $(function () {
       else {
         var room = res.room;
         var photos = res.photos;
+        var minPrice = Infinity;
+        var maxPrice = -Infinity;
         $("#partyRoomName").text(room.party_room_name);
         $("#district").text(room.district);
-        $("#address").text(room.address);
+        $("#address").text("Address : " + room.address);
         $("#description").text(room.description);
+        $("#facilities").append("Facilities : " + room.facilities);
         $("#partyRoomNumber").text(room.party_room_number);
         $("#capacity").text(room.quotaMin + " - " + room.quotaMax);
         $("#numPeople").attr("value", room.quotaMin);
         $("#numPeople").attr("min", room.quotaMin);
         $("#numPeople").attr("max", room.quotaMax);
+        for (let i = 0; i < room.price_setting.length; i++) {
+          if (room.price_setting[i].price < minPrice) minPrice = room.price_setting[i].price;
+          if (room.price_setting[i].price > maxPrice) maxPrice = room.price_setting[i].price;
+          var start = timeTranString(room.price_setting[i].startTime);
+          var end = timeTranString(room.price_setting[i].endTime);
+          $("#price_setting").append(
+            "<li class='list-group-item'>" +
+            "<div>" + room.price_setting[i].day + " : " + start + " - " + end +
+            "<br>" + "Price: $" + room.price_setting[i].price +
+            "</div>" +
+            "</li>"
+          );
+        }
+        $("#price").text("$" + minPrice + " - " + maxPrice);
         if (photos.length == 0)
           $("#carousel").hide();
         else createCarouselContent(photos);
