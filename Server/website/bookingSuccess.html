@@ -5,20 +5,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Let Party - Booking Success</title>
+  <title>LetParty - Booking Success</title>
 
   <!-- Bootstrap -->
   <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
 
+  <!-- CSS -->
   <link href="css/index.css" rel="stylesheet">
-
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <link href="css/sidebar.css" rel="stylesheet">
+  <!--jQuery-->
   <script src="js/jquery-3.4.1.min.js"></script>
-
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap-4.4.1.js"></script>
-
+  <script src="js/sidebar.js"></script>
 </head>
 
 <body>
@@ -28,6 +28,23 @@
         class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
     <div id="userIcon" style="display: none"></div>
   </nav>
+
+  <div id="sideBar" class="shadow" style="display: none">
+    <ul>
+      <li>
+        <div id="userName" class="sideItem text-monospace"></div>
+      </li>
+      <li>
+        <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
+      </li>
+      <li>
+        <div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
+      </li>
+      <li>
+        <div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
+      </li>
+    </ul>
+  </div>
 
   <div class="jumbotron">
     <div class="row">

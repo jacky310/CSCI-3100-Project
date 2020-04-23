@@ -17,7 +17,7 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap-4.4.1.js"></script>
-
+  <script src="js/sidebar.js"></script>
 </head>
 
 <body>
@@ -27,6 +27,23 @@
         class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
     <div id="userIcon" style="display: none"></div>
   </nav>
+
+  <div id="sideBar" class="shadow" style="display: none">
+    <ul>
+      <li>
+        <div id="userName" class="sideItem text-monospace"></div>
+      </li>
+      <li>
+        <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
+      </li>
+      <li>
+        <div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
+      </li>
+      <li>
+        <div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
+      </li>
+    </ul>
+  </div>
 
   <div class="jumbotron">
     <div class="row">
