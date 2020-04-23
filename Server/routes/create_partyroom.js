@@ -1,6 +1,8 @@
 const multer = require('multer');
 var express = require('express');
 let PartyRoom = require('../models/partyroom.model');
+let Ownership = require('../models/roomOwnership.model');
+let Owner = require('../models/owner.model');
 const uploadController = require("../website/controller/upload");
 var router = express.Router();
 
@@ -53,6 +55,8 @@ router.post('/create',upload.array('photos', 3),function(req, res, next) {
                 photos
 
             });
+
+
             new_room.save()
                 .then(()=>PartyRoom.findOneAndUpdate(
                     {"party_room_id": count +1 },
@@ -70,8 +74,24 @@ router.post('/create',upload.array('photos', 3),function(req, res, next) {
                     function(err, doc){ /* <callback> */
                         if(err)
                             res.redirect("/createFail.html");
-                        else
-                            res.redirect("/createSuccess.html");
+                        else{
+                            Owner.findOne({"phone": party_room_number}, function (err, data) {
+                                if(err){
+                                    return res.json(err);
+                                }else{
+                                    const username = data.username;
+                                    const new_ownership = new Ownership({
+                                        owner_userName: username,
+                                        party_room_id: party_room_id,
+                                    });
+                                    new_ownership.save()
+                                        .then(()=>console.log(new_ownership));
+                                }
+                                res.redirect("/createSuccess.html");
+                            })
+
+                        }
+
                     }
                 ))
                 .catch(err=>res.redirect("/createFail.html"));
