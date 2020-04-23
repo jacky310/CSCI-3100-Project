@@ -9,7 +9,10 @@
 
   <!-- Bootstrap -->
   <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-  <link href="css/room_info.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link href="./css/room_info.css" rel="stylesheet">
+  <link href="./css/sidebar.css" rel="stylesheet">
 
   <!--jQuery-->
   <script src="./js/jquery-3.4.1.min.js"></script>
@@ -21,12 +24,32 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
     <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
-    <form action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
+    <form id="loginSignupForm" action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
         class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
-    </form>
+    <div id="userIcon" style="display: none"></div>
   </nav>
+
+  <div id="sideBar" class="shadow" style="display: none">
+    <ul>
+      <li>
+        <div id="userName" class="sideItem text-monospace"></div>
+      </li>
+      <li>
+        <div id="favourite" class="sideItem sideBtn">Favorite</div>
+      </li>
+      <li>
+        <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
+      </li>
+      <li>
+        <div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
+      </li>
+      <li>
+        <div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
+      </li>
+    </ul>
+  </div>
 
   <div class="container mt-3">
     <h1 id="partyRoomName" class="display-4"></h1>
@@ -174,21 +197,20 @@
         <div class="row mx-0">
           <div class="col-12 card bg-light mx-auto">
             <h3 class="text-center card-header">Book the room</h3>
-            <form class="card-body">
+            <form id="bookingForm" class="card-body">
               <div class="form-group row">
-                <label for="location1" class="col-form-label">Location</label>
-                <select class="form-control" name="location" id="location1">
-                  <option value="">Any</option>
-                  <option value="">1</option>
-                  <option value="">2</option>
-                </select>
+                  <label>Date:&emsp;</label>
+                  <input name="date" type="date" class="form-control" required>
+                  <div id="dateChecker" class="invalid-feedback" style="display: none">
+                    Please input correct date.
+                  </div>
               </div>
               <div class="form-group row">
                 <label for="timefrom" class="col-form-label">Time From</label>
                 <div class="input-group">
                   <div class="input-group-prepend">
                   </div>
-                  <input type="text" class="form-control" id="timefrom" aria-describedby="basic-addon1">
+                  <input id="starttime" name="starttime" type="time" class="form-control" value="00:00" required>
                 </div>
               </div>
               <div class="form-group row">
@@ -196,10 +218,14 @@
                 <div class="input-group">
                   <div class="input-group-prepend">
                   </div>
-                  <input type="text" class="form-control" id="timeto" aria-describedby="basic-addon2">
+                  <input id="starttime" name="endtime" type="time" class="form-control" value="00:00" required>
                 </div>
               </div>
-              <p class="text-center"><a href="#" class="btn btn-danger" role="button">Book </a></p>
+              <div class="form-group row">
+                  <label>Number of People:&emsp;</label>
+                  <input id="numPeople" name="numPeople" type="number" class="form-control" required>
+              </div>
+              <p class="text-center"><button id="bookBtn" type="button" class="btn btn-primary">BOOK</button></p>
             </form>
           </div>
 

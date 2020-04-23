@@ -80,6 +80,9 @@ app.use('/owners', owner_route);
 const customer_route = require('./routes/customer');
 app.use('/customers', customer_route);
 
+const book = require('./routes/book');
+app.use('/book', book);
+
 app.listen(3000, () => {
   console.log("server is listening on port 3000");
 });
