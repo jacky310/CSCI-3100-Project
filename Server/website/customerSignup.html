@@ -45,7 +45,7 @@
         </div>
         <div class="form-group">
           <label>Password <span class="requiredMark">*</span>
-            <input name="password" type="password" pattern='[a-zA-Z0-9]{8,}' title="Please follow the password format" class="form-control" placeholder="Password" required>
+            <input name="password" type="password" pattern='^(?=.*[a-zA-Z])(?=\w*[0-9])\w{8,}$' title="Please follow the password format" class="form-control" placeholder="Password" required>
             <small class="form-text text-muted">The password should consist of at least 8 characters.</small>
             <small class="form-text text-muted">It should contain both alphabet and numbers.</small>
           </label>
@@ -60,13 +60,6 @@
         <button id="btnSubmit" type="submit" class="btn btn-primary">Submit</button>
         <button type="reset" class="btn btn-primary">Reset</button>
       </form>
-    </div>
-  </section>
-
-  <section id="signupSuccessPage" style="display: none">
-    <div class="jumbotron jumbotron-fluid text-center" style="padding-top: 100px">
-      <span class="material-icons">check_circle</span>
-      <p>Sign Up Success!</p>
     </div>
   </section>
 
