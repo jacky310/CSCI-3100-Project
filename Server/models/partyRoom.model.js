@@ -15,7 +15,6 @@ var PartyRoomSchema = mongoose.Schema({
     startTime: {type: Number, required: true},
     endTime: {type: Number, required: true},
     price: {type: Number, required: true},
-
   }],
   facilities: [String],
   photos: [{

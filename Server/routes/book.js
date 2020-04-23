@@ -66,8 +66,6 @@ router.post('/', (req, res) => {
 
   var result = [];
   PartyRoom.aggregate(query, (err, r) => {
-    console.log("12");
-    console.log(r);
     if (err) res.send(err);
     else if (r.length == 0) {
       res.send("try again");
