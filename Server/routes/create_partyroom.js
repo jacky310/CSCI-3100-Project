@@ -1,5 +1,7 @@
+const multer = require('multer');
 var express = require('express');
-//let PartyRoom = require('../models/partyroom.model');
+let PartyRoom = require('../models/partyroom.model');
+const uploadController = require("../website/controller/upload");
 var router = express.Router();
 
 // MongoDB & mongoose:
@@ -14,46 +16,70 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 mongoose.connect(uri);
 
-const PartyRoom = require("../models/partyRoom.model");
 
-// var PartyRoomSchema = mongoose.Schema({
-//   party_room_id: {type: Number, required: true, unique: true},
-//   party_room_name: {type: String, required: true, unique: true},
-//   party_room_number: {type: String, required: true},
-//   address: {type: String, required: true},
-//   district: {type: String, required: true},
-//   description: {type: String},
-//   quotaMic: {type: Number, required: true},
-//   quotaMax: {type: Number, required: true},
-//   price_setting: [{
-//     day: String,
-//     startTime: String,
-//     endTime: String,
-//     price: Number
-//   }],
-//   facilities: [String],
-//   photos: [{
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'photos.files'
-//   }]
-// });
+const upload = multer({
+    dest: 'uploads/',
+    storage: multer.memoryStorage(),
+});
 
 router.get('/', function (req, res) {
     res.sendFile('partyroom_create.html', { 'root': "./website" });
 });
 
-router.route('/create').post((req, res) => {
-    var data = req.body;
-    console.log(data);
-    client.connect(err => {
-        PartyRoom.insertOne(data, (err) => {
-            if (err) throw err;
-            console.log("PartyRoom create Success!!!");
-            res.send("CreateSuccess");
-            res.redirect('/');
-        });
-         //return res.redirect('/');
+
+router.post('/create',upload.array('photos', 3),function(req, res, next) {
+        PartyRoom.count({}, function( err, count){
+            const party_room_id = count + 1;
+            const party_room_name = req.body.party_room_name;
+            const party_room_number = req.body.party_room_number;
+            const address = req.body.address;
+            const district = req.body.district;
+            const description = req.body.description;
+            const quotaMin = req.body.quotaMin;
+            const quotaMax = req.body.quotaMax;
+            const facilities = req.body.facilities;
+            const photos =mongoose.mongo.ObjectID(req.body.photos._id);
+
+            const new_room = new PartyRoom({
+                party_room_id,
+                party_room_name,
+                party_room_number,
+                address,
+                district,
+                description,
+                quotaMin,
+                quotaMax,
+                facilities,
+                photos
+
+            });
+            new_room.save()
+                .then(()=>PartyRoom.findOneAndUpdate(
+                    {"party_room_id": count +1 },
+                    {
+                        "$push": {
+                            "price_setting": [{
+                                day: req.body.day,
+                                startTime: req.body.startTime,
+                                endTime: req.body.endTime,
+                                price: req.body.price
+                            }]
+                        }
+                    },
+                    { "upsert": true },
+                    function(err, doc){ /* <callback> */
+                        if(err)
+                            res.redirect("/createFail.html");
+                        else
+                            res.redirect("/createSuccess.html");
+                    }
+                ))
+                .catch(err=>res.redirect("/createFail.html"));
     });
+
+
+
+
 });
 
 module.exports = router;
