@@ -22,7 +22,7 @@ router.post('/checkLogin', (req, res) => {
     isLogined = true;
     userType = req.session.userType
   }
-  res.send({ user: user, isLogined: isLogined, userType: userType});
+  res.send({ user: user, isLogined: isLogined, userType: userType });
 });
 
 router.post('/logout', (req, res) => {
@@ -34,6 +34,16 @@ router.post('/logout', (req, res) => {
   });
 });
 
+router.get("/account", (req, res) => {
+  if (!(req.session.user == undefined)) {
+    if (req.session.userType == "customer")
+      res.sendFile('customer_info.html', { 'root': "./website" });
+    else if (req.session.userType == "owner")
+      res.sendFile("owner_info.html", { 'root': "./website" });
+  }
+  else res.sendFile("404.html", { 'root': "./website" });
+});
+
 var Grid = require('gridfs-stream');
 var fs = require('fs');
 const conn = mongoose.createConnection(uri);
@@ -43,20 +53,20 @@ conn.once('open', () => {
   gfs.collection('photos');
 });
 
-function timeTranString(t){
+function timeTranString(t) {
   var hours = Math.floor(t / 60),
-  minutes =  t % 60
-  return {hours: hours, minutes: minutes};
+    minutes = t % 60
+  return { hours: hours, minutes: minutes };
 }
 
-function stringTranTime(s){
+function stringTranTime(s) {
   var parts = s.match(/(\d+)\:(\d+)/),
-  hours = parseInt(parts[1], 10)*60,
-  minutes = parseInt(parts[2], 10)+hours;
+    hours = parseInt(parts[1], 10) * 60,
+    minutes = parseInt(parts[2], 10) + hours;
   return minutes;
 }
 
-function getDayofDate(day){
+function getDayofDate(day) {
   if (day > 6) day = day % 6 - 1;
   if (day == 1 || day == 2 || day == 3 | day == 4) return "Monday to Thursday";
   else if (day == 5) return "Friday";
@@ -66,29 +76,30 @@ function getDayofDate(day){
 
 router.get('/search', (req, res) => {
   var query = [
-    { $match: {"party_room_name": req.query.partyRoomName} },
-    { $match: {"district": req.query.district} },
-    { $match: {"quotaMin": { $lte: parseInt(req.query.numPeople) } } },
-    { $match: {"quotaMax": { $gte: parseInt(req.query.numPeople) } } },
+    { $match: { "party_room_name": req.query.partyRoomName } },
+    { $match: { "district": req.query.district } },
+    { $match: { "quotaMin": { $lte: parseInt(req.query.numPeople) } } },
+    { $match: { "quotaMax": { $gte: parseInt(req.query.numPeople) } } },
   ];
 
   var d = new Date(req.query.date);
   day = d.getDay();
   var startDay = getDayofDate(day);
   var startTime = stringTranTime(req.query.starttime);
-  query.push({ $match: {price_setting: {$elemMatch:  { day: startDay }}}});
-  query[4].$match.price_setting.$elemMatch["startTime"] = { $lte: startTime};
-  query[4].$match.price_setting.$elemMatch["price"] = { $lte: parseInt(req.query.price)};
+  query.push({ $match: { price_setting: { $elemMatch: { day: startDay } } } });
+  query[4].$match.price_setting.$elemMatch["startTime"] = { $lte: startTime };
+  query[4].$match.price_setting.$elemMatch["price"] = { $lte: parseInt(req.query.price) };
 
   var nextDay = false;
   var realEndTime = stringTranTime(req.query.endtime);
-  if(req.query.endtime < req.query.starttime) {
-    realEndTime = stringTranTime(req.query.endtime) + 60*24;
+  if (req.query.endtime < req.query.starttime) {
+    realEndTime = stringTranTime(req.query.endtime) + 60 * 24;
     day++;
     nextDay = true;
   }
   var endDay = getDayofDate(day);
   var endTime = stringTranTime(req.query.endtime);
+
   query.push({ $match: {price_setting: {$elemMatch:  { day: endDay }}}});
   query[5].$match.price_setting.$elemMatch["endTime"] = { $gte: endTime};
   if (nextDay) query[5].$match.price_setting.$elemMatch["startTime"] = { $eq: 0};
@@ -109,7 +120,7 @@ router.get('/search', (req, res) => {
         buf = found[0].endTime;
         var overNightChecker = false;
         var dayChecker = startDay;
-        if (buf < realEndTime){
+        if (buf < realEndTime) {
           while (buf != null) {
             var found = r[i].price_setting.filter(item=>item.day === dayChecker).filter(item=>item.startTime == buf);
             if(!overNightChecker && found.length == 0 && buf >= realEndTime) {
@@ -137,7 +148,7 @@ router.get('/search', (req, res) => {
         console.log("------");
       }
       deleteResult.forEach((item, i) => {
-          r.splice(item, 1);
+        r.splice(item, 1);
       });
 
 
@@ -207,7 +218,7 @@ router.post('/addPartyTest', function (req, res) {
             startTime: stringTranTime("08:00"),
             endTime: stringTranTime("12:00"),
             price: 50
-          },{
+          }, {
             day: "Monday to Thursday",
             startTime: stringTranTime("13:00"),
             endTime: stringTranTime("23:59"),

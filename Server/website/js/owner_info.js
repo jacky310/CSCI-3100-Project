@@ -6,7 +6,7 @@ $(function () {
     url: "/checkLogin"
   })
     .done(res => {
-      if (!res.isLogined || res.userType != "customer")
+      if (!res.isLogined || res.userType != "owner")
         window.location.href = "/404.html";
       else getUserInfo(res.user);
     })
@@ -37,12 +37,13 @@ function getUserInfo(username) {
     type: "post",
     async: false,
     data: "username=" + username,
-    url: "/customer"
+    url: "/owner"
   })
     .done(res => {
       if (res == "notFound")
         window.location.href = "/404.html";
       else {
+        $('#companyName').text(res.companyName);
         $('#username').text(res.username);
         $('#email').text(res.email);
         $('#phone').text(res.phone);

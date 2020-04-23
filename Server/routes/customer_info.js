@@ -13,10 +13,6 @@ const bcrypt = require('bcrypt');
 
 const Customer = require('../models/customer.model');
 
-router.get('/', function (req, res) {
-  res.sendFile('customer_info.html', { 'root': "./website" });
-});
-
 router.post("/", function (req, res) {
   Customer.findOne({ username: req.body.username }, (err, customer) => {
     if (err) throw err;

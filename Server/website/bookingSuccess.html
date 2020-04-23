@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Let Party - Booking Success</title>
+
+  <!-- Bootstrap -->
+  <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+	
+  <link href="css/index.css" rel="stylesheet">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+
+</head>
+
+<body>
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
+    <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
+    <form id="loginSignupForm" action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
+        class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
+    <div id="userIcon" style="display: none"></div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="error-template" >
+          <h1>
+            <img src="images/success.png" width="100" height="100" alt=""/></h1>
+          <h2 style="color:limegreen">
+            Booking Success!</h2>
+          <div class="error-details" style="margin-bottom: 5px">
+            Your booking ID is 
+          </div>
+           <a href="index.html" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+              Go to homepage </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="text-center col-lg-6 offset-lg-3">
+        <h5>Party Room Online Booking </h5>
+        <p>Copyright &copy; 2020 &middot; All Rights Reserved &middot; CSCI3100 Group08</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+
+</body>
+
+</html>

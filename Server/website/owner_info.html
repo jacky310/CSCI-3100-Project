@@ -14,7 +14,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap-4.4.1.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/owner_info.js"></script>
 
   </head>
 
@@ -28,7 +28,7 @@
       <ul class="navbar-nav mr-auto">
       </ul>
     <form class="form-inline my-2 my-lg-0">
-        <button id="loginSignupBtn" class="btn btn-outline-primary my-2 my-sm-0" type="button">Logout</button>
+        <button id="logoutBtn" class="btn btn-outline-primary my-2 my-sm-0" type="button">Logout</button>
       </form>
     </div>
 </nav>
@@ -150,19 +150,19 @@
 						  <tbody>
 							<tr>
 							  <td>Company Name:</td>
-							  <td>CUHK3150</td>
+							  <td id="companyName"></td>
 							</tr>
 							<tr>
 							  <td>Name:</td>
-							  <td>Shao Zili</td>
+							  <td id="username"></td>
 							</tr>
 							<tr>
 							  <td>Email address:</td>
-							  <td>csci3150@cuhk.edu.hk</td>
+							  <td id="email"></td>
 							</tr>
 							<tr>
 							  <td>Phone Number:</td>
-							  <td>12345678</td>
+							  <td id="phone"></td>
 							</tr>
 						  </tbody>
 						</table>

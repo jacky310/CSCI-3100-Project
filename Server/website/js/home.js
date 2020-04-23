@@ -31,31 +31,12 @@ $(function () {
     });
   });
 
-  $('#favourite').click(() => {
-    if (userType == 'customer') {
-      window.location.href = "/customer";
-    }
-    else if (userType == 'owner') {
-      window.location.href = "/owner";
-    }
-  });
-
   $('#bookingRecordBtn').click(() => {
-    if (userType == 'customer') {
-      window.location.href = "/customer";
-    }
-    else if (userType == 'owner') {
-      window.location.href = "/owner";
-    }
+    window.location.href = "/account";
   });
 
   $('#personalInfo').click(() => {
-    if (userType == 'customer') {
-      window.location.href = "/customer";
-    }
-    else if (userType == 'owner') {
-      window.location.href = "/owner";
-    }
+    window.location.href = "/account";
   });
 });
 
