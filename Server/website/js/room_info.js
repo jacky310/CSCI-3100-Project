@@ -66,67 +66,75 @@ $(function () {
     window.location.href = "/account";
   });
 
-  $("#bookBtn").unbind().click(() => {
+  $("#bookBtn").click(() => {
     if (userType != 'customer') {
       alert("Please Login First");
       window.location.href = "/loginSignup";
     }
     else {
+      var currentTime = new Date();
+
       var date = $("#bookingForm input[name='date']").val();
+      var startTime = $("#bookingForm input[name='starttime']").val();
+      var endTime = $("#bookingForm input[name='endtime']").val();
+      var url = $("#bookingForm").attr('action');
+      var overNight = false;
+
+      var start = stringTranDate(date + "," + startTime, false);
+      if (stringTranTime(endTime) <= stringTranTime(startTime)) overNight = true;
+      var end = stringTranDate(date + "," + endTime, overNight);
+
       if (date == '') {
         $("#bookingForm input[name='date']").addClass("is-invalid");
         $("#dateChecker").show();
+        return;
       }
       else {
-        var startTime = $("#bookingForm input[name='starttime']").val();
-        var endTime = $("#bookingForm input[name='endtime']").val();
-        var url = $("#bookingForm").attr('action');
-        var overNight = false;
-
-        var start = stringTranDate(date + "," + startTime, false);
-        if (stringTranTime(endTime) <= stringTranTime(startTime)) overNight = true;
-        var end = stringTranDate(date + "," + endTime, overNight);
-
-        if (start < new Date()) {
-          $("#bookingForm input[name='date']").addClass("is-invalid");
-          $("#dateChecker").show();
-        }
-        else {
-          $("#bookingForm input[name='date']").removeClass("is-invalid");;
-          $("#dateChecker").hide();
-
-          console.log(start, end);
-          partyRoomId = window.location.search.substring(1);
-          var numPeople = $("#bookingForm input[name='numPeople']").val();
-          data = {
-            booker: username,
-            partyRoomId: partyRoomId.replace("id=", ""),
-            start: start,
-            end: end,
-            numPeople: numPeople,
-            starttime: startTime,
-            endtime: endTime
-          };
-          console.log(data);
-
-          $.ajax({
-            type: "post",
-            async: false,
-            data: data,
-            url: "/book"
-          })
-          .done(res=>{
-            if (res == "done") {
-              alert("Thank you");
-              
-            }
-
-          })
-          .fail((jqXHR, textStatus, err) => {
-            alert(err);
-          });;
-        }
+        $("#bookingForm input[name='date']").removeClass("is-invalid");
+        $("#dateChecker").hide();
       }
+
+      if (start < currentTime) {
+        $("#bookingForm input[name='starttime']").addClass("is-invalid");
+        $("#timeFromChecker").show();
+        return;
+      }
+      else {
+        $("#bookingForm input[name='starttime']").removeClass("is-invalid");
+        $("#timeFromChecker").hide();
+      }
+
+      if (end < currentTime) {
+        $("#bookingForm input[name='endtime']").addClass("is-invalid");
+        $("#timeToChecker").show();
+        return;
+      }
+      else {
+        $("#bookingForm input[name='endtime']").removeClass("is-invalid");
+        $("#timeToChecker").hide();
+      }
+
+      console.log(start, end);
+      partyRoomId = window.location.search.substring(1);
+      var numPeople = $("#bookingForm input[name='numPeople']").val();
+      data = {
+        booker: username,
+        partyRoomId: partyRoomId.replace("id=", ""),
+        start: start,
+        end: end,
+        numPeople: numPeople
+      };
+      console.log(data);
+
+      $.ajax({
+        type: "post",
+        async: false,
+        data: data,
+        url: "/book"
+      })
+        .done(res => {
+          window.location.href = "/bookingSuccess.html";
+        });
     }
   });
 });
@@ -148,9 +156,8 @@ $(function () {
   });
 });
 
+//get room info
 $(function () {
-  var quotaMin = 0;
-  var quotaMax = 0;
   $.ajax({
     type: "post",
     async: false,
@@ -169,8 +176,9 @@ $(function () {
         $("#description").text(room.description);
         $("#partyRoomNumber").text(room.party_room_number);
         $("#capacity").text(room.quotaMin + " - " + room.quotaMax);
-        quotaMin = room.quotaMin;
-        quotaMax = room.quotaMax;
+        $("#numPeople").attr("value", room.quotaMin);
+        $("#numPeople").attr("min", room.quotaMin);
+        $("#numPeople").attr("max", room.quotaMax);
         if (photos.length == 0)
           $("#carousel").hide();
         else createCarouselContent(photos);
@@ -179,9 +187,6 @@ $(function () {
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
-  $("#numPeople").attr("value", quotaMin);
-  $("#numPeople").attr("min", quotaMin);
-  $("#numPeople").attr("max", quotaMax);
 });
 
 function createCarouselContent(photos) {

@@ -181,31 +181,37 @@
             <h3 class="text-center card-header">Book the room</h3>
             <form id="bookingForm" class="card-body">
               <div class="form-group row">
-                <label>Date:&emsp;</label>
-                <input name="date" type="date" class="form-control" required>
-                <div id="dateChecker" class="invalid-feedback" style="display: none">
-                  Please input correct date.
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="timefrom" class="col-form-label">Time From</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
+                <label>Date:
+                  <input name="date" type="date" class="form-control" required>
+                  <div id="dateChecker" class="invalid-feedback" style="display: none">
+                    Please input correct date.
                   </div>
-                  <input id="starttime" name="starttime" type="time" class="form-control" value="00:00" required>
-                </div>
+                </label>
               </div>
               <div class="form-group row">
-                <label for="timeto" class="col-form-label">Time To</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
+                <label class="col-form-label">Time From
+                  <div class="input-group">
+                    <input name="starttime" type="time" class="form-control" value="00:00" required>
+                    <div id="timeFromChecker" class="invalid-feedback" style="display: none">
+                      Please input correct start time.
+                    </div>
                   </div>
-                  <input id="starttime" name="endtime" type="time" class="form-control" value="00:00" required>
-                </div>
+                </label>
               </div>
               <div class="form-group row">
-                <label>Number of People:&emsp;</label>
-                <input id="numPeople" name="numPeople" type="number" class="form-control" required>
+                <label class="col-form-label">Time To
+                  <div class="input-group">
+                    <input name="endtime" type="time" class="form-control" value="00:00" required>
+                    <div id="timeToChecker" class="invalid-feedback" style="display: none">
+                      Please input correct end time.
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div class="form-group row">
+                <label>Number of People:
+                  <input name="numPeople" type="number" class="form-control" required>
+                </label>
               </div>
               <p class="text-center"><button id="bookBtn" type="button" class="btn btn-primary">BOOK</button></p>
             </form>
