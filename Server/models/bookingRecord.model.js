@@ -5,8 +5,10 @@ var bookingRecordSchema = mongoose.Schema({
   party_room_id: { type: Number , required: true},
   owner_userName: { type: String , required: true},
   customer_userName: { type: String , required: true},
-  bookingStart: { type: Date , required: true},
-  bookingEnd: { type: Date , required: true},
+  time: [{
+    bookingStart: { type: Date , required: true},
+    bookingEnd: { type: Date , required: true}
+  }],
   numPeople: { type: Number, required: true},
 },{
     timestamps: true,
