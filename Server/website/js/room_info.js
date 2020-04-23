@@ -122,6 +122,23 @@ $(function () {
   });
 });
 
+// Logout
+$(function () {
+  $('#logoutBtn').click(() => {
+    $.ajax({
+      type: "post",
+      async: false,
+      url: "/logout"
+    })
+      .done(res => {
+        window.location.href = "/";
+      })
+      .fail((jqXHR, textStatus, err) => {
+        alert(err);
+      });
+  });
+});
+
 $(function () {
   var quotaMin = 0;
   var quotaMax = 0;
