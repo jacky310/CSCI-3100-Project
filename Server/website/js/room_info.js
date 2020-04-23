@@ -117,10 +117,8 @@ $(function () {
           })
           .done(res=>{
             if (res == "done") {
-              alert("Thank you");
-              
+              alert("Thank you");  
             }
-
           })
           .fail((jqXHR, textStatus, err) => {
             alert(err);

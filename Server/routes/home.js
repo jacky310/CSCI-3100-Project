@@ -12,6 +12,7 @@ const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 
 const PartyRoom = require('../models/partyRoom.model');
+const BookingRecord = require('../models/bookingRecord.model');
 
 router.post('/checkLogin', (req, res) => {
   var user = '';
