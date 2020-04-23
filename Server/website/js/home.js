@@ -31,10 +31,6 @@ $(function () {
     });
   });
 
-  $('#favourite').click(() => {
-    window.location.href = "/account";
-  });
-
   $('#bookingRecordBtn').click(() => {
     window.location.href = "/account";
   });

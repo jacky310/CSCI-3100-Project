@@ -1,11 +1,11 @@
-function stringTranDate(s, overNight){
+function stringTranDate(s, overNight) {
   d = new Date();
   var parts = s.match(/(\d+)\-(\d+)\-(\d+)\,(\d+)\:(\d+)/);
   year = parseInt(parts[1], 10);
-  month = parseInt(parts[2], 10)-1;
-  date= parseInt(parts[3], 10);
+  month = parseInt(parts[2], 10) - 1;
+  date = parseInt(parts[3], 10);
   hours = parseInt(parts[4], 10),
-  minutes = parseInt(parts[5], 10);
+    minutes = parseInt(parts[5], 10);
   d.setYear(year);
   d.setMonth(month);
   d.setDate(date);
@@ -16,13 +16,14 @@ function stringTranDate(s, overNight){
   return d;
 }
 
-function stringTranTime(s){
+function stringTranTime(s) {
   var parts = s.match(/(\d+)\:(\d+)/),
-  hours = parseInt(parts[1], 10)*60,
-  minutes = parseInt(parts[2], 10)+hours;
+    hours = parseInt(parts[1], 10) * 60,
+    minutes = parseInt(parts[2], 10) + hours;
   return minutes;
 }
 
+//check login
 $(function () {
   var userType = 'guest';
   var username = '';
@@ -57,59 +58,40 @@ $(function () {
     });
   });
 
-  $('#favourite').click(() => {
-    if (userType == 'customer') {
-      window.location.href = "/customer";
-    }
-    else if (userType == 'owner') {
-      window.location.href = "/owner";
-    }
-  });
-
   $('#bookingRecordBtn').click(() => {
-    if (userType == 'customer') {
-      window.location.href = "/customer";
-    }
-    else if (userType == 'owner') {
-      window.location.href = "/owner";
-    }
+    window.location.href = "/account";
   });
 
   $('#personalInfo').click(() => {
-    if (userType == 'customer') {
-      window.location.href = "/customer";
-    }
-    else if (userType == 'owner') {
-      window.location.href = "/owner";
-    }
+    window.location.href = "/account";
   });
 
-  $("#bookBtn").unbind().click(()=>{
-    if(userType != 'customer') {
+  $("#bookBtn").unbind().click(() => {
+    if (userType != 'customer') {
       alert("Please Login First");
       window.location.href = "/loginSignup";
     }
-    else{
+    else {
       var date = $("#bookingForm input[name='date']").val();
       if (date == '') {
         $("#bookingForm input[name='date']").addClass("is-invalid");
         $("#dateChecker").show();
       }
-      else{
+      else {
         var startTime = $("#bookingForm input[name='starttime']").val();
         var endTime = $("#bookingForm input[name='endtime']").val();
         var url = $("#bookingForm").attr('action');
         var overNight = false;
 
-        var start = stringTranDate(date+","+startTime, false);
-        if(stringTranTime(endTime) <= stringTranTime(startTime)) overNight = true;
-        var end = stringTranDate(date+","+endTime, overNight);
+        var start = stringTranDate(date + "," + startTime, false);
+        if (stringTranTime(endTime) <= stringTranTime(startTime)) overNight = true;
+        var end = stringTranDate(date + "," + endTime, overNight);
 
-        if (start < new Date()){
+        if (start < new Date()) {
           $("#bookingForm input[name='date']").addClass("is-invalid");
           $("#dateChecker").show();
         }
-        else{
+        else {
           $("#bookingForm input[name='date']").removeClass("is-invalid");;
           $("#dateChecker").hide();
 
@@ -131,9 +113,9 @@ $(function () {
             data: data,
             url: "/book"
           })
-          .done(res=>{
-            alert("done");
-          });
+            .done(res => {
+              alert("done");
+            });
         }
       }
     }
@@ -171,9 +153,9 @@ $(function () {
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
-    $("#numPeople").attr("value",quotaMin);
-    $("#numPeople").attr("min",quotaMin);
-    $("#numPeople").attr("max",quotaMax);
+  $("#numPeople").attr("value", quotaMin);
+  $("#numPeople").attr("min", quotaMin);
+  $("#numPeople").attr("max", quotaMax);
 });
 
 function createCarouselContent(photos) {
