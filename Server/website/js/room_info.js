@@ -123,15 +123,15 @@ $(function () {
       }
 
       partyRoomId = window.location.search.substring(1);
-      var numPeople = ("#bookingForm input[name='numPeople']").val();
+      var numPeople = $("#bookingForm input[name='numPeople']").val();
       data = {
         booker: username,
         partyRoomId: partyRoomId.replace("id=", ""),
         start: start,
         end: end,
         numPeople: numPeople,
-        starttime: startTime,
-        endtime: endTime
+        starttime: starttime,
+        endtime: endtime
       };
       $.ajax({
         type: "post",

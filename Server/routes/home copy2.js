@@ -54,6 +54,24 @@ conn.once('open', () => {
   gfs.collection('photos');
 });
 
+function stringTranDate(s, overNight) {
+  d = new Date();
+  var parts = s.match(/(\d+)\-(\d+)\-(\d+)\,(\d+)\:(\d+)/);
+  year = parseInt(parts[1], 10);
+  month = parseInt(parts[2], 10) - 1;
+  date = parseInt(parts[3], 10);
+  hours = parseInt(parts[4], 10),
+    minutes = parseInt(parts[5], 10);
+  d.setYear(year);
+  d.setMonth(month);
+  d.setDate(date);
+  d.setHours(hours);
+  d.setMinutes(minutes);
+  d.setSeconds(0);
+  if (overNight) d.setDate(d.getDate() + 1);
+  return d;
+}
+
 function timeTranString(t) {
   var hours = Math.floor(t / 60),
     minutes = t % 60
@@ -100,6 +118,9 @@ router.get('/search', (req, res) => {
   }
   var endDay = getDayofDate(day);
   var endTime = stringTranTime(req.query.endtime);
+
+  start = stringTranDate(req.query.date+","+req.query.starttime,false);
+  end = stringTranDate(req.query.date+","+req.query.endtime, nextDay);
 
   query.push({ $match: {price_setting: {$elemMatch:  { day: endDay }}}});
   query[5].$match.price_setting.$elemMatch["endTime"] = { $gte: endTime};
@@ -161,33 +182,58 @@ router.get('/search', (req, res) => {
       }
       for (let i = 0; i < r.length; i++) {
         let image = "";
-        gfs.files.findOne({ _id: r[i].photos[0] }, (err, file) => {
-          if (!file || file.length === 0) {
-            return res.status(404).json({
-              err: 'No images'
-            });
+        var counter = r.length;
+        BookingRecord.aggregate([
+          { $match: {party_room_id: r[i].party_room_id} },
+          // { $match: {time: {$elemMatch: {bookingStart: {$lte: start}, bookingEnd: {$gte: end} }}} },
+          // { $match: {time: {$elemMatch: {bookingStart: {$gte: start}, bookingEnd: {$lte: end} }}} },
+          // { $match: {time: {$elemMatch: {bookingStart: {$lte: start}, bookingEnd: {$gte: start} }}} },
+          // { $match: {time: {$elemMatch: {bookingStart: {$lte: end}, bookingEnd: {$gte: end} }}} }
+        ],(err, rec)=>{
+          console.log(start, end);
+          console.log(rec);
+          if (err) {
+            console.log(err);
+            res.send("fail");
           }
-          const readstream = gfs.createReadStream(file.filename);
-          readstream.on('data', (chunk) => {
-            image += chunk.toString('base64');
-          });
-          readstream.on('end', () => {
-            var found = r[i].price_setting.filter(item=>item.day === startDay).filter(item=>item.startTime <= startTime);
-            result.push({
-              id: r[i].party_room_id,
-              img: image,
-              title: r[i].party_room_name,
-              description: r[i].description,
-              capacity: r[i].quotaMin + " - " + r[i].quotaMax,
-              location: r[i].district,
-              price: found[0].price + " ~"
-            });
-            if (result.length == r.length) {
-              return res.send({
-                hasResult: r.length, result: result
+          else{
+            if (rec.length == 0){
+              gfs.files.findOne({ _id: r[i].photos[0] }, (err, file) => {
+                if (!file || file.length === 0) {
+                  return res.status(404).json("no image");
+                }
+                const readstream = gfs.createReadStream(file.filename);
+                readstream.on('data', (chunk) => {
+                  image += chunk.toString('base64');
+                });
+                readstream.on('end', () => {
+                  var found = r[i].price_setting.filter(item=>item.day === startDay).filter(item=>item.startTime <= startTime);
+                  result.push({
+                    id: r[i].party_room_id,
+                    img: image,
+                    title: r[i].party_room_name,
+                    description: r[i].description,
+                    capacity: r[i].quotaMin + " - " + r[i].quotaMax,
+                    location: r[i].district,
+                    price: found[0].price + " ~"
+                  });
+                  if (result.length == counter) {
+                    return res.send({
+                      hasResult: r.length, result: result
+                    });
+                  }
+                });
               });
             }
-          });
+            else{
+              counter--;
+              if (result.length == counter) {
+                return res.send({
+                  hasResult: r.length, result: result
+                });
+              }
+            }
+          }
         });
       }
     }

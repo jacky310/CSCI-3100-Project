@@ -53,7 +53,7 @@ router.post('/', (req, res) => {
 
   var nextDay = false;
   var realEndTime = stringTranTime(req.body.endtime);
-  if(req.body.endtime < req.body.starttime) {
+  if(req.body.endtime <= req.body.starttime) {
     realEndTime = stringTranTime(req.body.endtime) + 60*24;
     day++;
     nextDay = true;
@@ -113,7 +113,7 @@ router.post('/', (req, res) => {
         ],(err, rec)=>{
           if (err) {
             console.log(err);
-            res.send("booking fail");
+            res.send("try again");
           }
           else{
             if (rec.length == 0){
@@ -127,7 +127,7 @@ router.post('/', (req, res) => {
                     customer_userName: req.body.booker,
                     time: [{
                       bookingStart: req.body.start,
-                      bookingEnd: req.body.end,
+                      bookingEnd: req.body.end
                     }],
                     numPeople: parseInt(req.body.numPeople)
                   });

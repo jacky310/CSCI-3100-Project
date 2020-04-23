@@ -68,7 +68,7 @@
             <div id="mainSearchBarCol" class="col-sm">
               <div class="form-inline">
                 <label>Date:&emsp;</label>
-                <input name="date" type="date" class="form-control" value="new Date()" required>
+                <input name="date" type="date" class="form-control" required>
               </div>
               <div class="mt-3">
                 <div class="form-inline">
@@ -81,7 +81,9 @@
                   <div class="mainSearchBarTime">
                     <input id="endtime" name="endtime" type="time" class="form-control" value="00:00" required>
                   </div>
+                  <small class="form-text text-muted">If your end time is smaller than or equal to start time, we will count on next day.</small>
                 </div>
+
               </div>
               <div class="mt-3 form-inline">
                 <label>District:&emsp;</label>
@@ -128,7 +130,7 @@
           </div>
         </div>
         <div class="mx-auto text-center">
-          <button type="submit" class="btn btn-primary my-2 my-sm-0">Search</button>
+          <button id="searchBtn" type="button" class="btn btn-primary my-2 my-sm-0">Search</button>
         </div>
       </form>
     </div>

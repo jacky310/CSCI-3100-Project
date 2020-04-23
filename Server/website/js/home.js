@@ -1,4 +1,29 @@
 //search
+function stringTranDate(s, overNight) {
+  d = new Date();
+  var parts = s.match(/(\d+)\-(\d+)\-(\d+)\,(\d+)\:(\d+)/);
+  year = parseInt(parts[1], 10);
+  month = parseInt(parts[2], 10) - 1;
+  date = parseInt(parts[3], 10);
+  hours = parseInt(parts[4], 10),
+    minutes = parseInt(parts[5], 10);
+  d.setYear(year);
+  d.setMonth(month);
+  d.setDate(date);
+  d.setHours(hours);
+  d.setMinutes(minutes);
+  d.setSeconds(0);
+  if (overNight) d.setDate(d.getDate() + 1);
+  return d;
+}
+
+function stringTranTime(s) {
+  var parts = s.match(/(\d+)\:(\d+)/),
+    hours = parseInt(parts[1], 10) * 60,
+    minutes = parseInt(parts[2], 10) + hours;
+  return minutes;
+}
+
 $(function () {
   $("#searchNowBtn").click(() => $("#mainSearchBar").slideDown("slow"));
 
@@ -6,8 +31,47 @@ $(function () {
 
   $("#priceRange").on("input", () => $("#priceValue").html("Each hour Price: $" + $("#priceRange").val() + " / person"));
 
-  $("#searchForm").submit(function (e) {
-    var form = $(this);
+  $("#searchBtn").click(function () {
+    var form = $("#searchForm");
+    var date = $("#searchForm input[name='date']").val();
+
+    if (date == '') {
+      $("#searchForm input[name='date']").addClass("is-invalid");
+      return;
+    }
+    else {
+      $("#searchForm input[name='date']").removeClass("is-invalid");
+    }
+
+    var currentTime = new Date();
+    var starttime = $("#searchForm input[name='starttime']").val();
+    var endtime = $("#searchForm input[name='endtime']").val();
+    var overNight = false;
+
+    var start = stringTranDate(date + "," + starttime, false);
+    if (stringTranTime(endtime) <= stringTranTime(starttime)) overNight = true;
+    var end = stringTranDate(date + "," + endtime, overNight);
+
+    if (start < currentTime) {
+      $("#searchForm  input[name='starttime']").addClass("is-invalid");
+      $("#searchForm input[name='date']").addClass("is-invalid");
+      return;
+    }
+    else {
+      $("#searchForm  input[name='starttime']").removeClass("is-invalid");
+      $("#searchForm input[name='date']").removeClass("is-invalid");
+    }
+
+    if (end < currentTime) {
+      $("#searchForm  input[name='endtime']").addClass("is-invalid");
+      $("#searchForm input[name='date']").addClass("is-invalid");
+      return;
+    }
+    else {
+      $("#searchForm  input[name='endtime']").removeClass("is-invalid");
+      $("#searchForm input[name='date']").removeClass("is-invalid");
+    }
+
     var url = form.attr('action');
     console.log(form.serialize());
     $.ajax({
@@ -41,7 +105,7 @@ $(function () {
       .fail((jqXHR, textStatus, err) => {
         alert(err);
       });
-    e.preventDefault();
+    // e.preventDefault();
   });
 });
 
