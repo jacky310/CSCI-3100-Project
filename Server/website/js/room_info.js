@@ -121,7 +121,9 @@ $(function () {
             partyRoomId: partyRoomId.replace("id=", ""),
             start: start,
             end: end,
-            numPeople: numPeople
+            numPeople: numPeople,
+            starttime: startTime,
+            endtime: endTime
           };
           console.log(data);
 
@@ -132,8 +134,11 @@ $(function () {
             url: "/book"
           })
           .done(res=>{
-            alert("done");
-          });
+            if (res == "done") alert("Thank you");
+          })
+          .fail((jqXHR, textStatus, err) => {
+            alert(err);
+          });;
         }
       }
     }

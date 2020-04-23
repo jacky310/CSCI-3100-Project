@@ -105,7 +105,6 @@ router.get('/search', (req, res) => {
       var deleteResult = [];
       for (var i = 0; i < r.length; i++) {
         var buf = null;
-        var checkTimeGap = [];
         var found = r[i].price_setting.filter(item=>item.day === startDay).filter(item=>item.startTime <= startTime);
         buf = found[0].endTime;
         var overNightChecker = false;
@@ -194,8 +193,7 @@ router.post('/addPartyTest', function (req, res) {
     client.connect(err => {
       const collection = client.db("PartyRoomBooking").collection("photos.files");
       collection.findOne({ filename: "456_test2.jpg" }, (err, p) => {
-
-        var r = new PartyRoom({
+        var a = {
           party_room_id: maxId + 1,
           party_room_name: "CUHK6",
           party_room_number: "12345678",
@@ -223,7 +221,9 @@ router.post('/addPartyTest', function (req, res) {
           }],
           facilities: ["VR", "Switch"],
           photos: [p._id]
-        });
+        };
+        a.photos.push(p.id[i]);
+        var r = new PartyRoom(a);
 
         r.save(function (err) {
           if (err) res.send(err);
