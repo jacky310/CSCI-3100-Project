@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,14 +17,34 @@
   <script src="./js/popper.min.js"></script>
   <script src="./js/bootstrap-4.4.1.js"></script>
   <script src="./js/loginSignup.js"></script>
-
+  <script src="./js/sidebar.js"></script>
 </head>
 
 <body>
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
     <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
-    <form action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit" class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
+    <form action="/loginSignup" method="get">
+      <input id="loginSignupBtn" type="submit" class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up">
+    </form>
+    <div id="userIcon" style="display: none"></div>
   </nav>
+
+  <div id="sideBar" class="shadow" style="display: none">
+    <ul>
+      <li>
+        <div id="userName" class="sideItem text-monospace"></div>
+      </li>
+      <li>
+        <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
+      </li>
+      <li>
+        <div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
+      </li>
+      <li>
+        <div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
+      </li>
+    </ul>
+  </div>
 
   <section id="loginSignupPage">
     <div class="jumbotron jumbotron-fluid text-center" style="padding-top: 100px">
@@ -31,12 +52,12 @@
       <br>
       <div class="container">
         <div>
-        <ul id="clothingnav1" class="nav nav-tabs" role="tablist">
-          <li class="nav-item" style="width: 50%"> <a class="nav-link active" href="#home1" id="hometab1" role="tab" data-toggle="tab"
-              aria-controls="home" aria-expanded="true">Login</a> </li>
-          <li class="nav-item" style="width: 50%"> <a class="nav-link" href="#paneTwo1" role="tab" id="hatstab1" data-toggle="tab"
-              aria-controls="hats">Sign Up</a> </li>
-        </ul>
+          <ul id="clothingnav1" class="nav nav-tabs" role="tablist">
+            <li class="nav-item" style="width: 50%"> <a class="nav-link active" href="#home1" id="hometab1" role="tab"
+                data-toggle="tab" aria-controls="home" aria-expanded="true">Login</a> </li>
+            <li class="nav-item" style="width: 50%"> <a class="nav-link" href="#paneTwo1" role="tab" id="hatstab1"
+                data-toggle="tab" aria-controls="hats">Sign Up</a> </li>
+          </ul>
         </div>
         <!-- Content Panel -->
         <div class="tab-content">
@@ -98,4 +119,5 @@
     </div>
   </div>
 </body>
+
 </html>
