@@ -52,27 +52,13 @@
   </div>
 
   <div class="container mt-3">
+    <br><br>
     <h1 id="partyRoomName" class="display-4"></h1>
     <div class="row">
       <div class="col-12">
         <div id="carousel" class="carousel slide" data-ride="carousel">
-          <ol id="indicators" class="carousel-indicators">
-            <!--   <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleControls" data-slide-to="1"></li>
-            <li data-target="#carouselExampleControls" data-slide-to="2"></li> -->
-          </ol>
-          <div id="inner" class="carousel-inner">
-            <!-- <div class="carousel-item active">
-            </div>
-            <div class="carousel-item">
-            </div>
-            <div class="carousel-item">
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Item 3 Heading</h5>
-                <p>Item 3 Description</p>
-              </div>
-            </div> -->
-          </div>
+          <ol id="indicators" class="carousel-indicators"></ol>
+          <div id="inner" class="carousel-inner"></div>
           <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
@@ -104,8 +90,8 @@
         <div class="col-lg-3 col-md-6 col-12">
           <ul class="list-unstyled">
             <li class="media">
-              <img class="mr-3 rounded-circle" src="images/district_icon.png" alt="District icon"
-                width="50px" height="50px">
+              <img class="mr-3 rounded-circle" src="images/district_icon.png" alt="District icon" width="50px"
+                height="50px">
               <div class="media-body ">
                 <h5 class="mt-0 mb-1">District</h5>
                 <p id="district" class="mb-0"></p>
@@ -116,8 +102,8 @@
         <div class="col-lg-3 col-md-6 col-12">
           <ul class="list-unstyled">
             <li class="media">
-              <img class="mr-3 rounded-circle" src="images/location_icon.png" alt="Location icon"
-                width="50px" height="50px">
+              <img class="mr-3 rounded-circle" src="images/location_icon.png" alt="Location icon" width="50px"
+                height="50px">
               <div class="media-body ">
                 <h5 class="mt-0 mb-1">Address</h5>
                 <p id="address" class="mb-0"></p>
@@ -128,8 +114,7 @@
         <div class="col-lg-3 d-md-none d-lg-block">
           <ul class="list-unstyled">
             <li class="media">
-              <img class="mr-3 rounded-circle" src="images/phone_icon.png" alt="phone icon" width="50px"
-                height="50px">
+              <img class="mr-3 rounded-circle" src="images/phone_icon.png" alt="phone icon" width="50px" height="50px">
               <div class="media-body">
                 <h5 class="mt-0 mb-1">Phone Number</h5>
                 <p class="mb-0">123456789</p>
@@ -140,8 +125,8 @@
 
         <div class="col-lg-12 d-md-none d-lg-block">
           <ul class="list-unstyled">
-            <li class="media"> <img class="mr-3 rounded-circle" src="images/price_icon.png" alt="price icon" width="50px"
-                height="50px">
+            <li class="media"> <img class="mr-3 rounded-circle" src="images/price_icon.png" alt="price icon"
+                width="50px" height="50px">
               <div class="media-body">
                 <h5 class="mt-0 mb-1">Price</h5>
                 <p class="mb-0">$38.5/hr</p>
@@ -199,11 +184,11 @@
             <h3 class="text-center card-header">Book the room</h3>
             <form id="bookingForm" class="card-body">
               <div class="form-group row">
-                  <label>Date:&emsp;</label>
-                  <input name="date" type="date" class="form-control" required>
-                  <div id="dateChecker" class="invalid-feedback" style="display: none">
-                    Please input correct date.
-                  </div>
+                <label>Date:&emsp;</label>
+                <input name="date" type="date" class="form-control" required>
+                <div id="dateChecker" class="invalid-feedback" style="display: none">
+                  Please input correct date.
+                </div>
               </div>
               <div class="form-group row">
                 <label for="timefrom" class="col-form-label">Time From</label>
@@ -222,8 +207,8 @@
                 </div>
               </div>
               <div class="form-group row">
-                  <label>Number of People:&emsp;</label>
-                  <input id="numPeople" name="numPeople" type="number" class="form-control" required>
+                <label>Number of People:&emsp;</label>
+                <input id="numPeople" name="numPeople" type="number" class="form-control" required>
               </div>
               <p class="text-center"><button id="bookBtn" type="button" class="btn btn-primary">BOOK</button></p>
             </form>
