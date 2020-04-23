@@ -34,20 +34,7 @@ router.get("/", function (req, res) {
 router.post("/", function (req, res) {
   PartyRoom.findOne({ party_room_id: req.body.id }, (err, room) => {
     if (err) throw err;
-<<<<<<< HEAD
-    else if (room == null) res.status(404).send("404 not found");
-    else res.send(room);
-  });
-});
-
-router.post("/photos", function (req, res) {
-  // console.log(req.body);
-  gfs.files.findOne({ _id: req.body.id }, (err, file) => {
-    if (err) throw err;
-    if (!file || file.length === 0) console.log("Impossible");
-=======
     else if (room == null) res.send("notFound");
->>>>>>> c7d3416002fc72b5e29a64ed6ad567a8d83263eb
     else {
       let photos = [];
       for (let i = 0; i < room.photos.length; i++) {
