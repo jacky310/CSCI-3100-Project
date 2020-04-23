@@ -87,23 +87,11 @@
         <div class="col-lg-3 col-md-6 col-12">
           <ul class="list-unstyled">
             <li class="media">
-              <img class="mr-3 rounded-circle" src="images/district_icon.png" alt="District icon" width="50px"
+              <img class="mr-3 rounded-circle" src="images/location_icon.png" alt="Location icon" width="50px"
                 height="50px">
               <div class="media-body ">
                 <h5 class="mt-0 mb-1">District</h5>
                 <p id="district" class="mb-0"></p>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="col-lg-3 col-md-6 col-12">
-          <ul class="list-unstyled">
-            <li class="media">
-              <img class="mr-3 rounded-circle" src="images/location_icon.png" alt="Location icon" width="50px"
-                height="50px">
-              <div class="media-body ">
-                <h5 class="mt-0 mb-1">Address</h5>
-                <p id="address" class="mb-0"></p>
               </div>
             </li>
           </ul>
@@ -114,19 +102,18 @@
               <img class="mr-3 rounded-circle" src="images/phone_icon.png" alt="phone icon" width="50px" height="50px">
               <div class="media-body">
                 <h5 class="mt-0 mb-1">Phone Number</h5>
-                <p class="mb-0"></p>
+                <p id="partyRoomNumber" class="mb-0"></p>
               </div>
             </li>
           </ul>
         </div>
-
-        <div class="col-lg-12 d-md-none d-lg-block">
+        <div class="col-lg-3 d-md-none d-lg-block">
           <ul class="list-unstyled">
             <li class="media"> <img class="mr-3 rounded-circle" src="images/price_icon.png" alt="price icon"
                 width="50px" height="50px">
               <div class="media-body">
                 <h5 class="mt-0 mb-1">Price</h5>
-                <p class="mb-0"></p>
+                <p id="price" class="mb-0"></p>
               </div>
             </li>
           </ul>
@@ -138,39 +125,50 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-12">
-        <h3>Description</h3>
         <nav>
           <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-feature1-tab" data-toggle="tab" href="#nav-feature1" role="tab"
-              aria-controls="nav-feature1" aria-selected="true">Features</a>
-            <a class="nav-item nav-link" id="nav-address-tab" data-toggle="tab" href="#nav-address" role="tab"
-              aria-controls="nav-address" aria-selected="false">Address</a>
-            <a class="nav-item nav-link" id="nav-facilities-tab" data-toggle="tab" href="#nav-facilities" role="tab"
-              aria-controls="nav-facilities" aria-selected="false">Facilities</a>
+            <a class="nav-item nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description"
+              role="tab" aria-controls="nav-description" aria-selected="true">Description</a>
+            <a class="nav-item nav-link" id="nav-location-tab" data-toggle="tab" href="#nav-location" role="tab"
+              aria-controls="nav-location" aria-selected="false">Location</a>
+            <a class="nav-item nav-link" id="nav-business-tab" data-toggle="tab" href="#nav-business" role="tab"
+              aria-controls="nav-business" aria-selected="false">Business Hour</a>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-feature1" role="tabpanel" aria-labelledby="nav-feature1-tab">
-            <p class="text-center mt-2"><img src="images/info_1.jpg" alt="" width="80%"></p>
-            <p>The biggest party room in Hong Kong!&nbsp;</p>
+          <div class="tab-pane fade show active" id="nav-description" role="tabpanel"
+            aria-labelledby="nav-description-tab">
+            <ul class="list-group-flush">
+              <li class='list-group-item'id="description"></li>
+              <li class='list-group-item'id="address"></li>
+              <li class='list-group-item'id="facilities"></li>
+            </ul>
           </div>
-          <div class="tab-pane fade" id="nav-address" role="tabpanel" aria-labelledby="nav-address-tab">
-            <p class="text-center mt-2"><img src="images/3b536b.gif" alt=""></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus maxime aut ea impedit voluptates aperiam
-              dolor laborum officiis autem aspernatur! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Delectus, alias, repudiandae sunt illo consequatur aperiam doloribus nesciunt ut deserunt ipsa est tempora
-              nihil. Totam eveniet aperiam debitis fugit ipsa doloremque. Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Optio sequi dolorem suscipit assumenda molestiae voluptatem qui consequuntur magni?
-              Deleniti, corporis.</p>
+          <div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="nav-location-tab">
+            <div class="mapouter">
+              <div class="gmap_canvas"><iframe width="600" height="500" id="gmap_canvas"
+                  src="https://maps.google.com/maps?q=The%20Chinese%20University%20of%20Hong%20Kong%2C%20Central%20Ave&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a
+                  href="https://www.whatismyip-address.com">what is my ip</a></div>
+              <style>
+                .mapouter {
+                  position: relative;
+                  text-align: right;
+                  height: 500px;
+                  width: 600px;
+                }
+
+                .gmap_canvas {
+                  overflow: hidden;
+                  background: none !important;
+                  height: 500px;
+                  width: 600px;
+                }
+              </style>
+            </div>
           </div>
-          <div class="tab-pane fade" id="nav-facilities" role="tabpanel" aria-labelledby="nav-facilities-tab">
-            <p class="text-center mt-2"><img src="images/3b536b.gif" alt=""></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus maxime aut ea impedit voluptates aperiam
-              dolor laborum officiis autem aspernatur! Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Delectus, alias, repudiandae sunt illo consequatur aperiam doloribus nesciunt ut deserunt ipsa est tempora
-              nihil. Totam eveniet aperiam debitis fugit ipsa doloremque. Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Optio sequi dolorem suscipit assumenda molestiae voluptatem qui consequuntur magni?
-              Deleniti, corporis.</p>
+          <div class="tab-pane fade" id="nav-business" role="tabpanel" aria-labelledby="nav-business-tab">
+            <ul id="price_setting" class="list-group-flush"></ul>
           </div>
         </div>
       </div>
@@ -210,7 +208,7 @@
               </div>
               <div class="form-group row">
                 <label>Number of People:
-                  <input name="numPeople" type="number" class="form-control" required>
+                  <input id="numPeople" name="numPeople" type="number" value="0" class="form-control" required>
                 </label>
               </div>
               <p class="text-center"><button id="bookBtn" type="button" class="btn btn-primary">BOOK</button></p>
@@ -221,34 +219,7 @@
       </div>
     </div>
   </div>
-  <hr>
-  <section>
-    <div class="container">
-      <h1>MAP</h1>
-      <div class="mapouter">
-        <div class="gmap_canvas"><iframe width="600" height="500" id="gmap_canvas"
-            src="https://maps.google.com/maps?q=The%20Chinese%20University%20of%20Hong%20Kong%2C%20Central%20Ave&t=&z=13&ie=UTF8&iwloc=&output=embed"
-            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a
-            href="https://www.whatismyip-address.com">what is my ip</a></div>
-        <style>
-          .mapouter {
-            position: relative;
-            text-align: right;
-            height: 500px;
-            width: 600px;
-          }
 
-          .gmap_canvas {
-            overflow: hidden;
-            background: none !important;
-            height: 500px;
-            width: 600px;
-          }
-        </style>
-      </div>
-    </div>
-  </section>
-  <hr>
   <footer class="text-center">
     <div class="container">
       <hr>
