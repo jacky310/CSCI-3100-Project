@@ -1,56 +1,22 @@
 <!DOCTYPE html>
-<script>
-	function appendRow()
-	{
-		document.getElementById('demo').innerHTML+='<br/>\n' +
-				'\t\t<div id="priceSetting">\n' +
-				'\t\t\t<div class="priceSettingBlock">\n' +
-				'\t\t\t\t<p class="priceSettingTitle">Price Setting:</p>\n' +
-				'\t\t\t\t<div class="form-row priceSettingDetail">\n' +
-				'\t\t\t\t\t<div class="form-group col-md-3">\n' +
-				'\t\t\t\t\t\t<label>Day: </label>\n' +
-				'\t\t\t\t\t\t<select name="day" class="form-control">\n' +
-				'\t\t\t\t\t\t\t<option value="Mondays to Thursdays">Mondays to Thursdays</option>\n' +
-				'\t\t\t\t\t\t\t<option value="Fridays">Fridays</option>\n' +
-				'\t\t\t\t\t\t\t<option value="Saturdays">Saturdays</option>\n' +
-				'\t\t\t\t\t\t\t<option value="Sunday">Sunday</option>\n' +
-				'\t\t\t\t\t\t</select>\n' +
-				'\t\t\t\t\t</div>\n' +
-				'\t\t\t\t\t<div class="form-group col-auto">\n' +
-				'\t\t\t\t\t\t<label>Time: </label>\n' +
-				'\t\t\t\t\t\t<div class="form-inline">\n' +
-				'\t\t\t\t\t\t\t<input name="startTime" type="time" class="form-control" value="00:00:00">\n' +
-				'\t\t\t\t\t\t\t<label>&emsp;to&emsp;</label>\n' +
-				'\t\t\t\t\t\t\t<input name="endTime" type="time" class="form-control" value="00:00:00">\n' +
-				'\t\t\t\t\t\t</div>\n' +
-				'\t\t\t\t\t</div>\n' +
-				'\t\t\t\t\t<div class="form-group col-md-3">\n' +
-				'\t\t\t\t\t\t<label>Price: </label>\n' +
-				'\t\t\t\t\t\t<input name="price" type="text" class="form-control">\n' +
-				'\t\t\t\t\t</div>\n' +
-				'\t\t\t\t</div>\n' +
-				'\t\t\t</div>\n' +
-				'\t\t</div><br/>';
-	}
-</script>
 
 <html lang="en">
   <head>
 	  <meta charset="UTF-8">
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-    	<title>Let Party - Party Room Owner - Add Party Room </title>
+	  <title>Let Party - Party Room Owner - Add Party Room </title>
 
 	  <!-- Bootstrap -->
 	  <link href="./css/bootstrap-4.4.1.css" rel="stylesheet">
-
 	  <link href="./css/ownerSignup.css" rel="stylesheet">
+	  <link href="./css/index.css" rel="stylesheet">
 	  <!--jQuery-->
 	  <script src="./js/jquery-3.4.1.min.js"></script>
 	  <!-- Include all compiled plugins (below), or include individual files as needed -->
 	  <script src="./js/popper.min.js"></script>
 	  <script src="./js/bootstrap-4.4.1.js"></script>
-	  <script src="./js/ownerSignup.js"></script>
+	  <script src="./js/index.js"></script>
 
 	  <!-- Icon -->
 	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -59,8 +25,9 @@
 <body style="padding-top: 70px">
 <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
 	<a class="navbar-brand mr-auto" href="index.html">LetParty</a>
-	<form action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
-													class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
+	<form id="loginSignupForm" action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
+																		 class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
+	<div id="userIcon" style="display: none"></div>
 </nav>
 <div class="container ">
   <h1>Party Room Owner - Add Party Room </h1>
