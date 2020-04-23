@@ -117,7 +117,7 @@ function createCard(id, img, title, description, capacity, location, price) {
   let cardBody = $("<div class='card-body'></div>");
 
   let cardTitle = $("<h5 class='card-title'></h5>").text(title);
-  let cardDescription = $("<p class='card-text'></p>").text(description);
+  let cardDescription = $("<p class='card-text crop-text-2'></p>").text(description);
 
   let cardDetail = $("<ul class='list-group list-group-flush'></ul>");
   let cardCapacity = $("<li class='list-group-item'></li>").text("Capacity: " + capacity);

@@ -177,7 +177,7 @@ router.get('/search', (req, res) => {
               img: image,
               title: r[i].party_room_name,
               description: r[i].description,
-              capacity: "min: " + r[i].quotaMin + " max: " + r[i].quotaMax,
+              capacity: r[i].quotaMin + " - " + r[i].quotaMax,
               location: r[i].district,
               price: "Free"
             });
