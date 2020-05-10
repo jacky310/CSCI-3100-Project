@@ -47,24 +47,23 @@ app.get('/', function (req, res) {
 });
 app.use(express.static('website'));
 
-// For Home page
 const home = require('./routes/home');
 app.use('/', home);
 
 const loginSignup = require('./routes/loginSignup');
 app.use('/loginSignup', loginSignup);
 
+const customer_route = require('./routes/customer');
+app.use('/customer', customer_route);
+
+const owner_route = require('./routes/owner');
+app.use('/owner', owner_route);
+
 const room_info = require('./routes/room_info');
 app.use('/partyRoom', room_info);
 
 const createPartyRoom = require('./routes/create_partyroom');
 app.use('/create_partyroom', createPartyRoom);
-
-const owner_route = require('./routes/owner');
-app.use('/owner', owner_route);
-
-const customer_route = require('./routes/customer');
-app.use('/customer', customer_route);
 
 const book = require('./routes/book');
 app.use('/book', book);
