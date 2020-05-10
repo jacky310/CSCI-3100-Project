@@ -1,185 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Let Party - Owner Information</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-    <!--jQuery-->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.4.1.js"></script>
-    <script src="js/owner_info.js"></script>
+<head>
+  <title>Let Party - Owner Information</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/style.css" rel="stylesheet">
 
-  </head>
+  <!-- Bootstrap -->
+  <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+  <!--jQuery-->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+  <script src="js/owner_info.js"></script>
+
+</head>
 
 <body style="padding-top: 70px">
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <a class="navbar-brand" href="index.html">LetParty</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
       aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"> <span
         class="navbar-toggler-icon"></span> </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
       <ul class="navbar-nav mr-auto">
       </ul>
-    <form class="form-inline my-2 my-lg-0">
+      <form class="form-inline my-2 my-lg-0">
         <button id="logoutBtn" class="btn btn-outline-primary my-2 my-sm-0" type="button">Logout</button>
       </form>
     </div>
-</nav>
+  </nav>
 
-<section class="py-5 header">
+  <section class="py-5 header">
     <div class="container py-4">
-        <div class="row">
-            <div class="col-md-3">
-                <!-- Tabs nav -->
-                <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link mb-3 p-3 shadow active" id="v-pills-inbox-tab" data-toggle="pill" href="#v-pills-inbox" role="tab" aria-controls="v-pills-inbox" aria-selected="true">
-                        <i class="fa fa-user-circle-o mr-2"></i>
-                        <span class="font-weight-bold small text-uppercase">Inbox</span></a>
+      <div class="row">
+        <div class="col-md-3">
+          <!-- Tabs nav -->
+          <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+            <a class="nav-link mb-3 p-3 shadow active" id="v-pills-inbox-tab" data-toggle="pill" href="#inbox"
+              role="tab" aria-controls="v-pills-inbox" aria-selected="true">
+              <i class="fa fa-user-circle-o mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Inbox</span></a>
 
-                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-bookings-tab" data-toggle="pill" href="#v-pills-bookings" role="tab" aria-controls="v-pills-bookins" aria-selected="false">
-                        <i class="fa fa-calendar-minus-o mr-2"></i>
-                        <span class="font-weight-bold small text-uppercase">Bookings</span></a>
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-roomlist-tab" data-toggle="pill" href="#room" role="tab"
+              aria-controls="v-pills-contacts" aria-selected="false">
+              <i class="fa fa-star mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Room List</span></a>
 
-                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-roomlist-tab" data-toggle="pill" href="#v-pills-roomlist" role="tab" aria-controls="v-pills-contacts" aria-selected="false">
-                        <i class="fa fa-star mr-2"></i>
-                        <span class="font-weight-bold small text-uppercase">Room List</span></a>
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-bookings-tab" data-toggle="pill" href="#booking" role="tab"
+              aria-controls="v-pills-bookins" aria-selected="false">
+              <i class="fa fa-calendar-minus-o mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Bookings</span></a>
 
-                    <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
-                        <i class="fa fa-check mr-2"></i>
-                        <span class="font-weight-bold small text-uppercase">Personal information</span></a>
-                    </div>
-            </div>
-
-            <div class="col-md-9">
-                <!-- Tabs content -->
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade shadow rounded bg-white show active p-5" id="v-pills-inbox" role="tabpanel" aria-labelledby="v-pills-inbox-tab">
-								<div class="table-responsive">
-						<table class="table table-hover">
-    						<thead>
-      						<tr>
-        						<th>Receive Date</th>
-        						<th>Receive Time</th>
-        						<th>Sender ID</th>
-        						<th>Title</th>
-        						<th>Action</th>
-      						</tr>
-    						</thead>
-    						<tbody>
-     						<tr>
-        						<td>15 Apr 2020</td>
-        						<td>11:33:34</td>
-        						<td>Shao Zili</td>
-        						<td>How to amend the booking time?</td>
-        						<td><button id="ViewBtn1" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button></td>
-      						</tr>
-      						<tr>
-        						<td>15 Apr 2020</td>
-        						<td>20:04:15</td>
-        						<td>Hello Party</td>
-        						<td>Update party room list</td>
-        						<td><button id="ViewBtn2" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button></td>
-      						</tr>
-    						</tbody>
-  							</table></p>
-						          </div>
-                    </div>
-                    <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-bookings" role="tabpanel" aria-labelledby="v-pills-bookings-tab">
-						<div class="table-responsive">
-                        <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th>Booking id</th>
-                            <th>Customer Name</th>
-                            <th>Party Room Owner Name</th>
-                            <th>Booking Date</th>
-                            <th>Booking Time</th>
-                            <th>Action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>0000137</td>
-                            <td>Shao Zili</td>
-                            <td>Hello Party</td>
-                            <td>5 May 2020</td>
-                            <td>19:00 - 26:00</td>
-                            <td><button id="ViewBtn3" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button></td>
-                          </tr>
-                          <tr>
-                            <td>0000139</td>
-                            <td>Handsome Michael</td>
-                            <td>Hello Party</td>
-                            <td>6 May 2020</td>
-                            <td>13:00 - 20:00</td>
-                            <td><button id="ViewBtn4" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button></td>
-                          </tr>
-                          <tr>
-                            <td>0000140</td>
-                            <td>Handsome Michael</td>
-                            <td>Pixel Party</td>
-                            <td>30 Apr 2020</td>
-                            <td>15:00 - 20:00</td>
-                            <td><button id="ViewBtn5" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      </div>
-      				</div>
-
-                    <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-roomlist" role="tabpanel" aria-labelledby="v-pills-roomlist-tab">
-                      <div class="card col-md-4"> <img class="card-img-top" src="images/card-img.png" alt="Card image cap">
-                          <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a> </div>
-                      </div>
-                        <br><br>
-                        <a href="./partyroom_create.html" class="btn btn-primary">Add PartyRoom</a> </div>
-					                      </div>
-
-                    <div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                        <h4 class="font-italic mb-4">Personal information</h4>
-						<div class="table-responsive">
-						<table width="80%" border="0">
-						  <tbody>
-							<tr>
-							  <td>Company Name:</td>
-							  <td id="companyName"></td>
-							</tr>
-							<tr>
-							  <td>Name:</td>
-							  <td id="username"></td>
-							</tr>
-							<tr>
-							  <td>Email address:</td>
-							  <td id="email"></td>
-							</tr>
-							<tr>
-							  <td>Phone Number:</td>
-							  <td id="phone"></td>
-							</tr>
-						  </tbody>
-						</table>
-						</div>
-						<hr>
-						<br>
-					  <button type="button" class="btn btn-primary">Edit your profile</button>
-                    </div>
-                </div>
-            </div>
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#info" role="tab"
+              aria-controls="v-pills-settings" aria-selected="false">
+              <i class="fa fa-check mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Personal information</span></a>
+          </div>
         </div>
-    </div>
-</section>
 
-<div class="container">
+        <div class="col-md-9">
+          <!-- Tabs content -->
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade shadow rounded bg-white show active p-5" id="inbox" role="tabpanel"
+              aria-labelledby="v-pills-inbox-tab">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Receive Date</th>
+                      <th>Receive Time</th>
+                      <th>Sender ID</th>
+                      <th>Title</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>15 Apr 2020</td>
+                      <td>11:33:34</td>
+                      <td>Shao Zili</td>
+                      <td>How to amend the booking time?</td>
+                      <td><button id="ViewBtn1" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>15 Apr 2020</td>
+                      <td>20:04:15</td>
+                      <td>Hello Party</td>
+                      <td>Update party room list</td>
+                      <td><button id="ViewBtn2" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                </p>
+              </div>
+            </div>
+
+            <div class="tab-pane fade shadow rounded bg-white p-5" id="room" role="tabpanel"
+              aria-labelledby="v-pills-roomlist-tab">
+              <div class="card col-md-4"> <img class="card-img-top" src="images/card-img.png" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+              <br><br>
+              <a href="./partyroom_create.html" class="btn btn-primary">Add PartyRoom</a>
+            </div>
+
+            <div class="tab-pane fade shadow rounded bg-white p-5" id="booking" role="tabpanel"
+              aria-labelledby="v-pills-bookings-tab">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Booking id</th>
+                      <th>Customer Name</th>
+                      <th>Party Room Owner Name</th>
+                      <th>Booking Date</th>
+                      <th>Booking Time</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>0000137</td>
+                      <td>Shao Zili</td>
+                      <td>Hello Party</td>
+                      <td>5 May 2020</td>
+                      <td>19:00 - 26:00</td>
+                      <td><button id="ViewBtn3" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>0000139</td>
+                      <td>Handsome Michael</td>
+                      <td>Hello Party</td>
+                      <td>6 May 2020</td>
+                      <td>13:00 - 20:00</td>
+                      <td><button id="ViewBtn4" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>0000140</td>
+                      <td>Handsome Michael</td>
+                      <td>Pixel Party</td>
+                      <td>30 Apr 2020</td>
+                      <td>15:00 - 20:00</td>
+                      <td><button id="ViewBtn5" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tab-pane fade shadow rounded bg-white p-5" id="info" role="tabpanel"
+              aria-labelledby="v-pills-settings-tab">
+              <h4 class="font-italic mb-4">Personal information</h4>
+              <div class="table-responsive">
+                <table width="80%" border="0">
+                  <tbody>
+                    <tr>
+                      <td>Company Name:</td>
+                      <td id="companyName"></td>
+                    </tr>
+                    <tr>
+                      <td>Name:</td>
+                      <td id="username"></td>
+                    </tr>
+                    <tr>
+                      <td>Email address:</td>
+                      <td id="email"></td>
+                    </tr>
+                    <tr>
+                      <td>Phone Number:</td>
+                      <td id="phone"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr>
+              <br>
+              <button type="button" class="btn btn-primary">Edit your profile</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <div class="container">
     <hr>
     <div class="row">
       <div class="text-center col-lg-6 offset-lg-3">
@@ -189,4 +209,5 @@
     </div>
   </div>
 </body>
+
 </html>

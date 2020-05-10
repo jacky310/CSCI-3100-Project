@@ -1,289 +1,297 @@
 <!DOCTYPE html>
 <script>
-	function appendRow()
-	{
-		document.getElementById('demo').innerHTML+='<br/>\n' +
-				'\t\t<div id="priceSetting">\n' +
-				'\t\t\t<div class="priceSettingBlock">\n' +
-				'\t\t\t\t<p class="priceSettingTitle">Price Setting</p>\n' +
-				'\t\t\t\t<div class="form-row priceSettingDetail">\n' +
-				'\t\t\t\t\t<div class="form-group col-md-3">\n' +
-				'\t\t\t\t\t\t<label>Day: </label>\n' +
-				'\t\t\t\t\t\t<select name="day1" class="form-control">\n' +
-				'\t\t\t\t\t\t\t<option value="Mondays to Thursdays">Mondays to Thursdays</option>\n' +
-				'\t\t\t\t\t\t\t<option value="Fridays">Fridays</option>\n' +
-				'\t\t\t\t\t\t\t<option value="Saturdays">Saturdays</option>\n' +
-				'\t\t\t\t\t\t\t<option value="Sunday">Sunday</option>\n' +
-				'\t\t\t\t\t\t</select>\n' +
-				'\t\t\t\t\t</div>\n' +
-				'\t\t\t\t\t<div class="form-group col-auto">\n' +
-				'\t\t\t\t\t\t<label>Time: </label>\n' +
-				'\t\t\t\t\t\t<div class="form-inline">\n' +
-				'\t\t\t\t\t\t\t<input name="startTime1" type="time" class="form-control" value="00:00:00">\n' +
-				'\t\t\t\t\t\t\t<label>&emsp;to&emsp;</label>\n' +
-				'\t\t\t\t\t\t\t<input name="endTime1" type="time" class="form-control" value="00:00:00">\n' +
-				'\t\t\t\t\t\t</div>\n' +
-				'\t\t\t\t\t</div>\n' +
-				'\t\t\t\t\t<div class="form-group col-md-3">\n' +
-				'\t\t\t\t\t\t<label>Price: </label>\n' +
-				'\t\t\t\t\t\t<input name="price1" type="text" class="form-control">\n' +
-				'\t\t\t\t\t</div>\n' +
-				'\t\t\t\t</div>\n' +
-				'\t\t\t</div>\n' +
-				'\t\t</div><br/>';
-	}
+  function appendRow() {
+    document.getElementById('demo').innerHTML += '<br/>\n' +
+      '\t\t<div id="priceSetting">\n' +
+      '\t\t\t<div class="priceSettingBlock">\n' +
+      '\t\t\t\t<p class="priceSettingTitle">Price Setting</p>\n' +
+      '\t\t\t\t<div class="form-row priceSettingDetail">\n' +
+      '\t\t\t\t\t<div class="form-group col-md-3">\n' +
+      '\t\t\t\t\t\t<label>Day: </label>\n' +
+      '\t\t\t\t\t\t<select name="day1" class="form-control">\n' +
+      '\t\t\t\t\t\t\t<option value="Mondays to Thursdays">Mondays to Thursdays</option>\n' +
+      '\t\t\t\t\t\t\t<option value="Fridays">Fridays</option>\n' +
+      '\t\t\t\t\t\t\t<option value="Saturdays">Saturdays</option>\n' +
+      '\t\t\t\t\t\t\t<option value="Sunday">Sunday</option>\n' +
+      '\t\t\t\t\t\t</select>\n' +
+      '\t\t\t\t\t</div>\n' +
+      '\t\t\t\t\t<div class="form-group col-auto">\n' +
+      '\t\t\t\t\t\t<label>Time: </label>\n' +
+      '\t\t\t\t\t\t<div class="form-inline">\n' +
+      '\t\t\t\t\t\t\t<input name="startTime1" type="time" class="form-control" value="00:00:00">\n' +
+      '\t\t\t\t\t\t\t<label>&emsp;to&emsp;</label>\n' +
+      '\t\t\t\t\t\t\t<input name="endTime1" type="time" class="form-control" value="00:00:00">\n' +
+      '\t\t\t\t\t\t</div>\n' +
+      '\t\t\t\t\t</div>\n' +
+      '\t\t\t\t\t<div class="form-group col-md-3">\n' +
+      '\t\t\t\t\t\t<label>Price: </label>\n' +
+      '\t\t\t\t\t\t<input name="price1" type="text" class="form-control">\n' +
+      '\t\t\t\t\t</div>\n' +
+      '\t\t\t\t</div>\n' +
+      '\t\t\t</div>\n' +
+      '\t\t</div><br/>';
+  }
 </script>
 
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Let Party - Party Room Owner - Add Party Room </title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Let Party - Party Room Owner - Add Party Room </title>
 
-	<!-- Bootstrap -->
-	<link href="./css/bootstrap-4.4.1.css" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link href="./css/bootstrap-4.4.1.css" rel="stylesheet">
 
-	<!-- CSS -->
-	<link href="./css/index.css" rel="stylesheet">
-	<link href="./css/sidebar.css" rel="stylesheet">
-	<link href="./css/ownerSignup.css" rel="stylesheet">
-	<!--jQuery-->
-	<script src="./js/jquery-3.4.1.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="./js/popper.min.js"></script>
-	<script src="./js/bootstrap-4.4.1.js"></script>
-	<script src="./js/home.js"></script>
+  <!-- CSS -->
+  <link href="./css/index.css" rel="stylesheet">
+  <link href="./css/sidebar.css" rel="stylesheet">
+  <link href="./css/ownerSignup.css" rel="stylesheet">
+  <!--jQuery-->
+  <script src="./js/jquery-3.4.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="./js/popper.min.js"></script>
+  <script src="./js/bootstrap-4.4.1.js"></script>
+  <script src="./js/home.js"></script>
 
-	<!-- Icon -->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Icon -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body style="padding-top: 70px">
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
-	<a class="navbar-brand mr-auto" href="index.html">LetParty</a>
-	<form id="loginSignupForm" action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
-																		 class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
-	<div id="userIcon" style="display: none"></div>
-</nav>
-<div id="sideBar" class="shadow" style="display: none">
-	<ul>
-		<li>
-			<div id="userName" class="sideItem text-monospace"></div>
-		</li>
-		<li>
-			<div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
-		</li>
-		<li>
-			<div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
-		</li>
-		<li>
-			<div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
-		</li>
-	</ul>
-</div>
-<div class="container ">
-  <h1>Party Room Owner - Add Party Room </h1>
-	<hr>
-		<form id="partyRoomInfoForm" action="/create_partyroom/create" method="POST">
-			<div class="form-group">
-				<label for="party_room_name">Party Room Name <span class="requiredMark">*</span>
-					<input id="partyRoomName" name="party_room_name" type="text" class="form-control"
-						   placeholder="Enter name of party room" required>
-				</label>
-			</div>
 
-			<div class="form-group">
-				<label>Party Room Phone Number <span class="requiredMark">*</span>
-					<input name="party_room_number" type="text" class="form-control" placeholder="Enter phone number" required>
-				</label>
-			</div>
-			<!-- <div class="form-group">
+<body style="padding-top: 70px">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
+    <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
+    <form id="loginSignupForm" action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
+        class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
+    <div id="userIcon" style="display: none"></div>
+  </nav>
+
+  <div id="sideBar" class="shadow" style="display: none">
+    <ul>
+      <li>
+        <div id="userName" class="sideItem text-monospace"></div>
+      </li>
+      <li>
+        <div id="partyRoom" class="sideItem sideBtn" style="display: none;">PartyRoom</div>
+      </li>
+      <li>
+        <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
+      </li>
+      <li>
+        <div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
+      </li>
+      <li>
+        <div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container ">
+    <h1>Party Room Owner - Add Party Room </h1>
+    <hr>
+    <form id="partyRoomInfoForm" action="/create_partyroom/create" method="POST">
+      <div class="form-group">
+        <label for="party_room_name">Party Room Name <span class="requiredMark">*</span>
+          <input id="partyRoomName" name="party_room_name" type="text" class="form-control"
+            placeholder="Enter name of party room" required>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>Party Room Phone Number <span class="requiredMark">*</span>
+          <input name="party_room_number" type="text" class="form-control" placeholder="Enter phone number" required>
+        </label>
+      </div>
+      <!-- <div class="form-group">
 			  <label for="room_name">Room name</label>
 			  <input type="text" class="form-control" id="roomname" placeholder="Enter name of room">
 		  </div> -->
 
-			<div class="form-group">
-				<label for="inputAddress1">Address <span class="requiredMark">*</span>
-					<input id="address" name="address" type="text" class="form-control" placeholder="Full Address" required>
-				</label>
-				<!-- <button>Confirm Address</button> -->
-			</div>
+      <div class="form-group">
+        <label for="inputAddress1">Address <span class="requiredMark">*</span>
+          <input id="address" name="address" type="text" class="form-control" placeholder="Full Address" required>
+        </label>
+        <!-- <button>Confirm Address</button> -->
+      </div>
 
-			<iframe id="addressMap" width="300" height=100% frameborder="0" style="display: none"
-					src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC7xcCJQ_UttAhR4MxsHau0pb4joskoAEg&q=九龍觀塘成業街成運工業大廈3樓14室"
-					allowfullscreen>
-			</iframe>
+      <iframe id="addressMap" width="300" height=100% frameborder="0" style="display: none"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC7xcCJQ_UttAhR4MxsHau0pb4joskoAEg&q=九龍觀塘成業街成運工業大廈3樓14室"
+        allowfullscreen>
+      </iframe>
 
-			<!-- <div class="form-group">
+      <!-- <div class="form-group">
 			<label for="inputAddress2">Address 2</label>
 			<input name="address2" type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
 		  </div> -->
 
-			<div class="form-group">
-				<label>District: <span class="requiredMark">*</span>
-					<select name="district" class="form-control" required>
-						<option value=""></option>
-						<option value="" disabled>Hong Kong Island:</option>
-						<option value="cenwest">Central & Western District</option>
-						<option value="wanchai">Wanchai District</option>
-						<option value="eastern">Eastern District</option>
-						<option value="southern">Southern DIstrict</option>
+      <div class="form-group">
+        <label>District: <span class="requiredMark">*</span>
+          <select name="district" class="form-control" required>
+            <option value=""></option>
+            <option value="" disabled>Hong Kong Island:</option>
+            <option value="cenwest">Central & Western District</option>
+            <option value="wanchai">Wanchai District</option>
+            <option value="eastern">Eastern District</option>
+            <option value="southern">Southern DIstrict</option>
 
-						<option value="" disabled>Kowloon: </option>
-						<option value="shamshuipo">Shamshuipo District</option>
-						<option value="yautsimmong">Yau Tsim Mong District</option>
-						<option value="kowlooncity">Kowloon City District</option>
-						<option value="wongtaisin">Wong Tai Sin District</option>
-						<option value="kwuntong">Kwun Tong District</option>
+            <option value="" disabled>Kowloon: </option>
+            <option value="shamshuipo">Shamshuipo District</option>
+            <option value="yautsimmong">Yau Tsim Mong District</option>
+            <option value="kowlooncity">Kowloon City District</option>
+            <option value="wongtaisin">Wong Tai Sin District</option>
+            <option value="kwuntong">Kwun Tong District</option>
 
-						<option value="" disabled>New Territories:</option>
-						<option value="kwaitsing">Kwai Tsing District</option>
-						<option value="tsuenwan">Tsuen Wan District</option>
-						<option value="tuenmun">Tuen Mun District</option>
-						<option value="yuenlong">Yuen Long District</option>
-						<option value="north">North District</option>
-						<option value="taipo">Tai Po</option>
-						<option value="shatin">Sha Tin District</option>
-						<option value="saikung">Sai Kung District</option>
-						<option value="islands">Islands District</option>
-					</select>
-				</label>
-			</div>
+            <option value="" disabled>New Territories:</option>
+            <option value="kwaitsing">Kwai Tsing District</option>
+            <option value="tsuenwan">Tsuen Wan District</option>
+            <option value="tuenmun">Tuen Mun District</option>
+            <option value="yuenlong">Yuen Long District</option>
+            <option value="north">North District</option>
+            <option value="taipo">Tai Po</option>
+            <option value="shatin">Sha Tin District</option>
+            <option value="saikung">Sai Kung District</option>
+            <option value="islands">Islands District</option>
+          </select>
+        </label>
+      </div>
 
-			<div class="form-group">
-				<label>Description of your party room:
-					<textarea class="form-control" name="description" rows="6" cols="40"></textarea>
-				</label>
-				<small class="form-text text-muted">Describe your party room (e.g. features, characteristics)
-					<br>Input limit: 200 characters.</small>
-			</div>
+      <div class="form-group">
+        <label>Description of your party room:
+          <textarea class="form-control" name="description" rows="6" cols="40"></textarea>
+        </label>
+        <small class="form-text text-muted">Describe your party room (e.g. features, characteristics)
+          <br>Input limit: 200 characters.</small>
+      </div>
 
-			<div class="form-group">
-				<label for="quotaLimit">Quota Limit <span class="requiredMark">*</label><br>
-				<div class="form-inline">
-					<label>Min:&emsp;</label>
-					<input name="quotaMin" type="number" min="1" required>
-					<label>&emsp;Max:&emsp;</label>
-					<input name="quotaMax" type="number" required>
-				</div>
-			</div>
+      <div class="form-group">
+        <label for="quotaLimit">Quota Limit <span class="requiredMark">*</label><br>
+        <div class="form-inline">
+          <label>Min:&emsp;</label>
+          <input name="quotaMin" type="number" min="1" required>
+          <label>&emsp;Max:&emsp;</label>
+          <input name="quotaMax" type="number" required>
+        </div>
+      </div>
 
-			<br>
-			<h4>Price</h4>
-			<div id="priceSetting">
-				<div class="priceSettingBlock">
-					<p class="priceSettingTitle">Price Setting </p>
-					<div class="form-row priceSettingDetail">
-						<div class="form-group col-md-3">
-							<label>Day: </label>
-							<select name="day" class="form-control">
-								<option value="Mondays to Thursdays">Mondays to Thursdays</option>
-								<option value="Fridays">Fridays</option>
-								<option value="Saturdays">Saturdays</option>
-								<option value="Sunday">Sunday</option>
-							</select>
-						</div>
-						<div class="form-group col-auto">
-							<label>Time: </label>
-							<div class="form-inline">
-								<input name="startTime" type="time" class="form-control" value="00:00:00">
-								<label>&emsp;to&emsp;</label>
-								<input name="endTime" type="time" class="form-control" value="00:00:00">
-							</div>
-						</div>
-						<div class="form-group col-md-3">
-							<label>Price: </label>
-							<input name="price" type="text" class="form-control" value="0">
-						</div>
-					</div>
-				</div>
-			</div>
-			<p id="demo"></p>
-			<button type="button" id="addPriceSettingBtn" class="btn btn-info" onclick="appendRow()">Add price setting</button>
+      <br>
+      <h4>Price</h4>
+      <div id="priceSetting">
+        <div class="priceSettingBlock">
+          <p class="priceSettingTitle">Price Setting </p>
+          <div class="form-row priceSettingDetail">
+            <div class="form-group col-md-3">
+              <label>Day: </label>
+              <select name="day" class="form-control">
+                <option value="Mondays to Thursdays">Mondays to Thursdays</option>
+                <option value="Fridays">Fridays</option>
+                <option value="Saturdays">Saturdays</option>
+                <option value="Sunday">Sunday</option>
+              </select>
+            </div>
+            <div class="form-group col-auto">
+              <label>Time: </label>
+              <div class="form-inline">
+                <input name="startTime" type="time" class="form-control" value="00:00:00">
+                <label>&emsp;to&emsp;</label>
+                <input name="endTime" type="time" class="form-control" value="00:00:00">
+              </div>
+            </div>
+            <div class="form-group col-md-3">
+              <label>Price: </label>
+              <input name="price" type="text" class="form-control" value="0">
+            </div>
+          </div>
+        </div>
+      </div>
+      <p id="demo"></p>
+      <button type="button" id="addPriceSettingBtn" class="btn btn-info" onclick="appendRow()">Add price
+        setting</button>
 
-			<br>
-			<h4>Facilities:</h4>
-			<div class="row px-3">
-				<div class="form-group mt-2">
-					<div>
-						<div class="form-check form-check-inline">
-							<label class="form-check-label">PS4
-								<input name="facilities" class="form-check-input" type="checkbox" value="PS4">
-							</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<label class="form-check-label">Switch
-								<input name="facilities" class="form-check-input" type="checkbox" value="Switch">
-							</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<label class="form-check-label">Mahjong
-								<input name="facilities" class="form-check-input" type="checkbox" value="Mahjong">
-							</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<label class="form-check-label">VR
-								<input name="facilities" class="form-check-input" type="checkbox" value="VR">
-							</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<label class="form-check-label">Barbecue
-								<input name="facilities" class="form-check-input" type="checkbox" value="Barbecue">
-							</label>
-						</div>
-						<div class="form-check form-check-inline">
-							<label class="form-check-label">Free drinks
-								<input name="facilities" class="form-check-input" type="checkbox" value="Free drinks">
-							</label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<br>
-			<p class="hint">You may add more party room later.</p>
-			<p><span class="requiredMark">*</span>required</p>
-			<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-			<h4>Party Room Photo <span style="font-weight: bold">(Three only)</span></h4>
-			<input type="file" id="files" name="photos" multiple><br><br>
+      <br>
+      <h4>Facilities:</h4>
+      <div class="row px-3">
+        <div class="form-group mt-2">
+          <div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">PS4
+                <input name="facilities" class="form-check-input" type="checkbox" value="PS4">
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">Switch
+                <input name="facilities" class="form-check-input" type="checkbox" value="Switch">
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">Mahjong
+                <input name="facilities" class="form-check-input" type="checkbox" value="Mahjong">
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">VR
+                <input name="facilities" class="form-check-input" type="checkbox" value="VR">
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">Barbecue
+                <input name="facilities" class="form-check-input" type="checkbox" value="Barbecue">
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">Free drinks
+                <input name="facilities" class="form-check-input" type="checkbox" value="Free drinks">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <p class="hint">You may add more party room later.</p>
+      <p><span class="requiredMark">*</span>required</p>
+      <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+      <h4>Party Room Photo <span style="font-weight: bold">(Three only)</span></h4>
+      <input type="file" id="files" name="photos" multiple><br><br>
 
-			<input type="submit" class="btn btn-primary" value="Submit">
-		</form>
+      <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
 
-</div>
-	<div class="container">
-       <br>
-       <hr>
-       <div class="row">
-         <div class="text-center col-lg-6 offset-lg-3">
-             <h4>Party Room Online Booking </h4>
-             <p>Copyright &copy; 2019 &middot; All Rights Reserved &middot; <a href="#" >My Website</a></p>
-         </div>
-       </div>
+  </div>
+  <div class="container">
+    <br>
+    <hr>
+    <div class="row">
+      <div class="text-center col-lg-6 offset-lg-3">
+        <h4>Party Room Online Booking </h4>
+        <p>Copyright &copy; 2019 &middot; All Rights Reserved &middot; <a href="#">My Website</a></p>
+      </div>
     </div>
+  </div>
 </body>
+
 </html>
 <script src="js/createPartyRoom.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-	$(document).ready(function() {
-		let imagesPreview = function(input, placeToInsertImagePreview) {
-			if (input.files) {
-				let filesAmount = input.files.length;
-				for (i = 0; i < filesAmount; i++) {
-					let reader = new FileReader();
-					reader.onload = function(event) {
-						$($.parseHTML("<img>"))
-								.attr("src", event.target.result)
-								.appendTo(placeToInsertImagePreview);
-					};
-					reader.readAsDataURL(input.files[i]);
-				}
-			}
-		};
-		$("#input-files").on("change", function() {
-			imagesPreview(this, "div.preview-images");
-		});
-	});
+  $(document).ready(function () {
+    let imagesPreview = function (input, placeToInsertImagePreview) {
+      if (input.files) {
+        let filesAmount = input.files.length;
+        for (i = 0; i < filesAmount; i++) {
+          let reader = new FileReader();
+          reader.onload = function (event) {
+            $($.parseHTML("<img>"))
+              .attr("src", event.target.result)
+              .appendTo(placeToInsertImagePreview);
+          };
+          reader.readAsDataURL(input.files[i]);
+        }
+      }
+    };
+    $("#input-files").on("change", function () {
+      imagesPreview(this, "div.preview-images");
+    });
+  });
 </script>

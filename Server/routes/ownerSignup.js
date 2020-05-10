@@ -28,10 +28,6 @@ conn.once('open', () => {
 const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 
-router.get('/', function (req, res) {
-  res.sendFile('ownerSignup.html', { 'root': "./website" });
-});
-
 router.post("/ownerValidate", (req, res) => {
   var data = req.body;
   //console.log(data);

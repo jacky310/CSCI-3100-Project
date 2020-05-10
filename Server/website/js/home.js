@@ -53,22 +53,22 @@ $(function () {
     var end = stringTranDate(date + "," + endtime, overNight);
 
     if (start < currentTime) {
-      $("#searchForm  input[name='starttime']").addClass("is-invalid");
+      $("#searchForm input[name='starttime']").addClass("is-invalid");
       $("#searchForm input[name='date']").addClass("is-invalid");
       return;
     }
     else {
-      $("#searchForm  input[name='starttime']").removeClass("is-invalid");
+      $("#searchForm input[name='starttime']").removeClass("is-invalid");
       $("#searchForm input[name='date']").removeClass("is-invalid");
     }
 
     if (end < currentTime) {
-      $("#searchForm  input[name='endtime']").addClass("is-invalid");
+      $("#searchForm input[name='endtime']").addClass("is-invalid");
       $("#searchForm input[name='date']").addClass("is-invalid");
       return;
     }
     else {
-      $("#searchForm  input[name='endtime']").removeClass("is-invalid");
+      $("#searchForm input[name='endtime']").removeClass("is-invalid");
       $("#searchForm input[name='date']").removeClass("is-invalid");
     }
 
@@ -97,8 +97,7 @@ $(function () {
           });
         }
         else {
-          $("#searchResult").html(
-            "<img class='card-img-top' src='images/no-result.webp' alt='Card image cap' width='800px' height='600px'>");
+          $("#searchResult").html("<img src='images/no-result.png' alt='Card image cap'>");
         }
       })
       .fail((jqXHR, textStatus, err) => {

@@ -39,10 +39,10 @@ $(function () {
 
 $(function () {
   $("#createCustomerBtn").click(() => {
-    window.location.href = "/customerSignup";
+    window.location.href = "/customer";
   });
 
   $("#createOwnerBtn").click(() => {
-    window.location.href = "/ownerSignup";
+    window.location.href = "/owner";
   });
 });
