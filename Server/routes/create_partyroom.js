@@ -28,7 +28,6 @@ router.get('/', function (req, res) {
   res.sendFile('partyroom_create.html', { 'root': "./website" });
 });
 
-
 router.post('/create', upload.array('photos', 3), function (req, res, next) {
   PartyRoom.count({}, function (err, count) {
     const party_room_id = count + 1;
@@ -53,9 +52,7 @@ router.post('/create', upload.array('photos', 3), function (req, res, next) {
       quotaMax,
       facilities,
       photos
-
     });
-
 
     new_room.save()
       .then(() => PartyRoom.findOneAndUpdate(
@@ -89,17 +86,11 @@ router.post('/create', upload.array('photos', 3), function (req, res, next) {
               }
               res.redirect("/createSuccess.html");
             })
-
           }
-
         }
       ))
       .catch(err => res.redirect("/createFail.html"));
   });
-
-
-
-
 });
 
 module.exports = router;

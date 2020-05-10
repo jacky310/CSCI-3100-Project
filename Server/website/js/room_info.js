@@ -1,16 +1,11 @@
 function stringTranDate(s, overNight) {
   d = new Date();
   var parts = s.match(/(\d+)\-(\d+)\-(\d+)\,(\d+)\:(\d+)/);
-  year = parseInt(parts[1], 10);
-  month = parseInt(parts[2], 10) - 1;
-  date = parseInt(parts[3], 10);
-  hours = parseInt(parts[4], 10),
-    minutes = parseInt(parts[5], 10);
-  d.setYear(year);
-  d.setMonth(month);
-  d.setDate(date);
-  d.setHours(hours);
-  d.setMinutes(minutes);
+  d.setYear(parseInt(parts[1], 10));
+  d.setMonth(parseInt(parts[2], 10) - 1);
+  d.setDate(parseInt(parts[3], 10));
+  d.setHours(parseInt(parts[4], 10));
+  d.setMinutes(parseInt(parts[5], 10));
   d.setSeconds(0);
   if (overNight) d.setDate(d.getDate() + 1);
   return d;
@@ -75,11 +70,13 @@ $(function () {
   });
 
   $("#bookBtn").click(() => {
-    if (userType != 'customer') {
+    if (userType == 'guest') {
       alert("Please Login as Customer first");
       window.location.href = "/loginSignup";
     }
-    else {
+    else if (userType == 'owner')
+      alert("Only Customer can book PartyRoom");
+    else if (userType == 'customer'){
       var date = $("#bookingForm input[name='date']").val();
 
       if (date == '') {
@@ -140,7 +137,7 @@ $(function () {
         url: "/book"
       })
         .done(res => {
-          if(res == "done" ) window.location.href = "/bookingSuccess.html";
+          if (res == "done") window.location.href = "/bookingSuccess.html";
           else if (res == "try again") $("#tryAgain").show();
         });
     }

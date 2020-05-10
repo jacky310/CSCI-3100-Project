@@ -81,10 +81,9 @@ $(function () {
       url: url
     })
       .done(res => {
-        alert("Search Success!");
+        $("#searchResult").html("");
+        $("html").animate({ scrollTop: $("#scrollTo").offset().top }, 600);
         if (res.hasResult) {
-          $("#searchResult").html("");
-          $("html").animate({ scrollTop: $("#scrollTo").offset().top }, 600);
           res.result.forEach(room => {
             $("#searchResult").append(createCard(
               room.id,

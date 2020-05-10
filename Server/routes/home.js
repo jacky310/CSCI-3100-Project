@@ -101,9 +101,9 @@ router.get('/search', (req, res) => {
   var endDay = getDayofDate(day);
   var endTime = stringTranTime(req.query.endtime);
 
-  query.push({ $match: {price_setting: {$elemMatch:  { day: endDay }}}});
-  query[5].$match.price_setting.$elemMatch["endTime"] = { $gte: endTime};
-  if (nextDay) query[5].$match.price_setting.$elemMatch["startTime"] = { $eq: 0};
+  query.push({ $match: { price_setting: { $elemMatch: { day: endDay } } } });
+  query[5].$match.price_setting.$elemMatch["endTime"] = { $gte: endTime };
+  if (nextDay) query[5].$match.price_setting.$elemMatch["startTime"] = { $eq: 0 };
 
   console.log(req.query);
   if (req.query.partyRoomName == '') query.splice(0, 1);
@@ -117,22 +117,21 @@ router.get('/search', (req, res) => {
       var deleteResult = [];
       for (var i = 0; i < r.length; i++) {
         var buf = null;
-        var found = r[i].price_setting.filter(item=>item.day === startDay).filter(item=>item.startTime <= startTime);
+        var found = r[i].price_setting.filter(item => item.day === startDay).filter(item => item.startTime <= startTime);
         buf = found[0].endTime;
         var overNightChecker = false;
         var dayChecker = startDay;
         if (buf < realEndTime) {
           while (buf != null) {
-            var found = r[i].price_setting.filter(item=>item.day === dayChecker).filter(item=>item.startTime == buf);
-            if(!overNightChecker && found.length == 0 && buf >= realEndTime) {
+            var found = r[i].price_setting.filter(item => item.day === dayChecker).filter(item => item.startTime == buf);
+            if (!overNightChecker && found.length == 0 && buf >= realEndTime) {
               break;
             }
-            else if(overNightChecker && found.length == 0 && (buf + 60*24) >= realEndTime) {
+            else if (overNightChecker && found.length == 0 && (buf + 60 * 24) >= realEndTime) {
               break;
             }
             else if (found.length == 0) {
               deleteResult.push(i);
-              console.log(i);
               break;
             }
             else {
@@ -148,10 +147,8 @@ router.get('/search', (req, res) => {
         }
         console.log("------");
       }
-      deleteResult.forEach((item, i) => {
-        r.splice(item, 1);
-      });
-
+      for (var i = deleteResult.length - 1; i >= 0; i--)
+        r.splice(i, 1);
 
       console.log(r);
       if (r.length == 0) {
@@ -162,17 +159,32 @@ router.get('/search', (req, res) => {
       for (let i = 0; i < r.length; i++) {
         let image = "";
         gfs.files.findOne({ _id: r[i].photos[0] }, (err, file) => {
+          var priceMax = -Infinity, priceMin = Infinity;
+          r[i].price_setting.forEach(item => {
+            if (item.price < priceMin) priceMin = item.price;
+            if (item.price > priceMax) priceMax = item.price;
+          });
           if (!file || file.length === 0) {
-            return res.status(404).json({
-              err: 'No images'
+            result.push({
+              id: r[i].party_room_id,
+              img: null,
+              title: r[i].party_room_name,
+              description: r[i].description,
+              capacity: r[i].quotaMin + " - " + r[i].quotaMax,
+              location: r[i].district,
+              price: priceMin + " ~ " + priceMax
             });
+            if (result.length == r.length) {
+              return res.send({
+                hasResult: r.length, result: result
+              });
+            }
           }
           const readstream = gfs.createReadStream(file.filename);
           readstream.on('data', (chunk) => {
             image += chunk.toString('base64');
           });
           readstream.on('end', () => {
-            var found = r[i].price_setting.filter(item=>item.day === startDay).filter(item=>item.startTime <= startTime);
             result.push({
               id: r[i].party_room_id,
               img: image,
@@ -180,7 +192,7 @@ router.get('/search', (req, res) => {
               description: r[i].description,
               capacity: r[i].quotaMin + " - " + r[i].quotaMax,
               location: r[i].district,
-              price: found[0].price + " ~"
+              price: priceMin + " ~ " + priceMax
             });
             if (result.length == r.length) {
               return res.send({

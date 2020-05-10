@@ -14,18 +14,18 @@ const bcrypt = require('bcrypt');
 const Owner = require('../models/owner.model');
 
 router.post("/", function (req, res) {
-    Owner.findOne({ username: req.body.username }, (err, owner) => {
-      if (err) throw err;
-      else if (owner == null) res.send("notFound");
-      else {
-        res.send({
-          companyName: owner.companyName,
-          username: owner.username,
-          email: owner.email,
-          phone: owner.phone
-        });
-      }
-    })
+  Owner.findOne({ username: req.body.username }, (err, owner) => {
+    if (err) throw err;
+    else if (owner == null) res.send("notFound");
+    else {
+      res.send({
+        companyName: owner.companyName,
+        username: owner.username,
+        email: owner.email,
+        phone: owner.phone
+      });
+    }
   })
+});
 
 module.exports = router;

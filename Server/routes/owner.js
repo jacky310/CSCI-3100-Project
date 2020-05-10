@@ -29,7 +29,7 @@ router.route('/add').post((req, res) => {
 
     new_owner.save()
         .then(() => res.redirect('/signupSuccess.html'))
-        .catch(err => res.redirect('/signupFail.html'));
+        .catch(err => res.redirect('/ownerFail.html'));
 });
 
 module.exports = router;
