@@ -43,6 +43,7 @@ $(function () {
         $('#userName').append(res.user);
         username = res.user;
         if (res.userType == 'owner') {
+          $('#partyRoom').show();
           $('#userIcon').css('background-color', '#eb4934');
           userType = 'owner';
         }
@@ -61,12 +62,16 @@ $(function () {
     });
   });
 
+  $('#partyRoom').click(() => {
+    window.location.href = "/account#room";
+  });
+
   $('#bookingRecordBtn').click(() => {
-    window.location.href = "/account";
+    window.location.href = "/account#booking";
   });
 
   $('#personalInfo').click(() => {
-    window.location.href = "/account";
+    window.location.href = "/account#info";
   });
 
   $("#bookBtn").click(() => {
@@ -76,7 +81,7 @@ $(function () {
     }
     else if (userType == 'owner')
       alert("Only Customer can book PartyRoom");
-    else if (userType == 'customer'){
+    else if (userType == 'customer') {
       var date = $("#bookingForm input[name='date']").val();
 
       if (date == '') {
@@ -216,13 +221,13 @@ function createCarouselContent(photos) {
   var inner = $("#inner");
   for (let i = 0; i < photos.length; i++) {
     if (!i) {
-      indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "' class='active'></li>");
+      indicators.append("<li data-target='#carousel' data-slide-to='" + i + "' class='active'></li>");
       inner.append("<div class='carousel-item active'>" +
         "<img class='d-block w-100' src='data:image/png;base64," + photos[i] + "' alt='" + i + "'></img>" +
         "</div>");
     }
     else {
-      indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "'></li>");
+      indicators.append("<li data-target='#carousel' data-slide-to='" + i + "'></li>");
       inner.append("<div class='carousel-item'>" +
         "<img class='d-block w-100' src='data:image/png;base64," + photos[i] + "' alt='" + i + "'></img>" +
         "</div>");
