@@ -2,7 +2,7 @@ $(function () {
   var priceSettingNum = 1;
   $("#addPriceSettingBtn").click(() => {
     let day = $("<div class='form-group col-md-3'><label>Day: </label><select name='day' class='form-control day'><option value='Monday to Thursday' selected>Monday to Thursday</option><option value='Friday'>Friday</option><option value='Saturday'>Saturday</option><option value='Sunday'>Sunday</option></select></div>");
-    let time = $("<div class='form-group col-auto'><label>Time: </label><div class='form-inline'><input name='startTime' type='time' class='form-control starttime' value='00:00'><label>&emsp;to&emsp;</label><input name='endTime' type='time' class='form-control endtime' value='00:00'></div></div>");
+    let time = $("<div class='form-group col-auto'><label>Time: </label><div class='form-inline timeSetting'><input name='startTime' type='time' class='form-control starttime' value='08:00'><label>&emsp;to&emsp;</label><input name='endTime' type='time' class='form-control endtime' value='12:00'></div></div>");
     let price = $("<div class='form-group col-md-3'><label>Price: </label><input name='price' type='text' class='form-control price' value='0'></div>");
     let priceSettingDetail = $("<div class='form-row priceSettingDetail'></div>");
     priceSettingDetail.append(day, time, price);
@@ -73,93 +73,108 @@ $(function () {
   });
 
   $("#partyRoomInfoForm").submit((e) => {
-    var k = document.getElementById("district");
-    var strUser = k.options[k.selectedIndex].value;
-    var partyRoomName = $("#partyRoomInfoForm input[name='partyRoomName']").val();
-    var partyRoomPhoneNum = $("#partyRoomInfoForm input[name='partyRoomPhoneNum']").val();
-    var address = $("#partyRoomInfoForm input[name='address']").val();
-    var district = strUser;
-    var partyRoomDescr = $("#partyRoomDescr").val();
-    var quotaLimitMin = $("#partyRoomInfoForm input[name='quotaLimitMin']").val();
-    var quotaLimitMax = $("#partyRoomInfoForm input[name='quotaLimitMax']").val();
-    var dayArray = document.getElementsByClassName("day");
-    var day = [];
-    for (var i = 0; i < dayArray.length; i++) {
-      day.push(dayArray[i].options[dayArray[i].selectedIndex].value);
+    console.log("hi");
+    var start = 0;
+    var end = 0;
+    for (var i = 0; i < $(".timeSetting").length; i++) {
+      start = $(".timeSetting").eq(i).children(".starttime").val();
+      end = $(".timeSetting").eq(i).children(".endtime").val();
+      start = stringTranTime(start);
+      end = stringTranTime(end);
     }
+    if (end <= start) alert("Price setting endTime should not be bigger than the start time.");
+    else{
+      var partyRoomName = $("#partyRoomInfoForm input[name='partyRoomName']").val();
+      var partyRoomPhoneNum = $("#partyRoomInfoForm input[name='partyRoomPhoneNum']").val();
+      var address = $("#partyRoomInfoForm input[name='address']").val();
 
-    var startTimeArray = document.getElementsByClassName("starttime");
-    var startTime = [];
-    for (var i = 0; i < startTimeArray.length; i++) {
-      startTime.push(startTimeArray[i].value);
-    }
+      var k = document.getElementById("district");
+      var district  = k.options[k.selectedIndex].value;
 
-    var endTimeArray = document.getElementsByClassName("endtime");
-    var endTime = [];
-    for (var i = 0; i < endTimeArray.length; i++) {
-      endTime.push(endTimeArray[i].value);
-    }
+      var partyRoomDescr = $("#partyRoomDescr").val();
+      var quotaLimitMin = $("#partyRoomInfoForm input[name='quotaLimitMin']").val();
+      var quotaLimitMax = $("#partyRoomInfoForm input[name='quotaLimitMax']").val();
+      var dayArray = document.getElementsByClassName("day");
+      var day = [];
+      for (var i = 0; i < dayArray.length; i++) {
+        day.push(dayArray[i].options[dayArray[i].selectedIndex].value);
+      }
 
-    var priceArray = document.getElementsByClassName("price");
-    var price = [];
-    for (var i = 0; i < priceArray.length; i++) {
-      price.push(priceArray[i].value);
-    }
-    console.log(price);
-    var facilities = []
-    $("input:checkbox[name='facilities']:checked").each(function(){
-      facilities.push($(this).val());
-    });
+      var startTimeArray = document.getElementsByClassName("starttime");
+      var startTime = [];
+      for (var i = 0; i < startTimeArray.length; i++) {
+        t = stringTranTime(startTimeArray[i].value)
+        startTime.push(t);
+      }
 
-    var price_setting = [];
+      var endTimeArray = document.getElementsByClassName("endtime");
+      var endTime = [];
+      for (var i = 0; i < endTimeArray.length; i++) {
+        t = stringTranTime(endTimeArray[i].value);
+        endTime.push(t);
+      }
 
-    var data = {
-      party_room_name: partyRoomName,
-      party_room_number: partyRoomPhoneNum,
-      address: address,
-      district: district,
-      description: partyRoomDescr,
-      quotaMin: parseInt(quotaLimitMin),
-      quotaMax: parseInt(quotaLimitMax),
-      day: JSON.stringify(day),
-      startTime: JSON.stringify(startTime),
-      endTime: JSON.stringify(endTime),
-      price: JSON.stringify(price),
-      facilities: JSON.stringify(facilities)
-    }
-    console.log(data);
+      var priceArray = document.getElementsByClassName("price");
+      var price = [];
+      for (var i = 0; i < priceArray.length; i++) {
+        price.push(priceArray[i].value);
+      }
+      console.log(price);
+      var facilities = []
+      $("input:checkbox[name='facilities']:checked").each(function(){
+        facilities.push($(this).val());
+      });
+
+      var price_setting = [];
+
+      var data = {
+        party_room_name: partyRoomName,
+        party_room_number: partyRoomPhoneNum,
+        address: address,
+        district: district,
+        description: partyRoomDescr,
+        quotaMin: parseInt(quotaLimitMin),
+        quotaMax: parseInt(quotaLimitMax),
+        day: JSON.stringify(day),
+        startTime: JSON.stringify(startTime),
+        endTime: JSON.stringify(endTime),
+        price: JSON.stringify(price),
+        facilities: JSON.stringify(facilities)
+      }
+      console.log(data);
 
 
-    //For photos:
-    var fd = new FormData();
-    var photoTotal = document.getElementById('photos').files.length;
-    for (var i = 0; i < photoTotal; i++) {
-      var newName = partyRoomName + "_photo" + i;
-      console.log(newName);
-      fd.append("file", document.getElementById('photos').files[i], newName);
-    }
+      //For photos:
+      var fd = new FormData();
+      var photoTotal = document.getElementById('photos').files.length;
+      for (var i = 0; i < photoTotal; i++) {
+        var newName = partyRoomName + "_photo" + i;
+        console.log(newName);
+        fd.append("file", document.getElementById('photos').files[i], newName);
+      }
 
 
-    $.ajax({
-      type: "POST",
-      contentType: false,
-      processData: false,
-      async: false,
-      data: fd,
-      url: "/create_partyroom/uploadPhoto"
-    })
-    .done((res) => {
-      alert(res);
       $.ajax({
         type: "POST",
+        contentType: false,
+        processData: false,
         async: false,
-        data: data,
-        url: "/create_partyroom/create"
-      }).
-      done((res)=>{
+        data: fd,
+        url: "/create_partyroom/uploadPhoto"
+      })
+      .done((res) => {
         alert(res);
+        $.ajax({
+          type: "POST",
+          async: false,
+          data: data,
+          url: "/create_partyroom/create"
+        }).
+        done((res)=>{
+          alert(res);
+        });
       });
-    });
+    }
     e.preventDefault();
   });
 
@@ -177,3 +192,10 @@ $(function () {
       });
   });
 });
+
+function stringTranTime(s) {
+  var parts = s.match(/(\d+)\:(\d+)/),
+    hours = parseInt(parts[1], 10) * 60,
+    minutes = parseInt(parts[2], 10) + hours;
+  return minutes;
+}

@@ -111,6 +111,7 @@ router.get('/search', (req, res) => {
 
   var nextDay = false;
   var realEndTime = stringTranTime(req.query.endtime);
+
   if (req.query.endtime <= req.query.starttime) {
     realEndTime = stringTranTime(req.query.endtime) + 60 * 24;
     day++;

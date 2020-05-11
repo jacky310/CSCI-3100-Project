@@ -93,11 +93,15 @@ router.get('/search', (req, res) => {
 
   var nextDay = false;
   var realEndTime = stringTranTime(req.query.endtime);
+
+  // Check the whether the end time is on the next day
   if (req.query.endtime <= req.query.starttime) {
-    realEndTime = stringTranTime(req.query.endtime) + 60 * 24;
+    realEndTime = stringTranTime(req.query.endtime) + (60 * 24);
     day++;
     nextDay = true;
   }
+
+  console.log(realEndTime);
   var endDay = getDayofDate(day);
   var endTime = stringTranTime(req.query.endtime);
 
@@ -127,7 +131,7 @@ router.get('/search', (req, res) => {
             if (!overNightChecker && found.length == 0 && buf >= realEndTime) {
               break;
             }
-            else if (overNightChecker && found.length == 0 && (buf + 60 * 24) >= realEndTime) {
+            else if (overNightChecker && found.length == 0 && (buf + (60 * 24)) >= realEndTime) {
               break;
             }
             else if (found.length == 0) {
