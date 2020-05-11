@@ -47,39 +47,23 @@ app.get('/', function (req, res) {
 });
 app.use(express.static('website'));
 
-// For Home page
 const home = require('./routes/home');
 app.use('/', home);
 
-// For Login page
 const loginSignup = require('./routes/loginSignup');
 app.use('/loginSignup', loginSignup);
 
-// For Customer Signup page
-const customerSignup = require('./routes/customerSignup');
-app.use('/customerSignup', customerSignup);
+const customer_route = require('./routes/customer');
+app.use('/customer', customer_route);
 
-// For Owner Signup page
-const ownerSignup = require('./routes/ownerSignup');
-app.use('/ownerSignup', ownerSignup);
-
-const customer_info = require('./routes/customer_info');
-app.use('/customer', customer_info);
-
-const owner_info = require('./routes/owner_info');
-app.use('/owner', owner_info);
+const owner_route = require('./routes/owner');
+app.use('/owner', owner_route);
 
 const room_info = require('./routes/room_info');
 app.use('/partyRoom', room_info);
 
 const createPartyRoom = require('./routes/create_partyroom');
 app.use('/create_partyroom', createPartyRoom);
-
-const owner_route = require('./routes/owner');
-app.use('/owners', owner_route);
-
-const customer_route = require('./routes/customer');
-app.use('/customers', customer_route);
 
 const book = require('./routes/book');
 app.use('/book', book);

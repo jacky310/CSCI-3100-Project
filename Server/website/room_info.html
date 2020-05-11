@@ -37,6 +37,9 @@
         <div id="userName" class="sideItem text-monospace"></div>
       </li>
       <li>
+        <div id="partyRoom" class="sideItem sideBtn" style="display: none;">PartyRoom</div>
+      </li>
+      <li>
         <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
       </li>
       <li>
@@ -56,11 +59,11 @@
         <div id="carousel" class="carousel slide" data-ride="carousel">
           <ol id="indicators" class="carousel-indicators"></ol>
           <div id="inner" class="carousel-inner"></div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
@@ -139,9 +142,9 @@
           <div class="tab-pane fade show active" id="nav-description" role="tabpanel"
             aria-labelledby="nav-description-tab">
             <ul class="list-group-flush">
-              <li class='list-group-item'id="description"></li>
-              <li class='list-group-item'id="address"></li>
-              <li class='list-group-item'id="facilities"></li>
+              <li class='list-group-item' id="description"></li>
+              <li class='list-group-item' id="address"></li>
+              <li class='list-group-item' id="facilities"></li>
             </ul>
           </div>
           <div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="nav-location-tab">
@@ -157,6 +160,7 @@
                   height: 500px;
                   width: 600px;
                 }
+
                 .gmap_canvas {
                   overflow: hidden;
                   background: none !important;

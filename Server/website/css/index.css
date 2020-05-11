@@ -1,21 +1,6 @@
 nav {
   z-index: 4;
 }
-/* #userIcon{
-  text-align: center;
-  width: 40px;
-  height: 40px;
-  border-style: solid;
-  border-radius: 20px;
-  font-size: 23px;
-  background-color: #429ef5;
-  color: white;
-}
-
-#userIcon:hover{
-  filter: brightness(1.15);
-} */
-
 
 #mainSearchBar {
   background-color: white;
@@ -54,7 +39,6 @@ nav {
   display: inline-block;
 }
 
-
 @media screen and (max-width: 991px) {
   #mainSearchBarSpace {
     display: none;
@@ -74,34 +58,6 @@ nav {
     padding: 20px 20px 0px 20px;
   }
 }
-
-/* #sideBar {
-  padding-top: 70px;
-  width: 200px;
-  height: 100%;
-  right: 0;
-  top: 0;
-  position: fixed;
-  z-index: 3;
-  background-color: white;
-}
-
-#sideBar > ul{
-   list-style: none;
-   padding-left: 0;
-}
-
-.sideItem{
-  padding: 10px 10px 10px 40px;
-}
-
-#userName{
-  font-size: 20px;
-}
-
-.sideBtn:hover{
-   color: #429ef5;
-} */
 
 .error-template {padding: 40px 15px;text-align: center;}
 .error-actions {margin-top:15px;margin-bottom:15px;}

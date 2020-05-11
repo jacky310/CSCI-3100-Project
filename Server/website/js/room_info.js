@@ -1,16 +1,11 @@
 function stringTranDate(s, overNight) {
   d = new Date();
   var parts = s.match(/(\d+)\-(\d+)\-(\d+)\,(\d+)\:(\d+)/);
-  year = parseInt(parts[1], 10);
-  month = parseInt(parts[2], 10) - 1;
-  date = parseInt(parts[3], 10);
-  hours = parseInt(parts[4], 10),
-    minutes = parseInt(parts[5], 10);
-  d.setYear(year);
-  d.setMonth(month);
-  d.setDate(date);
-  d.setHours(hours);
-  d.setMinutes(minutes);
+  d.setYear(parseInt(parts[1], 10));
+  d.setMonth(parseInt(parts[2], 10) - 1);
+  d.setDate(parseInt(parts[3], 10));
+  d.setHours(parseInt(parts[4], 10));
+  d.setMinutes(parseInt(parts[5], 10));
   d.setSeconds(0);
   if (overNight) d.setDate(d.getDate() + 1);
   return d;
@@ -48,6 +43,7 @@ $(function () {
         $('#userName').append(res.user);
         username = res.user;
         if (res.userType == 'owner') {
+          $('#partyRoom').show();
           $('#userIcon').css('background-color', '#eb4934');
           userType = 'owner';
         }
@@ -66,20 +62,26 @@ $(function () {
     });
   });
 
+  $('#partyRoom').click(() => {
+    window.location.href = "/account#room";
+  });
+
   $('#bookingRecordBtn').click(() => {
-    window.location.href = "/account";
+    window.location.href = "/account#booking";
   });
 
   $('#personalInfo').click(() => {
-    window.location.href = "/account";
+    window.location.href = "/account#info";
   });
 
   $("#bookBtn").click(() => {
-    if (userType != 'customer') {
+    if (userType == 'guest') {
       alert("Please Login as Customer first");
       window.location.href = "/loginSignup";
     }
-    else {
+    else if (userType == 'owner')
+      alert("Only Customer can book PartyRoom");
+    else if (userType == 'customer') {
       var date = $("#bookingForm input[name='date']").val();
 
       if (date == '') {
@@ -140,7 +142,7 @@ $(function () {
         url: "/book"
       })
         .done(res => {
-          if(res == "done" ) window.location.href = "/bookingSuccess.html";
+          if (res == "done") window.location.href = "/bookingSuccess.html";
           else if (res == "try again") $("#tryAgain").show();
         });
     }
@@ -219,13 +221,13 @@ function createCarouselContent(photos) {
   var inner = $("#inner");
   for (let i = 0; i < photos.length; i++) {
     if (!i) {
-      indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "' class='active'></li>");
+      indicators.append("<li data-target='#carousel' data-slide-to='" + i + "' class='active'></li>");
       inner.append("<div class='carousel-item active'>" +
         "<img class='d-block w-100' src='data:image/png;base64," + photos[i] + "' alt='" + i + "'></img>" +
         "</div>");
     }
     else {
-      indicators.append("<li data-target='#carouselExampleControls' data-slide-to='" + i + "'></li>");
+      indicators.append("<li data-target='#carousel' data-slide-to='" + i + "'></li>");
       inner.append("<div class='carousel-item'>" +
         "<img class='d-block w-100' src='data:image/png;base64," + photos[i] + "' alt='" + i + "'></img>" +
         "</div>");

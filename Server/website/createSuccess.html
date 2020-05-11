@@ -2,61 +2,66 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Let Party - Party Room Owner - Add Party Room </title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Let Party - Party Room Owner - Add Party Room </title>
 
-    <!-- Bootstrap -->
-    <link href="./css/bootstrap-4.4.1.css" rel="stylesheet">
+  <!-- Bootstrap -->
+  <link href="./css/bootstrap-4.4.1.css" rel="stylesheet">
 
-    <!-- CSS -->
-    <link href="./css/index.css" rel="stylesheet">
-    <link href="./css/sidebar.css" rel="stylesheet">
-    <link href="./css/ownerSignup.css" rel="stylesheet">
-    <!--jQuery-->
-    <script src="./js/jquery-3.4.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="./js/popper.min.js"></script>
-    <script src="./js/bootstrap-4.4.1.js"></script>
-    <script src="./js/home.js"></script>
+  <!-- CSS -->
+  <link href="./css/index.css" rel="stylesheet">
+  <link href="./css/sidebar.css" rel="stylesheet">
+  <link href="./css/ownerSignup.css" rel="stylesheet">
+  <!--jQuery-->
+  <script src="./js/jquery-3.4.1.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="./js/popper.min.js"></script>
+  <script src="./js/bootstrap-4.4.1.js"></script>
+  <script src="./js/home.js"></script>
 
-    <!-- Icon -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Icon -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
 <body>
-<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
     <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
     <form id="loginSignupForm" action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
-                                                                         class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
+        class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
     <div id="userIcon" style="display: none"></div>
-</nav>
-<div id="sideBar" class="shadow" style="display: none">
+  </nav>
+
+  <div id="sideBar" class="shadow" style="display: none">
     <ul>
-        <li>
-            <div id="userName" class="sideItem text-monospace"></div>
-        </li>
-        <li>
-            <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
-        </li>
-        <li>
-            <div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
-        </li>
-        <li>
-            <div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
-        </li>
+      <li>
+        <div id="userName" class="sideItem text-monospace"></div>
+      </li>
+      <li>
+        <div id="partyRoom" class="sideItem sideBtn" style="display: none;">PartyRoom</div>
+      </li>
+      <li>
+        <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
+      </li>
+      <li>
+        <div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
+      </li>
+      <li>
+        <div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
+      </li>
     </ul>
-</div>
-<section id="signupSuccessPage">
+  </div>
+
+  <section id="signupSuccessPage">
     <div class="jumbotron jumbotron-fluid text-center" style="padding-top: 150px">
-        <span class="material-icons">check_circle</span>
-        <p>New PartyRoom Added!</p>
-        <br>
-        <a href="./index.html" class="btn btn-primary">Go to Home</a>
+      <span class="material-icons">check_circle</span>
+      <p>New PartyRoom Added!</p>
+      <br>
+      <a href="./index.html" class="btn btn-primary">Go to Home</a>
     </div>
-</section>
+  </section>
 </body>
 
 </html>

@@ -52,4 +52,8 @@ function getUserInfo(username) {
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
+
+    if (window.location.hash != "") {
+      $('a[href="' + window.location.hash + '"]').click();
+    }
 }

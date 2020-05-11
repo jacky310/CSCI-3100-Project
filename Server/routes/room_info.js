@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 // MongoDB & mongoose:
-const MongoClient = require('mongodb').MongoClient;
+const MongoDB = require('mongodb');
+const MongoClient = MongoDB.MongoClient;
+const ObjectID = MongoDB.ObjectID;
 const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 const mongoose = require('mongoose');
@@ -38,7 +40,7 @@ router.post("/", function (req, res) {
     else {
       let photos = [];
       for (let i = 0; i < room.photos.length; i++) {
-        gfs.files.findOne({ _id: room.photos[i] }, (err, file) => {
+        gfs.files.findOne({ _id: ObjectID(room.photos[i]) }, (err, file) => {
           if (err) throw err;
           if (!file || file.length === 0) console.log("Impossible");
           else {

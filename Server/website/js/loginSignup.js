@@ -27,7 +27,7 @@ $(function () {
       url: url
     })
       .done(res => {
-        if (res == "CustomerLoginSuccess" || res == "OwnerLoginSuccess")
+        if (res == "customerLoginSuccess" || res == "ownerLoginSuccess")
           window.location.href = "/";
         else alert(res);
       })
@@ -39,10 +39,10 @@ $(function () {
 
 $(function () {
   $("#createCustomerBtn").click(() => {
-    window.location.href = "/customerSignup";
+    window.location.href = "/customer";
   });
 
   $("#createOwnerBtn").click(() => {
-    window.location.href = "/ownerSignup";
+    window.location.href = "/owner";
   });
 });
