@@ -254,7 +254,7 @@ router.post('/addPartyTest', function (req, res) {
       collection.findOne({ filename: "456_test2.jpg" }, (err, p) => {
         var a = {
           party_room_id: maxId + 1,
-          party_room_name: "CUHK6",
+          party_room_name: "CUHK",
           party_room_number: "12345678",
           address: "CUHK",
           district: "Kwun Tong",

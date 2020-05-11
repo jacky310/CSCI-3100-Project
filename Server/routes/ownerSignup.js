@@ -91,7 +91,7 @@ router.post('/signup', (req, res) => {
   });
 });
 
-router.post('/uploadPhoto', uploadController.uploadPhoto);
+// router.post('/uploadPhoto', uploadController.uploadPhoto);
 
 router.post('/partyRoomInfo', (req, res) => {
   var data = req.body;

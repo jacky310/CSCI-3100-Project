@@ -153,7 +153,7 @@ router.post('/', (req, res) => {
 router.post('/addOwnership', (req, res)=>{
   ownership = {
     owner_userName: "owner3",
-    party_room_id: 2
+    party_room_id: 5
   };
   insertData = new RoomOwnership(ownership);
   insertData.save((err)=>{

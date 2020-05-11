@@ -24,22 +24,22 @@ $(function () {
       .fail((jqXHR, textStatus, err) => {
         alert(err);
       });
-  
+
     $('#userIcon').click(() => {
       $("#sideBar").animate({
         width: "toggle"
       });
     });
-  
+
     $('#bookingRecordBtn').click(() => {
       window.location.href = "/account";
     });
-  
+
     $('#personalInfo').click(() => {
       window.location.href = "/account";
     });
   });
-  
+
   // Logout
   $(function () {
     $('#logoutBtn').click(() => {
