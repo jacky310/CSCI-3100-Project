@@ -1,12 +1,14 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
 let Customer = require('../models/customer.model');
+let PartyRoom = require('../models/partyRoom.model');
+let BookingRecord = require('../models/bookingRecord.model');
 
 router.get('/', (req, res) => {
   res.sendFile('customerSignup.html', { 'root': "./website" });
 });
 
-router.post("/", function (req, res) {
+router.post("/info", function (req, res) {
   Customer.findOne({ username: req.body.username }, (err, customer) => {
     if (err) throw err;
     else if (customer == null) res.send("notFound");
@@ -15,6 +17,33 @@ router.post("/", function (req, res) {
         username: customer.username,
         email: customer.email,
         phone: customer.phone
+      });
+    }
+  })
+});
+
+router.post("/booking", function (req, res) {
+  BookingRecord.find({ customer_userName: req.body.username }, (err, bookings) => {
+    var result = [];
+    if (err) throw err;
+    else if (bookings == null) res.send({ result: result });
+    else {
+      bookings.forEach(booking => {
+        PartyRoom.findOne({ party_room_id: booking.party_room_id }, (err, room) => {
+          if (err) throw err;
+          else {
+            result.push({
+              room_id: room.party_room_id,
+              room: (room == null) ? "unknown" : room.party_room_name,
+              owner: booking.owner_userName,
+              start: new Date(booking.time[0].bookingStart).toUTCString(),
+              end: new Date(booking.time[0].bookingEnd).toUTCString(),
+              num: booking.numPeople
+            })
+            if (result.length == bookings.length)
+              res.send({ result: result });
+          }
+        });
       });
     }
   })

@@ -1,17 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// MongoDB & mongoose:
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-const mongoose = require('mongoose');
-const conn = mongoose.createConnection(uri);
-
 // Other packages:
-const bodyParser = require("body-parser");
-const bcrypt = require('bcrypt');
-
 const RoomOwnership = require('../models/roomOwnership.model');
 const BookingRecord = require('../models/bookingRecord.model');
 const Owner = require('../models/owner.model');

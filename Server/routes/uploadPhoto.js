@@ -14,5 +14,5 @@ const uploadPhoto = async (req, res) => {
 };
 
 module.exports = {
-  uploadPhoto: uploadPhoto
+  uploadPhoto: uploadPhoto,
 };

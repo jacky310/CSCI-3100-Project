@@ -1,8 +1,10 @@
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
-let Owner = require('../models/owner.model');
-let PartyRoom = require('../models/partyRoom.model');
-let RoomOwnership = require('../models/roomOwnership.model');
+const Owner = require('../models/owner.model');
+const PartyRoom = require('../models/partyRoom.model');
+const RoomOwnership = require('../models/roomOwnership.model');
+const BookingRecord = require('../models/bookingRecord.model');
+
 
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
@@ -43,13 +45,13 @@ router.post("/room", function (req, res) {
         PartyRoom.findOne({ party_room_id: room.party_room_id }, (err, r) => {
           if (err) throw err;
           else if (r != null) {
+            var priceMax = -Infinity, priceMin = Infinity;
+            r.price_setting.forEach(item => {
+              if (item.price < priceMin) priceMin = item.price;
+              if (item.price > priceMax) priceMax = item.price;
+            });
             let image = "";
             gfs.files.findOne({ _id: r.photos[0] }, (err, file) => {
-              var priceMax = -Infinity, priceMin = Infinity;
-              r.price_setting.forEach(item => {
-                if (item.price < priceMin) priceMin = item.price;
-                if (item.price > priceMax) priceMax = item.price;
-              });
               if (!file || file.length === 0) {
                 result.push({
                   id: r.party_room_id,
@@ -85,6 +87,33 @@ router.post("/room", function (req, res) {
             });
           }
         })
+      });
+    }
+  })
+});
+
+router.post("/booking", function (req, res) {
+  BookingRecord.find({ owner_userName: req.body.username }, (err, bookings) => {
+    var result = [];
+    if (err) throw err;
+    else if (bookings == null) res.send({ result: result });
+    else {
+      bookings.forEach(booking => {
+        PartyRoom.findOne({ party_room_id: booking.party_room_id }, (err, room) => {
+          if (err) throw err;
+          else {
+            result.push({
+              room_id: room.party_room_id,
+              room: (room == null) ? "unknown" : room.party_room_name,
+              customer: booking.customer_userName,
+              start: new Date(booking.time[0].bookingStart).toUTCString(),
+              end: new Date(booking.time[0].bookingEnd).toUTCString(),
+              num: booking.numPeople
+            })
+            if (result.length == bookings.length)
+              res.send({ result: result });
+          }
+        });
       });
     }
   })

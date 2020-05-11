@@ -40,16 +40,10 @@
           <!-- Tabs nav -->
           <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist"
             aria-orientation="vertical">
-            <a class="nav-link mb-3 p-3 shadow active" id="v-pills-inbox-tab" data-toggle="pill" href="#inbox"
-              role="tab" aria-controls="v-pills-inbox" aria-selected="true">
-              <i class="fa fa-user-circle-o mr-2"></i>
-              <span class="font-weight-bold small text-uppercase">Inbox</span></a>
-
             <a class="nav-link mb-3 p-3 shadow" id="v-pills-bookings-tab" data-toggle="pill" href="#booking"
-              role="tab" aria-controls="v-pills-bookins" aria-selected="false">
+              role="tab" aria-controls="v-pills-bookins" aria-selected="true">
               <i class="fa fa-calendar-minus-o mr-2"></i>
               <span class="font-weight-bold small text-uppercase">Booking Records</span></a>
-
             <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#info"
               role="tab" aria-controls="v-pills-settings" aria-selected="false">
               <i class="fa fa-check mr-2"></i>
@@ -60,84 +54,20 @@
         <div class="col-md-9">
           <!-- Tabs content -->
           <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade shadow rounded bg-white show active p-5" id="inbox" role="tabpanel"
-              aria-labelledby="v-pills-inbox-tab">
-              <div class="table-responsive">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Receive Date</th>
-                      <th>Receive Time</th>
-                      <th>Sender ID</th>
-                      <th>Title</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>15 Apr 2020</td>
-                      <td>11:33:34</td>
-                      <td>Shao Zili</td>
-                      <td>How to amend the booking time?</td>
-                      <td><button id="ViewBtn1" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>15 Apr 2020</td>
-                      <td>20:04:15</td>
-                      <td>Hello Party</td>
-                      <td>Update party room list</td>
-                      <td><button id="ViewBtn2" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                </p>
-              </div>
-            </div>
             <div class="tab-pane fade shadow rounded bg-white p-5" id="booking" role="tabpanel"
               aria-labelledby="v-pills-bookings-tab">
               <div class="table-responsive">
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Booking id</th>
-                      <th>Party Room Name</th>
-                      <th>Location</th>
-                      <th>Booking Date</th>
-                      <th>Booking Time</th>
-                      <th>Action</th>
+                      <th>PartyRoom</th>
+                      <th>Owner</th>
+                      <th>Start</th>
+                      <th>End</th>
+                      <th>No. of people</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>0000137</td>
-                      <td>Shao Zili</td>
-                      <td>Hello Party</td>
-                      <td>5 May 2020</td>
-                      <td>19:00 - 26:00</td>
-                      <td><button id="ViewBtn3" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>0000139</td>
-                      <td>Handsome Michael</td>
-                      <td>Hello Party</td>
-                      <td>6 May 2020</td>
-                      <td>13:00 - 20:00</td>
-                      <td><button id="ViewBtn4" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>0000140</td>
-                      <td>Handsome Michael</td>
-                      <td>Pixel Party</td>
-                      <td>30 Apr 2020</td>
-                      <td>15:00 - 20:00</td>
-                      <td><button id="ViewBtn5" class="btn btn-outline-primary my-2 my-sm-0" type="button">View</button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  <tbody id="bookinglist"></tbody>
                 </table>
               </div>
             </div>

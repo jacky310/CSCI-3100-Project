@@ -3,7 +3,7 @@ var express = require('express');
 let PartyRoom = require('../models/partyRoom.model');
 var RoomOwnership = require('../models/roomOwnership.model');
 let Owner = require('../models/owner.model');
-// const uploadController = require("../website/controller/upload");
+
 const uploadController = require("./uploadPhoto");
 var router = express.Router();
 
@@ -12,13 +12,8 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Other packages:
-const bodyParser = require("body-parser");
-const bcrypt = require('bcrypt');
-
 const mongoose = require('mongoose');
 mongoose.connect(uri);
-
 
 const upload = multer({
   dest: 'uploads/',

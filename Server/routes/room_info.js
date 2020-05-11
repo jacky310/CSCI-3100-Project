@@ -14,10 +14,8 @@ const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 
 var Grid = require('gridfs-stream');
-
 const conn = mongoose.createConnection(uri);
 let gfs;
-
 conn.once('open', () => {
   // Init stream
   gfs = Grid(conn.db, mongoose.mongo);

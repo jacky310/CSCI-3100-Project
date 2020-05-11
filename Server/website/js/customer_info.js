@@ -26,6 +26,10 @@ $(function () {
         alert(err);
       });
   });
+  if (window.location.hash != "") {
+    $('a[href="' + window.location.hash + '"]').click();
+  }
+  window.scrollTo(0, 0);
 });
 
 function getUserInfo(username) {
@@ -33,7 +37,7 @@ function getUserInfo(username) {
     type: "post",
     async: false,
     data: "username=" + username,
-    url: "/customer"
+    url: "/customer/info"
   })
     .done(res => {
       if (res == "notFound")
@@ -42,13 +46,34 @@ function getUserInfo(username) {
         $('#username').text(res.username);
         $('#email').text(res.email);
         $('#phone').text(res.phone);
+        getBookings(username);
       }
     })
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
+}
 
-  if (window.location.hash != "") {
-    $('a[href="' + window.location.hash + '"]').click();
-  }
+function getBookings(username) {
+  $.ajax({
+    type: "post",
+    async: false,
+    data: "username=" + username,
+    url: "/customer/booking"
+  })
+    .done(res => {
+      res.result.forEach(booking => {
+        $("#bookinglist").append(
+          "<tr>" +
+          "<td><a href='/partyRoom?id=" + booking.room_id + "'>" + booking.room + "</td>" +
+          "<td>" + booking.owner + "</td>" +
+          "<td>" + booking.start + "</td>" +
+          "<td>" + booking.end + "</td>" +
+          "<td>" + booking.num + "</td>" +
+          "</tr>");
+      });
+    })
+    .fail((jqXHR, textStatus, err) => {
+      alert(err);
+    });
 }
