@@ -35,7 +35,7 @@ $(function () {
   $('#partyRoom').click(() => {
     window.location.href = "/account#room";
   });
-
+  
   $('#bookingRecordBtn').click(() => {
     window.location.href = "/account#booking";
   });

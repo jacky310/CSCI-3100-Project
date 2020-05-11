@@ -45,7 +45,7 @@ function getUserInfo(username) {
       }
     })
     .fail((jqXHR, textStatus, err) => {
-      alert(err+"!!!");
+      alert(err);
     });
 
   if (window.location.hash != "") {

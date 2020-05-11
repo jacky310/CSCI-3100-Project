@@ -1,6 +1,7 @@
 $(function () {
   $("#partyRoomInfoForm").submit(function (e) {
     e.preventDefault();
+    alert(form.serialize());
     var form = $(this);
     var url = form.attr('action');
 

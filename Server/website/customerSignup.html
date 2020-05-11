@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,29 +10,29 @@
   <!-- Bootstrap -->
   <link href="./css/bootstrap-4.4.1.css" rel="stylesheet">
 
-  <link href="./css/customerSignup.css" rel="stylesheet">
+  <link href="./css/signup.css" rel="stylesheet">
   <!--jQuery-->
   <script src="./js/jquery-3.4.1.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="./js/popper.min.js"></script>
   <script src="./js/bootstrap-4.4.1.js"></script>
-  <script src="./js/customerSignup.js"></script>
 
   <!-- Icon -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-  <script src="js/customerSignup.js"></script>
+  <!-- NAVBAR -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
     <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
-    <form action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit" class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
+    <form action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
+        class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
   </nav>
   <section id="customerCreatePage">
     <div class="container" style="padding-top: 100px">
       <h1>Customer Register</h1>
       <hr>
-      <form id="customerSignUpForm" action="/customers/add" method="post">
+      <form id="customerSignUpForm" action="/customer/add" method="post">
         <div class="form-group">
           <label>Username <span class="requiredMark">*</span>
             <input name="username" type="text" class="form-control" placeholder="Enter username" required>
@@ -45,14 +46,15 @@
         </div>
         <div class="form-group">
           <label>Password <span class="requiredMark">*</span>
-            <input name="password" type="password" pattern='^(?=.*[a-zA-Z])(?=\w*[0-9])\w{8,}$' title="Please follow the password format" class="form-control" placeholder="Password" required>
+            <input name="password" type="password" pattern='^(?=.*[a-zA-Z])(?=\w*[0-9])\w{8,}$'
+              title="Please follow the password format" class="form-control" placeholder="Password" required>
             <small class="form-text text-muted">The password should consist of at least 8 characters.</small>
             <small class="form-text text-muted">It should contain both alphabet and numbers.</small>
           </label>
         </div>
         <div class="form-group">
           <label>Phone Number <span class="requiredMark">*</span>
-            <input name="phone" type="text"  pattern='\d{8}' class="form-control" placeholder="Phone Number" required>
+            <input name="phone" type="text" pattern='\d{8}' class="form-control" placeholder="Phone Number" required>
             <small class="form-text text-muted">Please enter a 8-digit phone number. (e.g. 12345678)</small>
           </label>
         </div>
@@ -73,5 +75,6 @@
     </div>
   </div>
 </body>
+
 </html>
 <script src="js/customerSignup.js"></script>

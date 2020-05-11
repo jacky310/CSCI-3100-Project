@@ -29,7 +29,7 @@ $(function () {
 
   $("#mainSearchBarCloseBtn").click(() => $("#mainSearchBar").slideUp("slow"));
 
-  $("#priceRange").on("input", () => $("#priceValue").html("Each hour Price: $" + $("#priceRange").val() + " / person"));
+  $("#priceRange").on("input", () => $("#priceValue").html("Hour Price: $" + $("#priceRange").val() + " / person"));
 
   $("#searchBtn").click(function () {
     var form = $("#searchForm");

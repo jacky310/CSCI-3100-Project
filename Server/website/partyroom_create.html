@@ -10,8 +10,9 @@
   <!-- Bootstrap -->
   <link href="./css/bootstrap-4.4.1.css" rel="stylesheet">
 
-	<!-- CSS -->
+  <!-- CSS -->
   <link href="./css/sidebar.css" rel="stylesheet">
+  <link href="./css/partyroom_create.css" rel="stylesheet">
 
   <!--jQuery-->
   <script src="./js/jquery-3.4.1.min.js"></script>
@@ -19,8 +20,8 @@
   <script src="./js/popper.min.js"></script>
   <script src="./js/bootstrap-4.4.1.js"></script>
 
-  <!-- <script src="./js/sidebar.js"></script> -->
-	<script src="./js/partyroom_create.js"></script>
+  <script src="./js/sidebar.js"></script>
+  <script src="./js/partyroom_create.js"></script>
 
   <!-- Icon -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -28,7 +29,7 @@
 
 <body>
   <!-- NAVBAR -->
-	<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
     <a class="navbar-brand mr-auto" href="index.html">LetParty</a>
     <form id="loginSignupForm" action="/loginSignup" method="get"><input id="loginSignupBtn" type="submit"
         class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up"></form>
@@ -39,6 +40,9 @@
     <ul>
       <li>
         <div id="userName" class="sideItem text-monospace"></div>
+      </li>
+      <li>
+        <div id="partyRoom" class="sideItem sideBtn" style="display: none;">PartyRoom</div>
       </li>
       <li>
         <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
@@ -52,15 +56,15 @@
     </ul>
   </div>
 
-	<section id="addPartyRoomPage">
-    <div id="scrollTo" class="container " style="padding-top: 70px">
+  <section id="addPartyRoomPage">
+    <div id="scrollTo" class="container" style="padding-top: 70px">
       <h1>Add Party Room</h1>
       <hr>
       <form id="partyRoomInfoForm">
         <div class="form-group">
           <label for="party_room_name">Party Room Name <span class="requiredMark">*</span>
-            <input name="partyRoomName" type="text" class="form-control"
-              placeholder="Enter name of party room" required>
+            <input name="partyRoomName" type="text" class="form-control" placeholder="Enter name of party room"
+              required>
           </label>
         </div>
 
@@ -69,16 +73,11 @@
             <input name="partyRoomPhoneNum" type="text" class="form-control" placeholder="Enter phone number" required>
           </label>
         </div>
-        <!-- <div class="form-group">
-        <label for="room_name">Room name</label>
-        <input type="text" class="form-control" id="roomname" placeholder="Enter name of room">
-    </div> -->
 
         <div class="form-group">
           <label for="inputAddress">Address <span class="requiredMark">*</span>
             <input id="address" name="address" type="text" class="form-control" placeholder="Full Address" required>
           </label>
-          <!-- <button>Confirm Address</button> -->
         </div>
 
         <iframe id="addressMap" width="100%" height="300" frameborder="0" style="display: none"
@@ -86,37 +85,32 @@
           allowfullscreen>
         </iframe>
 
-        <!-- <div class="form-group">
-      <label for="inputAddress2">Address 2</label>
-      <input name="address2" type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div> -->
-
         <div class="form-group">
           <label>District: <span class="requiredMark">*</span>
             <select id="district" name="district" class="form-control" required>
-							<option value="" disabled>Hong Kong Island:</option>
-							<option value="Central & Western" selected>Central & Western District</option>
-							<option value="Wanchai">Wanchai District</option>
-							<option value="Eastern">Eastern District</option>
-							<option value="Southern">Southern DIstrict</option>
+              <option value="" disabled>Hong Kong Island:</option>
+              <option value="Central & Western" selected>Central & Western District</option>
+              <option value="Wanchai">Wanchai District</option>
+              <option value="Eastern">Eastern District</option>
+              <option value="Southern">Southern DIstrict</option>
 
-							<option value="" disabled>Kowloon: </option>
-							<option value="Shamshuipo">Shamshuipo District</option>
-							<option value="Yau Tsim Mong">Yau Tsim Mong District</option>
-							<option value="Kowloon City">Kowloon City District</option>
-							<option value="Wong Tai Sin">Wong Tai Sin District</option>
-							<option value="Kwun Tong">Kwun Tong District</option>
+              <option value="" disabled>Kowloon: </option>
+              <option value="Shamshuipo">Shamshuipo District</option>
+              <option value="Yau Tsim Mong">Yau Tsim Mong District</option>
+              <option value="Kowloon City">Kowloon City District</option>
+              <option value="Wong Tai Sin">Wong Tai Sin District</option>
+              <option value="Kwun Tong">Kwun Tong District</option>
 
-							<option value="" disabled>New Territories:</option>
-							<option value="Kwai Tsing">Kwai Tsing District</option>
-							<option value="Tsuen Wan">Tsuen Wan District</option>
-							<option value="Tuen Mun">Tuen Mun District</option>
-							<option value="Yuen Long">Yuen Long District</option>
-							<option value="North">North District</option>
-							<option value="Tai Po">Tai Po</option>
-							<option value="Sha Tin">Sha Tin District</option>
-							<option value="Sai Kung">Sai Kung District</option>
-							<option value="Islands">Islands District</option>
+              <option value="" disabled>New Territories:</option>
+              <option value="Kwai Tsing">Kwai Tsing District</option>
+              <option value="Tsuen Wan">Tsuen Wan District</option>
+              <option value="Tuen Mun">Tuen Mun District</option>
+              <option value="Yuen Long">Yuen Long District</option>
+              <option value="North">North District</option>
+              <option value="Tai Po">Tai Po</option>
+              <option value="Sha Tin">Sha Tin District</option>
+              <option value="Sai Kung">Sai Kung District</option>
+              <option value="Islands">Islands District</option>
             </select>
           </label>
         </div>
@@ -171,16 +165,16 @@
         </div>
         <button type="button" id="addPriceSettingBtn" class="btn btn-info">Add price setting</button>
 
-				<br>
-				<br>
-				<h4>Party Room Photo <span style="font-weight: bold">(Three only)</span></h4>
+        <br>
+        <br>
+        <h4>Party Room Photo <span style="font-weight: bold">(Three only)</span></h4>
         <div class="input-group">
           <div class="custom-file">
             <input id="photos" type="file" name="photo" accept="image/*" multiple="multiple" required>
           </div>
         </div>
 
-				<br>
+        <br>
         <br>
         <h4>Facilities:</h4>
         <div class="row px-3">
@@ -223,21 +217,6 @@
         <p><span class="requiredMark">*</span>required</p>
         <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
       </form>
-
-      <!-- <form id="photoSubmit" class="mt-4" action="/create_partyroom/uploadphoto">
-        <h4>Party Room Photo <span style="font-weight: bold">(Three only)</span></h4>
-        <div class="input-group">
-          <div class="custom-file">
-            <input id="photos" type="file" name="photo" accept="image/*" multiple="multiple" required>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form> -->
-
-      <!-- <button id="submitBtn" type="button" class="btn btn-primary">Submit</button> -->
-      <!-- <form id="#testForm2" class="mt-4" action="/ownerSignup/downloadPhoto" method="POST" enctype="multipart/form-data">
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form> -->
   </section>
 </body>
 
