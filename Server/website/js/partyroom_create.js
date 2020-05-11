@@ -14,9 +14,7 @@ $(function () {
 
     $("#priceSetting").append(priceSettingBlock);
   });
-});
 
-$(function () {
   $('#address').on('change', function () {
     if ($(this).val() != '') {
       $('#addressMap').show();
@@ -30,7 +28,6 @@ $(function () {
 
 $(function () {
   $("#partyRoomInfoForm").submit((e) => {
-    console.log("hi");
     var start = 0;
     var end = 0;
     for (var i = 0; i < $(".timeSetting").length; i++) {
@@ -40,13 +37,13 @@ $(function () {
       end = stringTranTime(end);
     }
     if (end <= start) alert("Price setting endTime should not be bigger than the start time.");
-    else{
+    else {
       var partyRoomName = $("#partyRoomInfoForm input[name='partyRoomName']").val();
       var partyRoomPhoneNum = $("#partyRoomInfoForm input[name='partyRoomPhoneNum']").val();
       var address = $("#partyRoomInfoForm input[name='address']").val();
 
       var k = document.getElementById("district");
-      var district  = k.options[k.selectedIndex].value;
+      var district = k.options[k.selectedIndex].value;
 
       var partyRoomDescr = $("#partyRoomDescr").val();
       var quotaLimitMin = $("#partyRoomInfoForm input[name='quotaLimitMin']").val();
@@ -59,30 +56,23 @@ $(function () {
 
       var startTimeArray = document.getElementsByClassName("starttime");
       var startTime = [];
-      for (var i = 0; i < startTimeArray.length; i++) {
-        t = stringTranTime(startTimeArray[i].value)
-        startTime.push(t);
-      }
+      for (var i = 0; i < startTimeArray.length; i++)
+        startTime.push(stringTranTime(startTimeArray[i].value));
 
       var endTimeArray = document.getElementsByClassName("endtime");
       var endTime = [];
-      for (var i = 0; i < endTimeArray.length; i++) {
-        t = stringTranTime(endTimeArray[i].value);
-        endTime.push(t);
-      }
+      for (var i = 0; i < endTimeArray.length; i++)
+        endTime.push(stringTranTime(endTimeArray[i].value));
 
       var priceArray = document.getElementsByClassName("price");
       var price = [];
-      for (var i = 0; i < priceArray.length; i++) {
+      for (var i = 0; i < priceArray.length; i++)
         price.push(priceArray[i].value);
-      }
-      console.log(price);
-      var facilities = []
-      $("input:checkbox[name='facilities']:checked").each(function(){
+
+      var facilities = [];
+      $("input:checkbox[name='facilities']:checked").each(function () {
         facilities.push($(this).val());
       });
-
-      var price_setting = [];
 
       var data = {
         party_room_name: partyRoomName,
@@ -98,7 +88,6 @@ $(function () {
         price: JSON.stringify(price),
         facilities: JSON.stringify(facilities)
       }
-      console.log(data);
 
       //For photos:
       var fd = new FormData();
@@ -117,18 +106,18 @@ $(function () {
         data: fd,
         url: "/create_partyroom/uploadPhoto"
       })
-      .done((res) => {
-        alert(res);
-        $.ajax({
-          type: "POST",
-          async: false,
-          data: data,
-          url: "/create_partyroom/create"
-        }).
-        done((res)=>{
+        .done((res) => {
           alert(res);
+          $.ajax({
+            type: "POST",
+            async: false,
+            data: data,
+            url: "/create_partyroom/create"
+          }).
+            done((res) => {
+              alert(res);
+            });
         });
-      });
     }
     e.preventDefault();
   });

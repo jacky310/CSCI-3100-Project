@@ -1,4 +1,3 @@
-// check login
 $(function () {
   $.ajax({
     type: "post",
@@ -13,10 +12,7 @@ $(function () {
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
-});
 
-// Logout
-$(function () {
   $('#logoutBtn').click(() => {
     $.ajax({
       type: "post",
@@ -53,7 +49,7 @@ function getUserInfo(username) {
       alert(err);
     });
 
-    if (window.location.hash != "") {
-      $('a[href="' + window.location.hash + '"]').click();
-    }
+  if (window.location.hash != "") {
+    $('a[href="' + window.location.hash + '"]').click();
+  }
 }
