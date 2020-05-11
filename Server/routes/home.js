@@ -184,26 +184,28 @@ router.get('/search', (req, res) => {
               });
             }
           }
-          const readstream = gfs.createReadStream(file.filename);
-          readstream.on('data', (chunk) => {
-            image += chunk.toString('base64');
-          });
-          readstream.on('end', () => {
-            result.push({
-              id: r[i].party_room_id,
-              img: image,
-              title: r[i].party_room_name,
-              description: r[i].description,
-              capacity: r[i].quotaMin + " - " + r[i].quotaMax,
-              location: r[i].district,
-              price: priceMin + " ~ " + priceMax
+          else {
+            const readstream = gfs.createReadStream(file.filename);
+            readstream.on('data', (chunk) => {
+              image += chunk.toString('base64');
             });
-            if (result.length == r.length) {
-              return res.send({
-                hasResult: r.length, result: result
+            readstream.on('end', () => {
+              result.push({
+                id: r[i].party_room_id,
+                img: image,
+                title: r[i].party_room_name,
+                description: r[i].description,
+                capacity: r[i].quotaMin + " - " + r[i].quotaMax,
+                location: r[i].district,
+                price: priceMin + " ~ " + priceMax
               });
-            }
-          });
+              if (result.length == r.length) {
+                return res.send({
+                  hasResult: r.length, result: result
+                });
+              }
+            });
+          }
         });
       }
     }
