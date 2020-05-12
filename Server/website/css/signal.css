@@ -1,0 +1,19 @@
+#successPage span {
+  font-size: 100px;
+  color: #44c918;
+}
+  
+#successPage p {
+  font-size: 30px;
+  color: #44c918;
+}
+
+#failPage span {
+  font-size: 100px;
+  color: #f03434;
+}
+  
+#failPage p {
+  font-size: 30px;
+  color: #f03434;
+}

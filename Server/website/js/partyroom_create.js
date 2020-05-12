@@ -107,16 +107,21 @@ $(function () {
         url: "/create_partyroom/uploadPhoto"
       })
         .done((res) => {
-          alert(res);
           $.ajax({
             type: "POST",
             async: false,
             data: data,
             url: "/create_partyroom/create"
-          }).
-            done((res) => {
-              alert(res);
+          })
+            .done(res => {
+              window.location.href = "/create" + res + ".html";
+            })
+            .fail((jqXHR, textStatus, err) => {
+              alert(err);
             });
+        })
+        .fail((jqXHR, textStatus, err) => {
+          alert(err);
         });
     }
     e.preventDefault();

@@ -126,7 +126,7 @@ function createCard(id, img, title, description, capacity, location, price) {
   let cardPrice = $("<li class='list-group-item'></li>").text("Price: " + price);
   cardDetail.append(cardCapacity, cardLocation, cardPrice);
 
-  let cardButton = $("<div class='card-body'><a href='/partyRoom?id=" + id + "' class='btn btn-success'>Book it!</a></div>");
+  let cardButton = $("<div class='card-body'><a href='/partyRoom?id=" + id + "' class='btn btn-success'>View</a></div>");
   cardBody.append(cardTitle, cardDescription, cardDetail, cardButton);
   card.append(cardImg, cardBody);
   cardContainer.append(card);
