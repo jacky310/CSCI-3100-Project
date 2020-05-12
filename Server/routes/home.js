@@ -1,15 +1,17 @@
-const express = require('express');
-const router = express.Router();
-
 // MongoDB & mongoose:
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const router = require('express').Router();
 const mongoose = require('mongoose');
+const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
+const conn = mongoose.createConnection(uri);
 
 // Other packages:
 const PartyRoom = require('../models/partyRoom.model');
-const BookingRecord = require('../models/bookingRecord.model');
+const Grid = require('gridfs-stream');
+let gfs;
+conn.once('open', () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('photos');
+});
 
 router.post('/checkLogin', (req, res) => {
   var user = '';
@@ -25,9 +27,7 @@ router.post('/checkLogin', (req, res) => {
 
 router.post('/logout', (req, res) => {
   req.session.destroy(function (err) {
-    if (err) {
-      res.send("Logout Fail");
-    }
+    if (err) res.send("Logout Fail");
     res.redirect('/');
   });
 });
@@ -42,20 +42,6 @@ router.get("/account", (req, res) => {
   else res.sendFile("404.html", { 'root': "./website" });
 });
 
-var Grid = require('gridfs-stream');
-var fs = require('fs');
-const conn = mongoose.createConnection(uri);
-let gfs;
-conn.once('open', () => {
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('photos');
-});
-
-function timeTranString(t) {
-  var hours = Math.floor(t / 60),
-    minutes = t % 60
-  return { hours: hours, minutes: minutes };
-}
 
 function stringTranTime(s) {
   var parts = s.match(/(\d+)\:(\d+)/),
@@ -205,61 +191,6 @@ router.get('/search', (req, res) => {
       }
     }
   });
-});
-
-router.post('/addPartyTest', function (req, res) {
-  PartyRoom.find({}, 'party_room_id').sort({ party_room_id: -1 }).limit(1).exec(function (err, maxIdRoom) {
-    if (err) res.send(err);
-    if (maxIdRoom.length == 1) {
-      maxId = maxIdRoom[0].party_room_id;
-    }
-    else {
-      maxId = 0;
-    }
-    client.connect(err => {
-      const collection = client.db("PartyRoomBooking").collection("photos.files");
-      collection.findOne({ filename: "456_test2.jpg" }, (err, p) => {
-        var a = {
-          party_room_id: maxId + 1,
-          party_room_name: "CUHK123",
-          party_room_number: "12345678",
-          address: "CUHK",
-          district: "Kwun Tong",
-          description: "香港中文大學，簡稱中文大學、中大、港中文，是一所坐落於香港沙田馬料水的公立研究型大學，也是香港第一所研究型大學。香港中文大學由新亞書院、崇基學院及聯合書院於1963年合併而成，現已發展成為轄九大書院的書院制大學。香港中文大學起源於清朝中期至民國初年在大陸地區成立的教會大學和私人大學，是香港歷史源流最久遠的高等學府。",
-          quotaMin: 2,
-          quotaMax: 20,
-          price_setting: [{
-            day: "Monday to Thursday",
-            startTime: stringTranTime("08:00"),
-            endTime: stringTranTime("12:00"),
-            price: 50
-          }, {
-            day: "Monday to Thursday",
-            startTime: stringTranTime("13:00"),
-            endTime: stringTranTime("23:59"),
-            price: 50
-          },
-          {
-            day: "Friday",
-            startTime: stringTranTime("00:00"),
-            endTime: stringTranTime("07:00:"),
-            price: 50
-          }],
-          facilities: ["VR", "Switch"],
-          photos: []
-        };
-        a.photos.push(p._id);
-        var r = new PartyRoom(a);
-
-        r.save(function (err) {
-          if (err) res.send(err);
-          else {
-            res.send("done");
-          }
-        });
-      });
-    });
-  });
-});
+});;
 
 module.exports = router;

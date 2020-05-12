@@ -1,14 +1,13 @@
-var express = require('express');
-var router = express.Router();
-
+// MongoDB & mongoose:
+const router = require('express').Router();
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/test?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const bcrypt = require('bcrypt');
-
+// Other packages:
 const Customer = require('../models/customer.model');
 const Owner = require('../models/owner.model');
+const bcrypt = require('bcrypt');
 
 router.get('/', function (req, res) {
   res.sendFile('loginSignup.html', { 'root': "./website" });

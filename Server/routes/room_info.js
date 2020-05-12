@@ -1,20 +1,14 @@
-const express = require('express');
-const router = express.Router();
 
 // MongoDB & mongoose:
-const MongoDB = require('mongodb');
-const MongoClient = MongoDB.MongoClient;
-const ObjectID = MongoDB.ObjectID;
-const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const router = require('express').Router();
 const mongoose = require('mongoose');
+const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
+const conn = mongoose.createConnection(uri);
 
 // Other packages:
-const bodyParser = require("body-parser");
-const bcrypt = require('bcrypt');
-
-var Grid = require('gridfs-stream');
-const conn = mongoose.createConnection(uri);
+const PartyRoom = require('../models/partyRoom.model');
+const ObjectID = require('mongodb').ObjectID;
+const Grid = require('gridfs-stream');
 let gfs;
 conn.once('open', () => {
   // Init stream
@@ -22,7 +16,6 @@ conn.once('open', () => {
   gfs.collection('photos');
 });
 
-const PartyRoom = require('../models/partyRoom.model');
 
 router.get("/", function (req, res) {
   if (Object.keys(req.query).length == 0 || req.query.id == undefined)

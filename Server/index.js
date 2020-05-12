@@ -1,27 +1,21 @@
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
+// MongoDB & mongoose:
+const express = require("express");
 const mongoose = require('mongoose');
+
+// Other packages:
 const cors = require('cors');
 require('dotenv').config();
-
-const express = require("express");
 const bodyParser = require("body-parser");
-const bcrypt = require('bcrypt');
 const app = express();
-const router = express.Router();
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-var path = require('path');
+const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(cors());
 app.use(express.json());
-
-const PartyRoom = require('./models/partyRoom.model');
 
 // For Login
 app.use(session({
@@ -33,7 +27,6 @@ app.use(session({
 }));
 
 // Check MongoDB Connection
-// mongoose.connect("mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking", { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 mongoose.connect("mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking");
 const connection = mongoose.connection;
 

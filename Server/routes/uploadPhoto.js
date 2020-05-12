@@ -1,3 +1,4 @@
+// Other packages:
 const upload = require("./uploadPhotoMiddleware");
 
 const uploadPhoto = async (req, res) => {

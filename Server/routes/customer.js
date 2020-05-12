@@ -1,11 +1,11 @@
 // MongoDB & mongoose:
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
 
 // Other packages:
-let Customer = require('../models/customer.model');
-let PartyRoom = require('../models/partyRoom.model');
-let BookingRecord = require('../models/bookingRecord.model');
+const Customer = require('../models/customer.model');
+const PartyRoom = require('../models/partyRoom.model');
+const BookingRecord = require('../models/bookingRecord.model');
+const bcrypt = require('bcrypt');
 
 router.get('/', (req, res) => {
   res.sendFile('customerSignup.html', { 'root': "./website" });
@@ -29,7 +29,7 @@ router.post("/booking", function (req, res) {
   BookingRecord.find({ customer_userName: req.body.username }, (err, bookings) => {
     var result = [];
     if (err) throw err;
-    else if (bookings == null) res.send({ result: result });
+    else if (bookings.length == 0) res.send({ result: result });
     else {
       bookings.forEach(booking => {
         PartyRoom.findOne({ party_room_id: booking.party_room_id }, (err, room) => {
@@ -53,8 +53,6 @@ router.post("/booking", function (req, res) {
 });
 
 router.post('/add', (req, res) => {
-  bcrypt.hash(req.body.password, 10, function (err, hash) {
-  });
   const username = req.body.username;
   const email = req.body.email;
   const password = bcrypt.hashSync(req.body.password, 10);

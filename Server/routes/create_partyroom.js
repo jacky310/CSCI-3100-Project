@@ -1,16 +1,15 @@
 // MongoDB & mongoose:
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const router = require('express').Router();
 const mongoose = require('mongoose');
+const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
 mongoose.connect(uri);
-const express = require('express');
-const router = express.Router();
+const MongoClient = require('mongodb').MongoClient;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Other packages:
-const uploadController = require("./uploadPhoto");
 const PartyRoom = require('../models/partyRoom.model');
 const RoomOwnership = require('../models/roomOwnership.model');
+const uploadController = require("./uploadPhoto");
 
 router.get('/', function (req, res) {
   res.sendFile('partyroom_create.html', { 'root': "./website" });

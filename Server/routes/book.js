@@ -1,6 +1,5 @@
 // MongoDB & mongoose:
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 
 // Other packages:
 const RoomOwnership = require('../models/roomOwnership.model');

@@ -1,15 +1,16 @@
+// MongoDB & mongoose:
 const router = require('express').Router();
-const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
+const conn = mongoose.createConnection(uri);
+
+// Other packages:
 const Owner = require('../models/owner.model');
 const PartyRoom = require('../models/partyRoom.model');
 const RoomOwnership = require('../models/roomOwnership.model');
 const BookingRecord = require('../models/bookingRecord.model');
-
-
-const mongoose = require('mongoose');
-const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
-const conn = mongoose.createConnection(uri);
-var Grid = require('gridfs-stream');
+const bcrypt = require('bcrypt');
+const Grid = require('gridfs-stream');
 let gfs;
 conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
@@ -96,7 +97,7 @@ router.post("/booking", function (req, res) {
   BookingRecord.find({ owner_userName: req.body.username }, (err, bookings) => {
     var result = [];
     if (err) throw err;
-    else if (bookings == null) res.send({ result: result });
+    else if (bookings.length == 0) res.send({ result: result });
     else {
       bookings.forEach(booking => {
         PartyRoom.findOne({ party_room_id: booking.party_room_id }, (err, room) => {
@@ -120,8 +121,6 @@ router.post("/booking", function (req, res) {
 });
 
 router.post('/add', (req, res) => {
-  bcrypt.hash(req.body.password, 10, function (err, hash) {
-  });
   const companyName = req.body.companyName;
   const name = req.body.name;
   const username = req.body.username;
