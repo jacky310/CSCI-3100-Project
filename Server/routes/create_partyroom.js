@@ -1,24 +1,16 @@
-const multer = require('multer');
-var express = require('express');
-let PartyRoom = require('../models/partyRoom.model');
-var RoomOwnership = require('../models/roomOwnership.model');
-let Owner = require('../models/owner.model');
-
-const uploadController = require("./uploadPhoto");
-var router = express.Router();
-
 // MongoDB & mongoose:
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
 const mongoose = require('mongoose');
 mongoose.connect(uri);
+const express = require('express');
+const router = express.Router();
 
-const upload = multer({
-  dest: 'uploads/',
-  storage: multer.memoryStorage(),
-});
+// Other packages:
+const uploadController = require("./uploadPhoto");
+const PartyRoom = require('../models/partyRoom.model');
+const RoomOwnership = require('../models/roomOwnership.model');
 
 router.get('/', function (req, res) {
   res.sendFile('partyroom_create.html', { 'root': "./website" });
@@ -69,22 +61,19 @@ router.post('/create', function (req, res) {
           var facilities = req.body.facilities.replace(/'/g, '"');
           facilities = JSON.parse(facilities);
 
-          for (var i = 0; i < day.length; i++) {
+          for (var i = 0; i < day.length; i++)
             partyroom.price_setting.push({
               day: day[i],
               startTime: parseInt(startTime[i]),
               endTime: parseInt(endTime[i]),
               price: parseInt(price[i])
             });
-          }
 
-          for (var i = 0; i < facilities.length; i++) {
+          for (var i = 0; i < facilities.length; i++)
             partyroom.facilities.push(facilities[i]);
-          }
 
-          for (var i = 0; i < p.length; i++) {
+          for (var i = 0; i < p.length; i++)
             partyroom.photos.push(p[i]._id);
-          }
 
           var room = new PartyRoom(partyroom);
 

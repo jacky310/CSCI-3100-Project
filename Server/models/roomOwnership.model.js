@@ -4,8 +4,8 @@ const conn = mongoose.createConnection("mongodb+srv://jacky:jacky310@cluster0-5j
 var roomOwnershipSchema = mongoose.Schema({
   owner_userName: String,
   party_room_id: Number
-},{
-    timestamps: true,
+}, {
+  timestamps: true
 });
 
 const roomOwnership = conn.model('roomOwnership', roomOwnershipSchema);

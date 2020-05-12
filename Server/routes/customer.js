@@ -1,5 +1,8 @@
+// MongoDB & mongoose:
 const router = require('express').Router();
 const bcrypt = require('bcrypt');
+
+// Other packages:
 let Customer = require('../models/customer.model');
 let PartyRoom = require('../models/partyRoom.model');
 let BookingRecord = require('../models/bookingRecord.model');
