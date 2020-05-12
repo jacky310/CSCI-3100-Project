@@ -11,13 +11,14 @@
   <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
 
   <!-- JavaScript -->
-  <script src="js/bootstrap-4.4.1.js"></script>
   <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/customer_info.js"></script>
 </head>
 
 <body style="padding-top: 70px">
+  <!-- NAVBAR -->
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <a class="navbar-brand" href="/">LetParty</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
@@ -31,26 +32,27 @@
       </form>
     </div>
   </nav>
+
   <section class="py-5 header">
     <div class="container py-4">
       <div class="row">
+        <!-- Tabs nav -->
         <div class="col-md-3">
-          <!-- Tabs nav -->
           <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist"
             aria-orientation="vertical">
-            <a class="nav-link mb-3 p-3 shadow" id="v-pills-bookings-tab" data-toggle="pill" href="#booking"
-              role="tab" aria-controls="v-pills-bookins" aria-selected="true">
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-bookings-tab" data-toggle="pill" href="#booking" role="tab"
+              aria-controls="v-pills-bookins" aria-selected="true">
               <i class="fa fa-calendar-minus-o mr-2"></i>
               <span class="font-weight-bold small text-uppercase">Booking Records</span></a>
-            <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#info"
-              role="tab" aria-controls="v-pills-settings" aria-selected="false">
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#info" role="tab"
+              aria-controls="v-pills-settings" aria-selected="false">
               <i class="fa fa-check mr-2"></i>
               <span class="font-weight-bold small text-uppercase">Personal information</span></a>
           </div>
         </div>
 
+        <!-- Tabs content -->
         <div class="col-md-9">
-          <!-- Tabs content -->
           <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade shadow rounded bg-white p-5" id="booking" role="tabpanel"
               aria-labelledby="v-pills-bookings-tab">
