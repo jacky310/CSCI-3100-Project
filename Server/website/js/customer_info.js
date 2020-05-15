@@ -1,4 +1,5 @@
 $(function () {
+  // check whether user logined: if userType is not customer, then will go 404 Page
   $.ajax({
     type: "post",
     async: false,
@@ -12,7 +13,8 @@ $(function () {
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
-
+  
+  // logout
   $('#logoutBtn').click(() => {
     $.ajax({
       type: "post",
@@ -32,6 +34,7 @@ $(function () {
   window.scrollTo(0, 0);
 });
 
+// get customer info
 function getUserInfo(username) {
   $.ajax({
     type: "post",
@@ -54,6 +57,7 @@ function getUserInfo(username) {
     });
 }
 
+// get customer booking records
 function getBookings(username) {
   $.ajax({
     type: "post",

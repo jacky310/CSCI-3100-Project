@@ -1,3 +1,4 @@
+// send check login req
 $(function () {
   $.ajax({
     type: "post",
@@ -14,6 +15,7 @@ $(function () {
     });
 });
 
+// Login
 $(function () {
   $("#loginForm").submit(function (e) {
     e.preventDefault();
@@ -37,6 +39,7 @@ $(function () {
   });
 });
 
+// Go to corresponding depend on the user click which btn
 $(function () {
   $("#createCustomerBtn").click(() => {
     window.location.href = "/customer";

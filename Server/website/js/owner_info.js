@@ -1,3 +1,4 @@
+// send check login req
 $(function () {
   $.ajax({
     type: "post",
@@ -12,7 +13,7 @@ $(function () {
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
-
+  // Logout
   $('#logoutBtn').click(() => {
     $.ajax({
       type: "post",
@@ -32,6 +33,7 @@ $(function () {
   window.scrollTo(0, 0);
 });
 
+// get owner info
 function getUserInfo(username) {
   $.ajax({
     type: "post",
@@ -55,6 +57,7 @@ function getUserInfo(username) {
     });
 }
 
+// get info of owner's party room
 function getPartyRoom(username) {
   $.ajax({
     type: "post",
@@ -81,6 +84,7 @@ function getPartyRoom(username) {
     });
 }
 
+// get booking record of his party room
 function getBookings(username) {
   $.ajax({
     type: "post",
@@ -105,6 +109,7 @@ function getBookings(username) {
     });
 }
 
+// Turn the info of owner's party to card form
 function createCard(id, img, title, description, capacity, location, price) {
   let cardContainer = $("<div class='col-lg-6'></div>");
   let card = $("<div class='m-2 card'></div>");

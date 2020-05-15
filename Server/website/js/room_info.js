@@ -1,3 +1,4 @@
+//Tran string "yyyy-mm-dd, HH:MM" to date object
 function stringTranDate(s, overNight) {
   d = new Date();
   var parts = s.match(/(\d+)\-(\d+)\-(\d+)\,(\d+)\:(\d+)/);
@@ -11,6 +12,7 @@ function stringTranDate(s, overNight) {
   return d;
 }
 
+// Tran "HH:MM" to mins
 function stringTranTime(s) {
   var parts = s.match(/(\d+)\:(\d+)/),
     hours = parseInt(parts[1], 10) * 60,
@@ -18,6 +20,7 @@ function stringTranTime(s) {
   return minutes;
 }
 
+// Tran mins to "HH:MM" 
 function timeTranString(t) {
   var hours = Math.floor(t / 60);
   if (hours < 10) hours = "0" + hours;
@@ -55,26 +58,32 @@ $(function () {
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
-
+  
+  // check the userIcon and show sideBar
   $('#userIcon').click(() => {
     $("#sideBar").animate({
       width: "toggle"
     });
   });
 
+  // go to see room info
   $('#partyRoom').click(() => {
     window.location.href = "/account#room";
   });
 
+  // go to see booking record
   $('#bookingRecordBtn').click(() => {
     window.location.href = "/account#booking";
   });
 
+  // go to see user info
   $('#personalInfo').click(() => {
     window.location.href = "/account#info";
   });
 
+  // Customer book the party room
   $("#bookBtn").click(() => {
+    // Check wether the user is customer. It is not allow for the guest and owner to book party room
     if (userType == 'guest') {
       alert("Please Login as Customer first");
       window.location.href = "/loginSignup";
@@ -103,6 +112,7 @@ $(function () {
       if (stringTranTime(endtime) <= stringTranTime(starttime)) overNight = true;
       var end = stringTranDate(date + "," + endtime, overNight);
 
+      // Check whether input start time smaller than current. if yes, show invalid message 
       if (start < currentTime) {
         $("#bookingForm input[name='starttime']").addClass("is-invalid");
         $("#timeFromChecker").show();
@@ -114,6 +124,7 @@ $(function () {
         $("#timeFromChecker").hide();
       }
 
+      // Check whether input end time bigger than current. if yes, show invalid message
       if (end < currentTime) {
         $("#bookingForm input[name='endtime']").addClass("is-invalid");
         $("#timeToChecker").show();
@@ -126,6 +137,7 @@ $(function () {
 
       partyRoomId = window.location.search.substring(1);
       var numPeople = $("#bookingForm input[name='numPeople']").val();
+      // init booking record
       data = {
         booker: username,
         partyRoomId: partyRoomId.replace("id=", ""),
@@ -135,6 +147,7 @@ $(function () {
         starttime: starttime,
         endtime: endtime
       };
+      // send booking req to server
       $.ajax({
         type: "post",
         async: false,
@@ -178,6 +191,7 @@ $(function () {
       if (res == "notFound")
         window.location.href = "/404.html";
       else {
+        // Show the party room info on the page
         var room = res.room;
         var photos = res.photos;
         var minPrice = Infinity;
@@ -216,6 +230,7 @@ $(function () {
     });
 });
 
+// Show photo using Carousel
 function createCarouselContent(photos) {
   var indicators = $("#indicators");
   var inner = $("#inner");

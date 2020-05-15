@@ -1,4 +1,4 @@
-//search
+//Tran string "yyyy-mm-dd, HH:MM" to date object
 function stringTranDate(s, overNight) {
   d = new Date();
   var parts = s.match(/(\d+)\-(\d+)\-(\d+)\,(\d+)\:(\d+)/);
@@ -17,6 +17,7 @@ function stringTranDate(s, overNight) {
   return d;
 }
 
+// Tran "HH:MM" to mins
 function stringTranTime(s) {
   var parts = s.match(/(\d+)\:(\d+)/),
     hours = parseInt(parts[1], 10) * 60,
@@ -25,16 +26,17 @@ function stringTranTime(s) {
 }
 
 $(function () {
+  // Show the search bar
   $("#searchNowBtn").click(() => $("#mainSearchBar").slideDown("slow"));
-
+  // Close the search bar
   $("#mainSearchBarCloseBtn").click(() => $("#mainSearchBar").slideUp("slow"));
-
+  // Show the price in time price range
   $("#priceRange").on("input", () => $("#priceValue").html("Hour Price: $" + $("#priceRange").val() + " / person"));
-
+  // Submit the search form
   $("#searchBtn").click(function () {
     var form = $("#searchForm");
     var date = $("#searchForm input[name='date']").val();
-
+    // Check whether user have input the date. if no, show invalid message 
     if (date == '') {
       $("#searchForm input[name='date']").addClass("is-invalid");
       return;
@@ -51,7 +53,7 @@ $(function () {
     var start = stringTranDate(date + "," + starttime, false);
     if (stringTranTime(endtime) <= stringTranTime(starttime)) overNight = true;
     var end = stringTranDate(date + "," + endtime, overNight);
-
+    // Check whether input start time smaller than current. if yes, show invalid message 
     if (start < currentTime) {
       $("#searchForm input[name='starttime']").addClass("is-invalid");
       $("#searchForm input[name='date']").addClass("is-invalid");
@@ -61,7 +63,7 @@ $(function () {
       $("#searchForm input[name='starttime']").removeClass("is-invalid");
       $("#searchForm input[name='date']").removeClass("is-invalid");
     }
-
+    // Check whether input end time bigger than current. if yes, show invalid message
     if (end < currentTime) {
       $("#searchForm input[name='endtime']").addClass("is-invalid");
       $("#searchForm input[name='date']").addClass("is-invalid");
@@ -74,6 +76,7 @@ $(function () {
 
     var url = form.attr('action');
     console.log(form.serialize());
+    //send the get req for get the searching result
     $.ajax({
       type: "GET",
       async: false,
@@ -103,10 +106,10 @@ $(function () {
       .fail((jqXHR, textStatus, err) => {
         alert(err);
       });
-    // e.preventDefault();
   });
 });
 
+// Turn the search result data to card form
 function createCard(id, img, title, description, capacity, location, price) {
   let cardContainer = $("<div class='col-lg-4'></div>");
   let card = $("<div class='m-2 card'></div>");

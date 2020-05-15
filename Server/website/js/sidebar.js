@@ -25,25 +25,31 @@ $(function () {
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
+  
 
+  // check the userIcon and show sideBar
   $('#userIcon').click(() => {
     $("#sideBar").animate({
       width: "toggle"
     });
   });
 
+  // go to see room info
   $('#partyRoom').click(() => {
     window.location.href = "/account#room";
   });
-  
+
+  // go to see booking record
   $('#bookingRecordBtn').click(() => {
     window.location.href = "/account#booking";
   });
 
+  // go to see user info
   $('#personalInfo').click(() => {
     window.location.href = "/account#info";
   });
 
+  // Logout
   $('#logoutBtn').click(() => {
     $.ajax({
       type: "post",
