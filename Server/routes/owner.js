@@ -38,10 +38,10 @@ router.post("/info", function (req, res) {
 
 router.post("/room", function (req, res) {
   RoomOwnership.find({ owner_userName: req.body.username }, (err, rooms) => {
+    var result = [];
     if (err) throw err;
-    else if (rooms == null) res.send("notFound");
+    else if (rooms.length == 0) res.send({ result: result });
     else {
-      var result = [];
       rooms.forEach(room => {
         PartyRoom.findOne({ party_room_id: room.party_room_id }, (err, r) => {
           if (err) throw err;
