@@ -17,10 +17,12 @@ conn.once('open', () => {
   gfs.collection('photos');
 });
 
+// send owner signup page
 router.get('/', (req, res) => {
   res.sendFile('ownerSignup.html', { 'root': "./website" });
 });
 
+// send info of owner
 router.post("/info", function (req, res) {
   Owner.findOne({ username: req.body.username }, (err, owner) => {
     if (err) throw err;
@@ -36,6 +38,7 @@ router.post("/info", function (req, res) {
   })
 });
 
+// Find all owner's party room 
 router.post("/room", function (req, res) {
   RoomOwnership.find({ owner_userName: req.body.username }, (err, rooms) => {
     var result = [];
@@ -52,6 +55,7 @@ router.post("/room", function (req, res) {
               if (item.price > priceMax) priceMax = item.price;
             });
             let image = "";
+            // Find those party room photo
             gfs.files.findOne({ _id: r.photos[0] }, (err, file) => {
               if (!file || file.length === 0) {
                 result.push({
@@ -68,9 +72,11 @@ router.post("/room", function (req, res) {
               }
               else {
                 const readstream = gfs.createReadStream(file.filename);
+                // Get the chunk of image and tran it to base64 for sending
                 readstream.on('data', (chunk) => {
                   image += chunk.toString('base64');
                 });
+                // When all chunk of image have been got, send the searching those party room info as a result
                 readstream.on('end', () => {
                   result.push({
                     id: r.party_room_id,
@@ -93,6 +99,7 @@ router.post("/room", function (req, res) {
   })
 });
 
+// Find all booking of owner's party room
 router.post("/booking", function (req, res) {
   BookingRecord.find({ owner_userName: req.body.username }, (err, bookings) => {
     var result = [];
@@ -120,6 +127,7 @@ router.post("/booking", function (req, res) {
   })
 });
 
+// Sign up: save the party room owner info
 router.post('/add', (req, res) => {
   const companyName = req.body.companyName;
   const name = req.body.name;

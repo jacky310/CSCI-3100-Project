@@ -13,6 +13,7 @@ conn.once('open', () => {
   gfs.collection('photos');
 });
 
+// check whether the customer have been logined before by checking session is existed
 router.post('/checkLogin', (req, res) => {
   var user = '';
   var isLogined = false;
@@ -25,6 +26,7 @@ router.post('/checkLogin', (req, res) => {
   res.send({ user: user, isLogined: isLogined, userType: userType });
 });
 
+// make customer logout by destroying the session
 router.post('/logout', (req, res) => {
   req.session.destroy(function (err) {
     if (err) res.send("Logout Fail");
@@ -32,6 +34,7 @@ router.post('/logout', (req, res) => {
   });
 });
 
+// send the corresponding page to user depend on userType in session
 router.get("/account", (req, res) => {
   if (!(req.session.user == undefined)) {
     if (req.session.userType == "customer")
@@ -42,7 +45,7 @@ router.get("/account", (req, res) => {
   else res.sendFile("404.html", { 'root': "./website" });
 });
 
-
+// Tran "08:30" to (8 * 60 + 30) mins
 function stringTranTime(s) {
   var parts = s.match(/(\d+)\:(\d+)/),
     hours = parseInt(parts[1], 10) * 60,
@@ -50,6 +53,8 @@ function stringTranTime(s) {
   return minutes;
 }
 
+//Get the day of the date
+//day = "Monday to Thursday" or "Friday" or "Saturday" or "Sunday"
 function getDayofDate(day) {
   if (day > 6) day = day % 6 - 1;
   if (day == 1 || day == 2 || day == 3 | day == 4) return "Monday to Thursday";
@@ -58,7 +63,9 @@ function getDayofDate(day) {
   else return "Sunday";
 }
 
+//Search for the available party room to the user
 router.get('/search', (req, res) => {
+  // set the query
   var query = [
     { $match: { "party_room_name": req.query.partyRoomName } },
     { $match: { "district": req.query.district } },
@@ -66,6 +73,7 @@ router.get('/search', (req, res) => {
     { $match: { "quotaMax": { $gte: parseInt(req.query.numPeople) } } },
   ];
 
+  // add the condition of startime  
   var d = new Date(req.query.date);
   day = d.getDay();
   var startDay = getDayofDate(day);
@@ -77,13 +85,14 @@ router.get('/search', (req, res) => {
   var nextDay = false;
   var realEndTime = stringTranTime(req.query.endtime);
 
-  // Check the whether the end time is on the next day
+  // Check whether endtime is on the next day. If yes, endtime plus 24 hours
   if (req.query.endtime <= req.query.starttime) {
     realEndTime = stringTranTime(req.query.endtime) + (60 * 24);
     day++;
     nextDay = true;
   }
 
+  // add the condition of endtime
   console.log(realEndTime);
   var endDay = getDayofDate(day);
   var endTime = stringTranTime(req.query.endtime);
@@ -98,6 +107,7 @@ router.get('/search', (req, res) => {
   require('util').inspect.defaultOptions.depth = null
   console.log(query);
   var result = [];
+  // Searching the party room which have available time set
   PartyRoom.aggregate(query, (err, r) => {
     if (err) res.send(err);
     else {
@@ -144,6 +154,7 @@ router.get('/search', (req, res) => {
         });
       }
       for (let i = 0; i < r.length; i++) {
+        // Get the image of the party room 
         let image = "";
         gfs.files.findOne({ _id: r[i].photos[0] }, (err, file) => {
           var priceMax = -Infinity, priceMin = Infinity;
@@ -168,9 +179,11 @@ router.get('/search', (req, res) => {
             }
           }
           const readstream = gfs.createReadStream(file.filename);
+          // Get the chunk of image and tran it to base64 for sending
           readstream.on('data', (chunk) => {
             image += chunk.toString('base64');
           });
+          // When all chunk of image have been got, send the searching those party room info as a result
           readstream.on('end', () => {
             result.push({
               id: r[i].party_room_id,

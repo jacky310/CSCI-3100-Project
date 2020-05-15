@@ -3,6 +3,7 @@ const util = require("util");
 const multer = require("multer");
 const GridFsStorage = require("multer-gridfs-storage");
 
+// GridFsStorage setting
 var storage = new GridFsStorage({
   url: "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking?retryWrites=true&w=majority",
   options: { useNewUrlParser: true, useUnifiedTopology: true },

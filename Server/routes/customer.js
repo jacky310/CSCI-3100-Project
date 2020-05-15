@@ -7,10 +7,12 @@ const PartyRoom = require('../models/partyRoom.model');
 const BookingRecord = require('../models/bookingRecord.model');
 const bcrypt = require('bcrypt');
 
+// Send the html of customer sign up page
 router.get('/', (req, res) => {
   res.sendFile('customerSignup.html', { 'root': "./website" });
 });
 
+// Send info of the customer 
 router.post("/info", function (req, res) {
   Customer.findOne({ username: req.body.username }, (err, customer) => {
     if (err) throw err;
@@ -25,6 +27,7 @@ router.post("/info", function (req, res) {
   })
 });
 
+// send the booking have done by the customer
 router.post("/booking", function (req, res) {
   BookingRecord.find({ customer_userName: req.body.username }, (err, bookings) => {
     var result = [];
@@ -52,6 +55,7 @@ router.post("/booking", function (req, res) {
   })
 });
 
+// Signup: add customer booking data to db
 router.post('/add', (req, res) => {
   const username = req.body.username;
   const email = req.body.email;

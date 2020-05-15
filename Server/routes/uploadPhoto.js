@@ -1,6 +1,7 @@
 // Other packages:
 const upload = require("./uploadPhotoMiddleware");
 
+// handle photo 
 const uploadPhoto = async (req, res) => {
   try {
     await upload(req, res);

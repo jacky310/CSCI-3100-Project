@@ -9,10 +9,12 @@ const Customer = require('../models/customer.model');
 const Owner = require('../models/owner.model');
 const bcrypt = require('bcrypt');
 
+// send the login sign up page 
 router.get('/', function (req, res) {
   res.sendFile('loginSignup.html', { 'root': "./website" });
 });
 
+// user login
 router.post('/login', (req, res) => {
   var data = req.body;
   console.log(req.body);

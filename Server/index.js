@@ -43,21 +43,27 @@ app.use(express.static('website'));
 const home = require('./routes/home');
 app.use('/', home);
 
+// For Login signup page
 const loginSignup = require('./routes/loginSignup');
 app.use('/loginSignup', loginSignup);
 
+// For Customer info page
 const customer_route = require('./routes/customer');
 app.use('/customer', customer_route);
 
+// For Owner info page
 const owner_route = require('./routes/owner');
 app.use('/owner', owner_route);
 
+// For party room page
 const room_info = require('./routes/room_info');
 app.use('/partyRoom', room_info);
 
+// For create party room page
 const createPartyRoom = require('./routes/create_partyroom');
 app.use('/create_partyroom', createPartyRoom);
 
+// For book party room
 const book = require('./routes/book');
 app.use('/book', book);
 

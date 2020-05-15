@@ -16,7 +16,7 @@ conn.once('open', () => {
   gfs.collection('photos');
 });
 
-
+// send the room info page
 router.get("/", function (req, res) {
   if (Object.keys(req.query).length == 0 || req.query.id == undefined)
     res.sendFile("404.html", { "root": "./website" });
@@ -24,6 +24,7 @@ router.get("/", function (req, res) {
     res.sendFile("room_info.html", { "root": "./website" });
 });
 
+// send the info of party room
 router.post("/", function (req, res) {
   PartyRoom.findOne({ party_room_id: req.body.id }, (err, room) => {
     if (err) throw err;
@@ -37,9 +38,11 @@ router.post("/", function (req, res) {
           else {
             let image = "";
             const readstream = gfs.createReadStream(file.filename);
+            // Get the chunk of image and tran it to base64 for sending
             readstream.on('data', chunk => {
               image += chunk.toString('base64');
             });
+            // When all chunk of image have been got, send the searching those party room info as a result
             readstream.on('end', () => {
               photos.push(image);
               if (i == room.photos.length - 1)
