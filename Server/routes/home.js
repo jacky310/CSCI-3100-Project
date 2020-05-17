@@ -102,14 +102,23 @@ router.get('/search', (req, res) => {
   if (nextDay) query[5].$match.price_setting.$elemMatch["startTime"] = { $eq: 0 };
 
   console.log(req.query);
-  if (req.query.partyRoomName == '') query.splice(0, 1);
-  if (req.query.district == '') query.splice(0, 1);
+  if (req.query.partyRoomName == '') {
+    query.splice(0, 1);
+    if (req.query.district == '') query.splice(0, 1);
+  }
+  else
+    if (req.query.district == '') query.splice(1, 1);
   require('util').inspect.defaultOptions.depth = null
   console.log(query);
   var result = [];
   // Searching the party room which have available time set
   PartyRoom.aggregate(query, (err, r) => {
     if (err) res.send(err);
+    else if (r.length == 0) {
+      res.send({
+        hasResult: r.length, result: result
+      });
+    }
     else {
       var deleteResult = [];
       for (var i = 0; i < r.length; i++) {
