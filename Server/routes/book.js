@@ -57,7 +57,7 @@ router.post('/', (req, res) => {
   // Search from party room db, check whether the booking time is on the openning hours
   PartyRoom.aggregate(query, (err, r) => {
     if (err) res.send(err);
-    else if (r.length == 0) res.send("try again");
+    else if (r.length == 0) res.send("not opening");
     else {
       var buf = null;
       var found = r[0].price_setting.filter(item => item.day === startDay).filter(item => item.startTime <= startTime);
@@ -85,7 +85,7 @@ router.post('/', (req, res) => {
           }
         }
       }
-      if (r.length == 0) res.send("try again");
+      if (r.length == 0) res.send("not opening");
       else {
         // Check whether any other customer have booked in that time section
         BookingRecord.aggregate([
@@ -96,7 +96,7 @@ router.post('/', (req, res) => {
           { $match: { time: { $elemMatch: { bookingStart: { $lte: new Date(req.body.end) }, bookingEnd: { $gte: new Date(req.body.end) } } } } }
         ], (err, rec) => {
           if (err) {
-            res.send("try again");
+            res.send("occupied");
           }
           else {
             // if both seaching above is available, then save the booking on BookingRecord db
@@ -122,7 +122,7 @@ router.post('/', (req, res) => {
                   }
                 });
             }
-            else res.send("try again");
+            else res.send("occupied");
           }
         });
       }

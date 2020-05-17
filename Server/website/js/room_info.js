@@ -58,7 +58,7 @@ $(function () {
     .fail((jqXHR, textStatus, err) => {
       alert(err);
     });
-  
+
   // check the userIcon and show sideBar
   $('#userIcon').click(() => {
     $("#sideBar").animate({
@@ -83,6 +83,11 @@ $(function () {
 
   // Customer book the party room
   $("#bookBtn").click(() => {
+    $("#dateChecker").hide();
+    $("#timeFromChecker").hide();
+    $("#timeToChecker").hide();
+    $("#notOpening").hide();
+    $("#occupied").hide();
     // Check wether the user is customer. It is not allow for the guest and owner to book party room
     if (userType == 'guest') {
       alert("Please Login as Customer first");
@@ -98,10 +103,7 @@ $(function () {
         $("#dateChecker").show();
         return;
       }
-      else {
-        $("#bookingForm input[name='date']").removeClass("is-invalid");
-        $("#dateChecker").hide();
-      }
+      else $("#bookingForm input[name='date']").removeClass("is-invalid");
 
       var currentTime = new Date();
       var starttime = $("#bookingForm input[name='starttime']").val();
@@ -117,12 +119,8 @@ $(function () {
         $("#bookingForm input[name='starttime']").addClass("is-invalid");
         $("#timeFromChecker").show();
         return;
-
       }
-      else {
-        $("#bookingForm input[name='starttime']").removeClass("is-invalid");
-        $("#timeFromChecker").hide();
-      }
+      else $("#bookingForm input[name='starttime']").removeClass("is-invalid");
 
       // Check whether input end time bigger than current. if yes, show invalid message
       if (end < currentTime) {
@@ -130,10 +128,7 @@ $(function () {
         $("#timeToChecker").show();
         return;
       }
-      else {
-        $("#bookingForm input[name='endtime']").removeClass("is-invalid");
-        $("#timeToChecker").hide();
-      }
+      else $("#bookingForm input[name='endtime']").removeClass("is-invalid");
 
       partyRoomId = window.location.search.substring(1);
       var numPeople = $("#bookingForm input[name='numPeople']").val();
@@ -156,7 +151,8 @@ $(function () {
       })
         .done(res => {
           if (res == "done") window.location.href = "/bookingSuccess.html";
-          else if (res == "try again") $("#tryAgain").show();
+          else if (res == "not opening") $("#notOpening").show();
+          else if (res == "occupied") $("#occupied").show();
         });
     }
   });

@@ -218,7 +218,10 @@
                   <input id="numPeople" name="numPeople" type="number" value="0" class="form-control" required>
                 </label>
               </div>
-              <div id="tryAgain" class="invalid-feedback" style="display: none; font-size: 18px; padding-button: 20px">
+              <div id="notOpening" class="invalid-feedback" style="display: none; font-size: 18px; padding-button: 20px">
+                Your input date and time is not in opening hours, try another time and date.
+              </div>
+              <div id="occupied" class="invalid-feedback" style="display: none; font-size: 18px; padding-button: 20px">
                 Your input date and time have been booked by others, try another time and date.
               </div>
               <p class="text-center"><button id="bookBtn" type="button" class="btn btn-primary">BOOK</button></p>
