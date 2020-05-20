@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>LetParty - Login</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS -->
+  <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+  <link href="css/loginSignup.css" rel="stylesheet">
+
+  <!-- JavaScript -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/loginSignup.js"></script>
+  <script src="js/sidebar.js"></script>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light shadow-sm">
+    <a class="navbar-brand mr-auto" href="/">LetParty</a>
+    <form action="/loginSignup" method="get">
+      <input id="loginSignupBtn" type="submit" class="btn btn-outline-primary my-2 my-sm-0" value="Login / Sign Up">
+    </form>
+    <div id="userIcon" style="display: none"></div>
+  </nav>
+
+  <!-- SIDEBAR -->
+  <div id="sideBar" class="shadow" style="display: none">
+    <ul>
+      <li>
+        <div id="userName" class="sideItem text-monospace"></div>
+      </li>
+      <li>
+        <div id="partyRoom" class="sideItem sideBtn" style="display: none;">PartyRoom</div>
+      </li>
+      <li>
+        <div id="bookingRecordBtn" class="sideItem sideBtn">Booking Records</div>
+      </li>
+      <li>
+        <div id="personalInfo" class="sideItem sideBtn">Personal Info</div>
+      </li>
+      <li>
+        <div class="sideItem"><button id="logoutBtn" type="button" class="btn btn-primary">Logout</button></div>
+      </li>
+    </ul>
+  </div>
+
+  <section id="loginSignupPage">
+    <div class="jumbotron jumbotron-fluid text-center" style="padding-top: 100px">
+      <h1 class="display-4">LetParty</h1>
+      <br>
+      <div class="container">
+        <!-- Tab nav -->
+        <div>
+          <ul id="clothingnav1" class="nav nav-tabs" role="tablist">
+            <li class="nav-item" style="width: 50%"> <a class="nav-link active" href="#home1" id="hometab1" role="tab"
+                data-toggle="tab" aria-controls="home" aria-expanded="true">Login</a> </li>
+            <li class="nav-item" style="width: 50%"> <a class="nav-link" href="#paneTwo1" role="tab" id="hatstab1"
+                data-toggle="tab" aria-controls="hats">Sign Up</a> </li>
+          </ul>
+        </div>
+
+        <!-- Content Panel -->
+        <div class="tab-content">
+          <!-- Login Tab -->
+          <div role="tabpanel" class="tab-pane fade show active" id="home1" aria-labelledby="hometab1">
+            <form id="loginForm" action="/loginSignup/login" method="post">
+              <div class="form-group">
+                <br>
+                <label>Username
+                  <input name="username" type="text" class="form-control" placeholder="Username" required>
+                </label>
+              </div>
+              <div class="form-group">
+                <label>Password
+                  <input name="password" type="password" class="form-control" placeholder="password" required>
+                </label>
+              </div>
+              <div class="form-group">
+                <div class="pr-5 form-check" style="display: inline-block">
+                  <input class="form-check-input" type="radio" name="userType" id="exampleRadios1" value="customer"
+                    checked>
+                  <label class="form-check-label" for="customerLogin">Customer</label>
+                </div>
+                <div class="form-check" style="display: inline-block">
+                  <input class="form-check-input" type="radio" name="userType" id="exampleRadios2" value="owner">
+                  <label class="form-check-label" for="ownerLogin">Owner</label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+
+          <!-- Signup Tabs -->
+          <div role="tabpanel" class="tab-pane fade" id="paneTwo1" aria-labelledby="hatstab1">
+            <br>
+            <div id="createCustomerBtn">
+              <img src="./images/customerCreateAC.png">
+              <p>Customer</p>
+            </div>
+            <div id="createOwnerBtn">
+              <img src="./images/OwnerCreateAC.png">
+              <p>Party Room Owner</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="text-center col-lg-6 offset-lg-3">
+        <h5>Party Room Online Booking </h5>
+        <p>Copyright &copy; 2020 &middot; All Rights Reserved &middot; CSCI3100 Group08</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

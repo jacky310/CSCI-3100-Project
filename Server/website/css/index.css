@@ -1,0 +1,68 @@
+nav {
+  z-index: 4;
+}
+
+#mainSearchBar {
+  background-color: white;
+  width: 100%;
+  display: none;
+  position: absolute;
+  top: 56px;
+  z-index: 2;
+}
+#mainSearchBarCloseBtn {
+  position: absolute;
+  right: 20px;
+}
+
+.facilitiesItem {
+  margin-right: 20px;
+}
+
+#searchBtn {
+  font-size: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+#mainSearchBarCol {
+  border-right: 1px solid #dee2e6;
+}
+
+@media screen and (max-width: 575px) {
+  #mainSearchBarCol {
+    border-right: 0px;
+  }
+}
+
+#mainSearchBarSpace {
+  display: inline-block;
+}
+
+@media screen and (max-width: 991px) {
+  #mainSearchBarSpace {
+    display: none;
+  }
+
+  .mainSearchBarTime{
+    width: 100%
+  }
+}
+
+#partyRoomNameField {
+  padding: 0px 100px;
+}
+
+@media screen and (max-width: 572px) {
+  #partyRoomNameField {
+    padding: 20px 20px 0px 20px;
+  }
+}
+
+.crop-text-2 {
+  -webkit-line-clamp: 3;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

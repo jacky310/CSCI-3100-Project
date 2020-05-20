@@ -1,82 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Let Party - Owner Information</title>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-    <!--jQuery-->
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap-4.4.1.js"></script>
-    <script src="js/script.js"></script>
+<head>
+  <title>LetParty - Owner Information</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  </head>
+  <!-- CSS -->
+  <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+  <link href="css/index.css" rel="stylesheet">
+
+  <!-- JavaScript -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap-4.4.1.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/owner_info.js"></script>
+</head>
 
 <body style="padding-top: 70px">
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm">
-    <a class="navbar-brand" href="index.html">LetParty</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
+  <!-- NAVBAR -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <a class="navbar-brand" href="/">LetParty</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
       aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"> <span
         class="navbar-toggler-icon"></span> </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
       <ul class="navbar-nav mr-auto">
       </ul>
-    <form class="form-inline my-2 my-lg-0">
-        <button id="loginSignupBtn" class="btn btn-outline-primary my-2 my-sm-0" type="button">Logout</button>
+      <form class="form-inline my-2 my-lg-0">
+        <button id="logoutBtn" class="btn btn-outline-primary my-2 my-sm-0" type="button">Logout</button>
       </form>
     </div>
-</nav>
-<div class="container">
-  <div class="row">
-    <div class="col-md-2 mb-3">
-        <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-  </li>
-</ul>
-    </div>
-    <!-- /.col-md-4 -->
-        <div class="col-md-10">
-      <div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-  <h2>Home</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
-  </div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-  <h2>Profile</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
-  </div>
-  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-  <h2>Contact</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
-  
-  </div>
-</div>
-    </div>
-    <!-- /.col-md-8 -->
-  </div>
-</div>
-<!-- /.container -->
+  </nav>
 
-<div class="container">
+  <section class="py-5 header">
+    <div class="container py-4">
+      <div class="row">
+        <!-- Tabs nav -->
+        <div class="col-md-3">
+          <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist"
+            aria-orientation="vertical">
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-roomlist-tab" data-toggle="pill" href="#room" role="tab"
+              aria-controls="v-pills-contacts" aria-selected="true">
+              <i class="fa fa-star mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Room List</span></a>
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-bookings-tab" data-toggle="pill" href="#booking" role="tab"
+              aria-controls="v-pills-bookins" aria-selected="false">
+              <i class="fa fa-calendar-minus-o mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Bookings</span></a>
+            <a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#info" role="tab"
+              aria-controls="v-pills-settings" aria-selected="false">
+              <i class="fa fa-check mr-2"></i>
+              <span class="font-weight-bold small text-uppercase">Personal information</span></a>
+          </div>
+        </div>
+
+        <!-- Tabs content -->
+        <div class="col-md-9">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade shadow rounded bg-white p-5" id="room" role="tabpanel"
+              aria-labelledby="v-pills-roomlist-tab">
+              <a href="/create_partyroom" class="btn btn-primary">Add PartyRoom</a>
+              <hr>
+              <br>
+              <div id="roomlist" class="d-flex flex-wrap justify-content-around"></div>
+            </div>
+
+            <div class="tab-pane fade shadow rounded bg-white p-5" id="booking" role="tabpanel"
+              aria-labelledby="v-pills-bookings-tab">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>PartyRoom</th>
+                      <th>Customer</th>
+                      <th>Start</th>
+                      <th>End</th>
+                      <th>No. of people</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bookinglist"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tab-pane fade shadow rounded bg-white p-5" id="info" role="tabpanel"
+              aria-labelledby="v-pills-settings-tab">
+              <h4 class="font-italic mb-4">Personal information</h4>
+              <div class="table-responsive">
+                <table width="80%" border="0">
+                  <tbody>
+                    <tr>
+                      <td>Company Name:</td>
+                      <td id="companyName"></td>
+                    </tr>
+                    <tr>
+                      <td>Name:</td>
+                      <td id="username"></td>
+                    </tr>
+                    <tr>
+                      <td>Email address:</td>
+                      <td id="email"></td>
+                    </tr>
+                    <tr>
+                      <td>Phone Number:</td>
+                      <td id="phone"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <hr>
+              <br>
+              <button class="btn btn-primary">Edit your profile</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="container">
+    <hr>
     <div class="row">
       <div class="text-center col-lg-6 offset-lg-3">
-        <h4>Party Room Online Booking </h4>
-        <p>Copyright &copy; 2019 &middot; All Rights Reserved &middot; <a href="#">My Website</a></p>
+        <h5>Party Room Online Booking </h5>
+        <p>Copyright &copy; 2020 &middot; All Rights Reserved &middot; CSCI3100 Group08</p>
       </div>
     </div>
   </div>
 </body>
+
 </html>

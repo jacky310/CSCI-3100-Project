@@ -1,134 +1,71 @@
-const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
+// MongoDB & mongoose:
+const express = require("express");
 const mongoose = require('mongoose');
+
+// Other packages:
 const cors = require('cors');
 require('dotenv').config();
-
-const express = require("express");
 const bodyParser = require("body-parser");
-const bcrypt = require('bcrypt');
 const app = express();
-const router = express.Router();
-
-app.use(express.static('website'));
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.get('/', (req,res) => {
-//   res.sendFile(path.join(__dirname + 'hello-react-app/public/index.html'));
-// });
-
-// app.get('/info' , (req,res) => {
-//   client.connect(err => {
-//     const collection = client.db("sample_airbnb").collection("listingsAndReviews");
-//     collection.findOne({}, function(err, result) {
-//       if (err) throw err;
-//       res.json(result);
-//     });
-//   });
-//   //client.close();
-// });
-//
-// app.post('/search' , (req, res) => {
-//   let data = req.body;
-//   console.log(data);
-//   client.connect(err => {
-//     const collection = client.db("sample_airbnb").collection("listingsAndReviews");
-//     collection.findOne({name: (req.body.name)}, function(err, result) {
-//       if (err) throw err;
-//       res.json(result);
-//     });
-//   });
-// });
-
 app.use(cors());
 app.use(express.json());
 
-router.get('/', function (req, res) {
-  res.sendFile('index.html', { 'root': "./website" });
-});
+// For Login
+app.use(session({
+  secret: 'csci3100',
+  store: new MongoStore({ url: 'mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/sessiondb?retryWrites=true&w=majority' }),
+  cookie: { maxAge: 60 * 10000 },
+  saveUninitialized: false,
+  resave: false
+}));
 
-// router.get('/login', function (req, res) {
-//   res.sendFile('login.html', { 'root': "./website" });
-// });
-
-app.get('/search', (req, res) => {
-  var data = req.query;
-  console.log(data);
-  client.connect(err => {
-    // const collection = client.db("PartyRoomBooking").collection("customer");
-    // collection.insertOne(data, (err) => {
-    //   if (err) throw err;
-    //   console.log("Customer Signup Success!!!");
-    //   res.send("SignupSuccess");
-    // });
-    // return res.redirect('/');
-    console.log("Search Success!!!");
-    res.send("SearchSuccess");
-  });
-});
-
-app.post('/login', (req, res) => {
-  var data = req.body;
-  console.log(data);
-  client.connect(err => {
-    console.log(data.userType, data.username, "Login Success!!!");
-    if (data.userType == "customer")
-      res.send("CustomerLoginSuccess");
-    else if (data.userType == "owner")
-      res.send("OwnerLoginSuccess");
-  });
-});
-
-app.post('/customerSignUp', (req, res) => {
-  var data = req.body;
-  console.log(data);
-  const saltRounds = 10;
-  bcrypt.hash(data.password, saltRounds).then(function (hash) {
-    data.password = hash;
-    client.connect(err => {
-      const collection = client.db("PartyRoomBooking").collection("customer");
-      collection.insertOne(data, (err) => {
-        if (err) throw err;
-        console.log("Customer Signup Success!!!");
-        res.send("SignupSuccess");
-      });
-      // return res.redirect('/');
-    });
-  });
-});
-
-app.post('/ownerSignUp', (req, res) => {
-  var data = req.body;
-  console.log(data);
-  const saltRounds = 10;
-  bcrypt.hash(data.password, saltRounds).then(function (hash) {
-    data.password = hash;
-    client.connect(err => {
-      const collection = client.db("PartyRoomBooking").collection("owner");
-      collection.insertOne(data, (err) => {
-        if (err) throw err;
-        console.log("Owner Signup Success!!!");
-        res.send("SignupSuccess");
-      });
-      // return res.redirect('/');
-    });
-  });
-});
-
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+// Check MongoDB Connection
+mongoose.connect("mongodb+srv://jacky:jacky310@cluster0-5jjxe.gcp.mongodb.net/PartyRoomBooking");
 const connection = mongoose.connection;
 
 connection.once('open', () => {
   console.log('MongoDB connection established');
 });
-const owner_route = require('./routes/owner');
 
-app.use('/owners', owner_route);
-app.use('/', router);
+// For Index page
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname + '/website/index.html'));
+});
+app.use(express.static('website'));
+
+const home = require('./routes/home');
+app.use('/', home);
+
+// For Login signup page
+const loginSignup = require('./routes/loginSignup');
+app.use('/loginSignup', loginSignup);
+
+// For Customer info page
+const customer_route = require('./routes/customer');
+app.use('/customer', customer_route);
+
+// For Owner info page
+const owner_route = require('./routes/owner');
+app.use('/owner', owner_route);
+
+// For party room page
+const room_info = require('./routes/room_info');
+app.use('/partyRoom', room_info);
+
+// For create party room page
+const createPartyRoom = require('./routes/create_partyroom');
+app.use('/create_partyroom', createPartyRoom);
+
+// For book party room
+const book = require('./routes/book');
+app.use('/book', book);
 
 app.listen(3000, () => {
   console.log("server is listening on port 3000");

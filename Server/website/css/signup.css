@@ -1,0 +1,13 @@
+.priceSettingTitle{
+  margin-bottom: 10px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.priceSettingDetail{
+  margin-left: 13px;
+}
+
+.requiredMark{
+  color: red;
+}

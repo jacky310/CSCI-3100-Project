@@ -1,0 +1,42 @@
+#userIcon{
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  border-style: solid;
+  border-radius: 20px;
+  font-size: 23px;
+  background-color: #429ef5;
+  color: white;
+}
+
+#userIcon:hover{
+  filter: brightness(1.15);
+}
+
+#sideBar {
+  padding-top: 70px;
+  width: 200px;
+  height: 100%;
+  right: 0;
+  top: 0;
+  position: fixed;
+  z-index: 3;
+  background-color: white;
+}
+
+#sideBar > ul{
+   list-style: none;
+   padding-left: 0;
+}
+
+.sideItem{
+  padding: 10px 10px 10px 40px;
+}
+
+#userName{
+  font-size: 20px;
+}
+
+.sideBtn:hover{
+   color: #429ef5;
+}
